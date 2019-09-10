@@ -1,0 +1,52 @@
+﻿@font-face{font-family:fontello;
+src:url(/static/font/fontello.woff2) format('woff2'),
+    url(/static/font/fontello.woff) format('woff'),
+    url(/static/font/fontello.ttf) format('truetype');font-weight:normal;font-style:normal}
+
+
+.spring{flex:1 1 auto}
+
+
+html{height:100%}
+body{display:flex;flex-direction:column;height:100%;margin:0;font-family:'Segoe UI';font-size:16px;background-color:#fff}
+
+.topbar{display:flex;flex:0 0 auto;height:40px;background-color:#1c1c1c}
+.topbar-logo{margin-left:10px;padding:0 10px;font-size:20px;line-height:40px;color:#55b3ff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-decoration:none}
+
+.main-portal{display:flex;flex:1 1 auto;flex-flow:row nowrap;overflow:hidden}
+.main-portal .sidebar{display:flex;flex-direction:column;background:#252525;overflow:hidden;flex:0 0 220px}
+.main-portal .sidebar.collapsed{flex:0 0 60px}
+.main-portal .sidebar *:focus{outline:#00bcf2 dashed 1px;outline-offset:-1px}
+.main-portal .sidebar .sidebar-top{box-sizing:border-box;border-bottom:1px solid #444}
+.main-portal .sidebar .sidebar-top .collapse-button{display:flex;height:23px;align-items:center;justify-content:flex-end;padding-right:8px;color:#969696;letter-spacing:-2px;font-family:fontello;cursor:pointer}
+.main-portal .sidebar .sidebar-top .collapse-button:hover{background-color:#3d3d3d} 
+.main-portal .sidebar .sidebar-top .collapse-button:focus{outline:#00bcf2 dashed 1px;outline-offset:-1px}
+.main-portal .sidebar .sidebar-top .collapse-button::before{content:""}
+.main-portal .sidebar.collapsed .sidebar-top .collapse-button::before{content:""}
+
+.main-portal .sidebar-middle{flex:1 1 auto;overflow-y:auto}
+.main-portal .sidebar.collapsed .sidebar-middle{width:100px}
+.main-portal .sidebar-app{display:flex;min-height:40px;align-items:center;padding-left:18px;font-size:13px;cursor:pointer}
+.main-portal .sidebar-app:hover{background-color:rgba(255,255,255,.05)}
+.main-portal .sidebar-app:focus{outline:#00bcf2 dashed 1px;outline-offset:-1px}
+.main-portal .sidebar-app.ACTIVE{background:rgba(0,194,255,.15)}
+
+
+
+.main-portal .sidebar-app>.icon{height:24px;flex:0 0 24px;background:center no-repeat}
+.main-portal .sidebar-app>.name{margin-left:10px;color:#fff;font-size:13px}
+.main-portal .sidebar.collapsed .sidebar-app>.name{display:none}
+
+.portal-content{position:relative;flex:1 1 100%;display:flex;overflow:auto}
+
+
+@keyframes waiting{from{transform:rotateZ(0deg)}to{transform:rotateZ(720deg)}}
+.portal-content .portal-content-loading{position:absolute;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.portal-content .portal-content-loading>.icon{font-family:fontello;animation:waiting 4s infinite}
+.portal-content .portal-content-loading>.icon::before{content:""}
+.portal-content .portal-content-loading>.title{padding:0 10px}
+
+.portal-content>*{min-width:100%}
+/*
+.portal-content>*{flex:1 1 100%;display:table;min-height:100%;min-width:100%}
+*/

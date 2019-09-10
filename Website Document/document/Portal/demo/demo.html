@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Portal - Demo</title>
+    <!-- 3 important scripts -->
+    <script src="/static/lib/jquery-3.3.1.min.js"></script>
+    <script src="/static/lib/intell.min.js"></script>
+    <script src="/static/lib/portal.min.js"></script>
+
+    <!-- 1 important style sheet -->
+    <link href="/Document/Portal/demo/portal.css" rel="stylesheet" />
+
+    <!-- place resources, that share for all applications-->
+</head>
+<body>
+
+    <div class="topbar">
+        <a class="topbar-logo" href="/">Xortal demo</a>
+        <div class="spring"></div>
+    </div>
+    <div class="main-portal">
+        <div class="sidebar">
+            <div class="sidebar-top">
+                <div class="collapse-button" tabindex="0"></div>
+            </div>
+            <div class="sidebar-middle">
+                <div class="sidebar-app BASE-CONTROL" title="" tabindex="0">
+                    <i class="icon"></i><span class="name"></span>
+                </div>
+            </div>
+        </div>
+        <main class="portal-content">
+            <div class="portal-content-loading">
+                <div class="icon"></div>
+                <div class="title"></div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        var portal = window.portal = new Portal();
+        var $sidebar = $('.main-portal .sidebar');
+
+        if (localStorage.getItem('portal.sidebar.collapsed') == "true")  $sidebar.addClass('collapsed');
+       
+
+        $('.collapse-button').click(function() {
+            var collapsed = $sidebar.toggleClass('collapsed').is('.collapsed');
+            localStorage.setItem('portal.sidebar.collapsed', collapsed);
+        });
+    </script>
+
+    <!-- List Application -->
+    <script src="/Document/Portal/demo/dashboard/dashboard.js"></script>
+    <script src="/Document/Portal/demo/ExampleApplication/example.js"></script>
+    <script src="/Document/Portal/demo/Simulation5s/Simulation5s.js"></script>
+    <script src="/Document/Portal/demo/SimulationLongLoading/app.js"></script>
+    <!-- Add many applications as you can -->
+
+</body>
+</html>

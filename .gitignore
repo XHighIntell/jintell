@@ -1,0 +1,22 @@
+# intell Project
+intell/[Bb]in/
+intell/output
+intell/bundleconfig.json
+intell/bundleconfig.json.bindings
+intell/package.json
+
+# Website Document - backend
+Website Document - backend/[Bb]in
+
+
+# Folders
+.vs/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+
+# Files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates

@@ -1,0 +1,29 @@
+﻿<style>
+    #SampleApp{padding:30px}
+    #SampleApp code{padding-left:10px;white-space:pre}
+    
+</style>
+<div id="SampleApp">
+    <div>/Document/Portal/demo/SampleApp/SampleApp.js</div>
+
+    <code>
+!function() {
+    var app = new PortalApplication();
+    var mainfest = app.mainfest;
+    
+    mainfest.name = "Example Application";
+    mainfest.title = "A demo for simple Portal Application";
+    mainfest.icon = "/Document/Portal/demo/SampleApp/SampleApp.svg";
+    mainfest.html = "/Document/Portal/demo/SampleApp/SampleApp.html";
+
+    app.load = function() {
+        // you can do heavy task here and return Promise
+    };
+    
+    portal.addApplication(app); // add your application to portal
+}();
+    </code>
+
+
+
+</div>

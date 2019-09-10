@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Intell.WebGadget</name>
+    </assembly>
+    <members>
+        <member name="T:Intell.WebGadget.MySql.MySqlConnectionWrapper">
+            <summary>Wrapper class for MySql.Data.MySqlConnection.</summary>
+        </member>
+        <member name="M:Intell.WebGadget.MySql.MySqlConnectionWrapper.#ctor(MySql.Data.MySqlClient.MySqlConnection,System.DateTime)">
+            <summary>Initializes a new instance of a Wrapper class with specific MySqlConnection, DateTime.</summary>
+        </member>
+        <member name="P:Intell.WebGadget.MySql.MySqlConnectionWrapper.Connection">
+            <summary>Gets or sets MySqlConnection.</summary>
+        </member>
+        <member name="P:Intell.WebGadget.MySql.MySqlConnectionWrapper.CreatedTime">
+            <summary>Gets or sets DateTime.</summary>
+        </member>
+        <member name="P:Intell.WebGadget.MySql.MySqlConnectionWrapper.Reader">
+            <summary>Gets private property Reader of MySqlConnection.</summary>
+        </member>
+        <member name="P:Intell.WebGadget.MySql.MySqlConnectionWrapper.IsInUse">
+            <summary>Gets private property IsInUse of MySqlConnection.</summary>
+            <returns>true if the connection parameter is busy.</returns>
+        </member>
+        <member name="M:Intell.WebGadget.MySql.MySqlConnectionWrapper.IsTimeout(System.Int32)">
+            <summary>Determines if Wrapper is created longer than an specific seconds from initialization.</summary>
+            <param name="seconds">Elapsed time in seconds.</param>
+        </member>
+        <member name="M:Intell.WebGadget.MySql.MySqlConnectionExtension.ExecuteScalar(MySql.Data.MySqlClient.MySqlConnection,System.String)">
+            <summary>Excute a Command to build a object.</summary>
+        </member>
+        <member name="M:Intell.WebGadget.MySql.MySqlConnectionExtension.GetReader(MySql.Data.MySqlClient.MySqlConnection)">
+            <summary>Gets private property Reader of MySqlConnection.</summary>
+            <returns>The current MySqlDataReader attached with MySqlConnection.</returns>
+        </member>
+        <member name="M:Intell.WebGadget.MySql.MySqlConnectionExtension.GetIsInUse(MySql.Data.MySqlClient.MySqlConnection)">
+            <summary>Gets private property IsInUse of MySqlConnection.</summary>
+            <returns>true if the connection parameter is busy.</returns>
+        </member>
+        <member name="M:Intell.WebGadget.MySql.MySqlNaming.IsValidColumnName(System.String)">
+            <summary>Indicates whether the specified columnName is valid or not.
+            <para>Warning: this function is simple not contain all rules of SQL.</para>
+            </summary>
+            <param name="columnName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Intell.WebGadget.MySql.MySqlSearchGenerator">
+            <summary>A group o</summary>
+        </member>
+        <member name="M:Intell.WebGadget.MySql.MySqlSearchGenerator.GetWhereClauseFromSearchJSON(Newtonsoft.Json.Linq.JObject)">
+            <summary>Gets WHERE clause for a search command from a json object.</summary>
+            <param name="jObject">The JObject that contain children JToken.
+            <para>Supported JToken type are string, number, bool, Array&lt;string&gt;, Array&lt;int&gt; and Array&lt;Array&lt;int&gt;&gt; for range select.</para>
+            </param>
+            <returns>The where clause, such as "WHERE name="Woody"", or null if don't have any conditions.</returns>
+            <example>WHERE (0&lt;=price AND price&lt;=5000) OR price=2</example>
+        </member>
+        <member name="M:Intell.WebGadget.MySql.MySqlSearchGenerator.GetConditionFrom(Newtonsoft.Json.Linq.JToken,System.String)">
+            <summary>Gets compare clause for a JToken.</summary>
+            <param name="jToken">Supported JToken type are string, number, bool, Array&lt;string&gt;, Array&lt;int&gt; and Array&lt;Array&lt;int&gt;&gt; for range select.</param>
+            <param name="columnName">A valid columnName will be used in command. 
+            <para>If columnName is not valid or unsafe, return null.</para>
+            </param>
+            <returns>The compare clause, such as "type=3", or null if don't have any compare or not support.</returns>
+        </member>
+        <member name="T:Intell.WebGadget.Web.UrlRewriteRuleAction">
+            <summary></summary>
+        </member>
+        <member name="T:Intell.WebGadget.Web.UrlRewriter">
+            <summary>Represents a rewriter that use a list of <see cref='T:Intell.WebGadget.Web.UrlRewriteRule'/> to rewrite 
+            url in <see cref='T:System.Web.HttpContext'/>.</summary>
+        </member>
+        <member name="M:Intell.WebGadget.Web.UrlRewriter.Rewrite(System.Web.HttpContext)">
+            <summary>Rewrite path for HttpContext. If successful, return RewriteRule else return null.</summary>
+        </member>
+        <member name="M:Intell.WebGadget.Web.UrlRewriter.RewriteDefaultFile(System.Web.HttpContext,Intell.WebGadget.Web.UrlRewriteRuleAction)">
+            <summary>If context.Request.Path refers to an existing directory on disk, 
+            rewrite to default.aspx, default.html or {folder}.html in folder.</summary>
+        </member>
+        <member name="T:Intell.WebGadget.Web.UrlRewriteRule">
+            <summary>Represents a rewrite rule that will be used by <see cref='T:Intell.WebGadget.Web.UrlRewriter'/>.</summary>
+        </member>
+        <member name="M:Intell.WebGadget.Web.UrlRewriteRule.#ctor(System.String,System.String)">
+            <summary>Initializes a new instance of the <see cref='T:Intell.WebGadget.Web.UrlRewriteRule'/> class.</summary>
+            <param name="match"></param>
+            <param name="destination"></param>
+        </member>
+        <member name="M:Intell.WebGadget.Web.UrlRewriteRule.#ctor(System.String,System.String,Intell.WebGadget.Web.UrlRewriteRuleAction)">
+            <summary>Initializes a new instance of the <see cref='T:Intell.WebGadget.Web.UrlRewriteRule'/> class.</summary>
+        </member>
+        <member name="P:Intell.WebGadget.Web.UrlRewriteRule.Match">
+            <summary>
+            Gets or sets the match rule.
+            <para>Example: /account/[*], /account</para>
+            </summary>
+        </member>
+        <member name="P:Intell.WebGadget.Web.UrlRewriteRule.Destination">
+            <summary>
+            Gets or sets the destination rule.
+            <para>Example: /portal?app=[*]</para>
+            </summary>
+        </member>
+        <member name="P:Intell.WebGadget.Web.UrlRewriteRule.Action">
+            <summary>Gets or sets the action for this rule.</summary>
+        </member>
+    </members>
+</doc>

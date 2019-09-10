@@ -1,0 +1,503 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Intell</name>
+    </assembly>
+    <members>
+        <member name="F:Intell.API.ListviewExtendedStyles.FullRowSelect">
+            <summary>applies to report mode only.</summary>
+        </member>
+        <member name="F:Intell.API.ListviewExtendedStyles.InfoTip">
+            <summary>listview does InfoTips for you.</summary>
+        </member>
+        <member name="F:Intell.API.ListviewExtendedStyles.LabelTip">
+            <summary>listview unfolds partly hidden labels if it does not have infotip text.</summary>
+        </member>
+        <member name="F:Intell.API.ListviewExtendedStyles.BorderSelect">
+            <summary>border selection style instead of highlight.</summary>
+        </member>
+        <member name="F:Intell.API.ListviewExtendedStyles.SnapToGrid">
+            <summary>Icons automatically snap to grid.</summary>
+        </member>
+        <member name="F:Intell.API.ListviewExtendedStyles.SimpleSelect">
+            <summary>Also changes overlay rendering to top right for icon mode.</summary>
+        </member>
+        <member name="F:Intell.API.ListviewExtendedStyles.JustifyColumns">
+            <summary>Icons are lined up in columns that use up the whole view area.</summary>
+        </member>
+        <member name="F:Intell.API.ListviewExtendedStyles.TransparentBackground">
+            <summary>Background is painted by the parent via WM_PRINTCLIENT.</summary>
+        </member>
+        <member name="F:Intell.API.ListviewExtendedStyles.TransparentShadowText">
+            <summary>Enable shadow text on transparent backgrounds only (useful with bitmaps).</summary>
+        </member>
+        <member name="F:Intell.API.ListviewExtendedStyles.AutoArrange">
+            <summary>Icons automatically arrange if no icon positions have been set.</summary>
+        </member>
+        <member name="F:Intell.API.ListviewExtendedStyles.HeaderInAllViews">
+            <summary>Display column header in all view modes.</summary>
+        </member>
+        <member name="T:Intell.API.DeviceFlags">
+            <summary>There are many user-input devices beside the traditional keyboard and mouse.
+                 For example, user input can come from a joystick, a touch screen, a microphone,
+                 or other devices that allow great flexibility in user input. These devices
+                 are collectively known as Human Interface Devices (HIDs). The raw input API
+                 provides a stable and robust way for applications to accept raw input from
+                 any HID, including the keyboard and mouse.This section covers the following
+                 topics: Raw Registration Reading.</summary>
+        </member>
+        <member name="M:Intell.API.User32.PostMessageA(System.IntPtr,System.UInt32,System.Int32,System.Int32)">
+            <summary>If the function succeeds, the return value is nonzero.</summary>
+        </member>
+        <member name="M:Intell.API.User32.DoEvents">
+            <summary>Get message, translate and dispatch incoming messages if any exist.</summary>
+        </member>
+        <member name="T:Intell.Diagnostics.ProcessUtilities">
+            <summary>A utility class to determine a process infomation.</summary>
+        </member>
+        <member name="M:Intell.Diagnostics.ProcessUtilities.GetParentProcessId(System.Diagnostics.Process)">
+            <summary>Gets the parent process id of a specified process.</summary>
+            <param name="process">The Process (System.Diagnostics.Process) class.</param>
+            <returns>Return parent process id.</returns>
+        </member>
+        <member name="T:Intell.Diagnostics.TimerTick">
+            <summary>This provides timing information similar to <see cref="T:System.Diagnostics.Stopwatch"/> but an update occurring only on a <see cref="M:Intell.Diagnostics.TimerTick.Tick"/> method.</summary>
+        </member>
+        <member name="P:Intell.Diagnostics.TimerTick.TotalTime">
+            <summary>Gets the total time elapsed since the last reset or when this timer was created.</summary>
+        </member>
+        <member name="P:Intell.Diagnostics.TimerTick.ElapsedTime">
+            <summary>Gets the elapsed time since the previous call to <see cref="M:Intell.Diagnostics.TimerTick.Tick"/>.</summary>
+        </member>
+        <member name="M:Intell.Diagnostics.TimerTick.Reset">
+            <summary>Resets this instance. <see cref="P:Intell.Diagnostics.TimerTick.TotalTime"/> is set to zero.</summary>
+        </member>
+        <member name="M:Intell.Diagnostics.TimerTick.Tick">
+            <summary>Update the <see cref="P:Intell.Diagnostics.TimerTick.TotalTime"/> and <see cref="P:Intell.Diagnostics.TimerTick.ElapsedTime"/>,</summary>
+        </member>
+        <member name="M:Intell.Net.Sockets.BaseSocket.Listen(System.Int32)">
+            <summary>Start listening to accept an incoming connection attempt.</summary>
+        </member>
+        <member name="M:Intell.Net.Sockets.BaseSocket.Stop">
+            <summary>Stop current action of socket.</summary>
+        </member>
+        <member name="M:Intell.Net.Sockets.BaseSocket.Stop(Intell.Net.Sockets.SocketNextAction)">
+            <summary>Stop current action of socket depend on the next action.</summary>
+        </member>
+        <member name="M:Intell.Net.Sockets.BaseSocket.OnAccept(System.Net.Sockets.Socket)">
+            <summary>A empty callback override it to customize.</summary>
+        </member>
+        <member name="M:Intell.Net.Sockets.BaseSocket.OnReceive(System.Byte[],System.Int32,System.Int32)">
+            <summary>A empty callback override it to customize.</summary>
+        </member>
+        <member name="M:Intell.Net.Sockets.BaseSocket.OnStateChange">
+            <summary>A empty callback override it to customize.</summary>
+        </member>
+        <member name="M:Intell.Net.Sockets.BaseSocket.OnDisconnect">
+            <summary>A empty callback override it to customize.</summary>
+        </member>
+        <member name="T:Intell.Net.Sockets.SocketState">
+            <summary>Specifies values representing possible states for an <see cref="T:Intell.Net.Sockets.BaseSocket"/> object.</summary>
+        </member>
+        <member name="F:Intell.Net.Sockets.SocketState.Refused">
+            <summary>No connection could be made because the target machine actively refused it</summary>
+        </member>
+        <member name="P:Intell.Net.Sockets.SocketI.AcceptEventArgs.Listener">
+            <summary>The Socket that is listenning.</summary>
+        </member>
+        <member name="P:Intell.Net.Sockets.SocketI.AcceptEventArgs.AcceptedSocket">
+            <summary>The new Socket that connected.</summary>
+        </member>
+        <member name="P:Intell.Net.Sockets.SocketI.SocketI.Socket">
+            <summary>Gets or sets the System.Net.Sockets.Socket. Becareful with sets, don't use if you don't know what it dose.</summary>
+        </member>
+        <member name="P:Intell.Net.Sockets.SocketI.SocketI.State">
+            <summary>Gets state of SocketI.</summary>
+        </member>
+        <member name="M:Intell.Net.Sockets.SocketI.SocketI.Close">
+            <summary>Closes the System.Net.Sockets.Socket connection and releases all associated.</summary>
+        </member>
+        <member name="M:Intell.Net.Sockets.SocketI.SocketI.ParseReceive">
+            <summary>Raise Received Event when possible.</summary>
+            <returns>Return True if Raised a event, else false.</returns>
+        </member>
+        <member name="T:Intell.IO.MemoryQueueStream">
+            <summary>Creates a stream whose backing store is memory allow writing and reading as queue.</summary>
+            <remarks>
+             stream.Write(new byte[] { 1, 2, 3, 4 });
+             stream.Write(new byte[] { 5 });
+             stream.Read(buffer, 0 , 5);
+             </remarks>
+        </member>
+        <member name="M:Intell.IO.MemoryQueueStream.#ctor">
+            <summary>Initializes a new instance of the <see cref="T:Intell.IO.MemoryQueueStream"/> class with an expandable capacity initialized to 512.</summary>
+        </member>
+        <member name="M:Intell.IO.MemoryQueueStream.#ctor(System.Int32)">
+            <summary>Initializes a new instance of the <see cref="T:Intell.IO.MemoryQueueStream"/> class with an expandable capacity initialized as specified.</summary>
+        </member>
+        <member name="P:Intell.IO.MemoryQueueStream.Capacity">
+            <summary>Gets the number of bytes allocated for this stream.</summary>
+        </member>
+        <member name="P:Intell.IO.MemoryQueueStream.Available">
+            <summary>Gets the number of bytes available to read for this stream.</summary>
+        </member>
+        <member name="P:Intell.IO.MemoryQueueStream.ReadPosition">
+            <summary>Gets current read position.</summary>
+        </member>
+        <member name="P:Intell.IO.MemoryQueueStream.WritePosition">
+            <summary>Gets current write position.</summary>
+        </member>
+        <member name="M:Intell.IO.MemoryQueueStream.GetBuffer">
+            <summary>Gets private buffer.</summary>
+        </member>
+        <member name="M:Intell.IO.MemoryQueueStream.Write(System.Byte[])">
+            <summary>Writes a byte array to the underlying stream.</summary>
+            <param name="buffer">A byte array containing the data to write.</param>
+        </member>
+        <member name="M:Intell.IO.MemoryQueueStream.Write(System.Byte[],System.Int32,System.Int32)">
+            <summary>Writes a region of a byte array to the current stream.</summary>
+            <param name="buffer">A byte array containing the data to write.</param>
+            <param name="offset">The index of the first byte to read from buffer and to write to the stream.</param>
+            <param name="count">The number of bytes to read from buffer and to write to the stream.</param>
+        </member>
+        <member name="M:Intell.IO.MemoryQueueStream.Read(System.Byte[],System.Int32,System.Int32)">
+            <summary>Reads the specified number of bytes from the stream, starting from a specified point in the byte array.</summary>
+            <param name="buffer">The buffer to read data into.</param>
+            <param name="offset">The starting point in the buffer at which to begin reading into the buffer.</param>
+            <param name="count">The number of bytes to read.</param>
+            <returns>The number of bytes read into buffer. This might be less than the number of bytes requested if that many bytes are not available, or it might be zero if the end of the stream is reached.</returns>
+        </member>
+        <member name="M:Intell.IO.MemoryQueueStream.ReadByte">
+            <summary>Reads the next byte from the current stream and advances the current position of the stream by one byte.</summary>
+        </member>
+        <member name="M:Intell.IO.MemoryQueueStream.ReadInt">
+            <summary>Reads a 4-byte signed from the current stream and advances the current position of the stream by four byte.</summary>
+        </member>
+        <member name="M:Intell.IO.MemoryQueueStream.EnsureCapacity(System.Int32)">
+            <summary>Ensure buffer have enough space for new data.</summary>
+        </member>
+        <member name="M:Intell.IO.MemoryQueueStream.IncreaseBuffer(System.Int32)">
+            <summary>Recreate new buffer for specified capacity and copy data to the new buffer.</summary>
+        </member>
+        <member name="M:Intell.IO.MemoryQueueStream.Relocation">
+            <summary>Move data of buffer to zero-index.</summary>
+        </member>
+        <member name="T:Intell.IO.Files">
+            <summary>Provides static methods for the creation, copying, deletion, moving, and joining of files to a single file.</summary>
+        </member>
+        <member name="M:Intell.IO.Files.Join(System.String[],System.String)">
+            <summary>Join files in order to a single file.</summary>
+            <param name="files">The files to be joined.</param>
+            <param name="desFile">The file to be opened for writing.</param>
+        </member>
+        <member name="M:Intell.IO.Files.Split(System.String,System.String)">
+            <summary>Split a file into many files.</summary>
+            <param name="inputfile">The file to be splitted.</param>
+            <param name="outputFiles">The files to write to.</param>
+        </member>
+        <member name="M:Intell.IO.InfReader.#ctor">
+            <summary>Initializes a new instance of the Intell.IO.InfReader class for the specified path.</summary>
+        </member>
+        <member name="M:Intell.IO.InfReader.#ctor(System.String)">
+            <summary>Initializes a new instance of the Intell.IO.InfReader class for the specified path.</summary>
+            <param name="path">A relative or absolute path for the file that the current FileStream object will encapsulate.</param>
+        </member>
+        <member name="M:Intell.IO.Path.GetRandomPathFileName">
+            <summary>System.IO.Path.GetTempPath() + System.IO.Path.GetRandomFileName()</summary>
+            <returns></returns>
+        </member>
+        <member name="T:Intell.Resources.PeopleData">
+            <summary>People Database</summary>
+        </member>
+        <member name="P:Intell.Resources.PeopleData.FirstNames">
+            <summary>Gets list of first names.</summary>
+        </member>
+        <member name="P:Intell.Resources.PeopleData.LastNames">
+            <summary>Gets list of last names (also know as surename).</summary>
+        </member>
+        <member name="M:Intell.Resources.PeopleData.GetLowerBound(System.Collections.Generic.List{System.String},System.String)">
+            <summary>[Performance]Get lower bound of list that match with a specified character.</summary>
+            <param name="list">["A1","A2","B1","B2"]</param>
+            <param name="startWith"></param>
+            <example>
+             list = ["A1","A2","B1","B2", "Bath", "C", "C1"]
+             startWith = "b"
+             result will be 2 ("B1")
+            </example>
+        </member>
+        <member name="M:Intell.Resources.PeopleData.GetUpperBound(System.Collections.Generic.List{System.String},System.String,System.Int32)">
+            <summary>[Performance]Get upper bound of list that match with a specified characters.</summary>
+            <example>
+             list = ["A1","A2","B1","B2", "Bath", "C", "C1"]
+             startWith = "b"
+             result will be 4 ("Bath")
+            </example>
+        </member>
+        <member name="M:Intell.Resources.PeopleData.Find(System.Collections.Generic.List{System.String},System.Text.RegularExpressions.Regex)">
+            <summary>Find string in specified list that match with specified Regex.</summary>
+            <param name="list">The lookup list.</param>
+            <param name="regex">The lookup value Regex.</param>
+        </member>
+        <member name="M:Intell.Resources.PeopleData.Find(System.Collections.Generic.List{System.String},System.Text.RegularExpressions.Regex,System.Int32)">
+            <summary>Find string in specified list that match with specified Regex.</summary>
+            <param name="list">The lookup list.</param>
+            <param name="regex">The lookup value Regex.</param>
+            <param name="limit">The limit number of items return. If value &lt;=0, unlimited is set.</param>
+        </member>
+        <member name="M:Intell.Resources.PeopleData.FindStartWith(System.Collections.Generic.List{System.String},System.String,System.Int32)">
+            <summary>Find string in specified list that start with specified value.</summary>
+        </member>
+        <member name="M:Intell.Resources.PeopleData.FindStartWith(System.Collections.Generic.List{System.String},System.String,System.String)">
+            <summary>Find string in specified list that start with and end with specified value.</summary>
+        </member>
+        <member name="M:Intell.Resources.PeopleData.FindStartWith(System.Collections.Generic.List{System.String},System.String,System.String,System.Int32)">
+            <summary>Find string in specified list that start with and end with specified value.</summary>
+        </member>
+        <member name="M:Intell.Resources.PeopleData.FindEndWith(System.Collections.Generic.List{System.String},System.String,System.Int32)">
+            <summary>[Non Performance]Find string in specified list that end with specified value.</summary>
+        </member>
+        <member name="M:Intell.Resources.PeopleData.GenerateRandomStartWith(System.Collections.Generic.List{System.String},System.String)">
+            <summary>Generate a random first name that start with specified value.</summary>
+            <returns>Return null if can't generate name with specified conditions.</returns>
+        </member>
+        <member name="M:Intell.Resources.PeopleData.GenerateRandomStartWith(System.Collections.Generic.List{System.String},System.String,System.String)">
+            <summary>Generate a random first name that start with and end with specified value.</summary>
+            <returns>Return null if can't generate name with specified conditions.</returns>
+        </member>
+        <member name="M:Intell.Resources.PeopleData.GenerateRandomEndWith(System.Collections.Generic.List{System.String},System.String)">
+            <summary>Generate a random first name that start with and end with specified value.</summary>
+            <returns>Return null if can't generate name with specified conditions.</returns>
+        </member>
+        <member name="M:Intell.Resources.PeopleData.GenerateRandomName(System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>Generate a random name that start with and end with specified value.</summary>
+            <returns>Return null if can't generate name with specified conditions.</returns>
+        </member>
+        <member name="M:Intell.Resources.PeopleData.GenerateRandomName">
+            <summary>Generate a random name that may include last name or not.</summary>
+        </member>
+        <member name="T:Intell.Web.AcceptLanguageHeader">
+            <summary>Represents a class for modifying Accept-Language header of HTTP request.</summary>
+        </member>
+        <member name="M:Intell.Web.AcceptLanguageHeader.#ctor">
+            <summary>Initializes a new instance of the Intell.Web.AcceptLanguageHeader class.</summary>
+        </member>
+        <member name="M:Intell.Web.AcceptLanguageHeader.#ctor(System.String)">
+            <summary>Initializes a new instance of the Intell.Web.AcceptLanguageHeader class from a specified value.</summary>
+            <param name="value">The value for Accept-Language header. Ex: "en-US,en;q=0.8,vi;q=0.6,und;q=0.4,ru;q=0.2".</param>
+        </member>
+        <member name="M:Intell.Web.AcceptLanguageHeader.FromHttpRequest(System.Web.HttpRequest)">
+            <summary>Create Intell.Web.AcceptLanguageHeader specified HttpRequest.</summary>
+            <returns>If request doesn't contain Accept-Language, return null.</returns>
+        </member>
+        <member name="M:Intell.Web.AcceptLanguageHeader.AddLanguage(Intell.Web.AcceptLanguageItem)">
+            <summary>Adds or replaces value when necessary.</summary>
+        </member>
+        <member name="M:Intell.Web.AcceptLanguageHeader.AddString(System.String)">
+            <summary>Adds or replaces value when necessary.</summary>
+            <param name="value">The value of header. ex: "en-US,en;q=0.8,vi;q=0.6,und;q=0.4,ru;q=0.2".</param>
+        </member>
+        <member name="M:Intell.Web.AcceptLanguageHeader.ToString">
+            <summary>Converts the value of this instance to a System.String.</summary>
+            <returns>Ex: "en-US,en;q=0.8,vi;q=0.6,und;q=0.4,ru;q=0.2"</returns>
+        </member>
+        <member name="M:Intell.Web.AcceptLanguageItem.ToString">
+            <summary>Converts the value of this instance to a System.String.</summary>
+            <returns>Ex: "en;q=0.8"</returns>
+        </member>
+        <member name="T:Intell.Extension">
+            <summary>Extensions for System.Array.</summary>
+        </member>
+        <member name="M:Intell.Extension.Add``1(``0[]@,``0)">
+            <summary>Adds the element to the end of specified array.</summary>
+            <typeparam name="T">The type of the elements of array.</typeparam>
+            <param name="array">The one-dimensional, zero-based array to add.</param>
+            <param name="item">The element to be added to the end of array.</param>
+        </member>
+        <member name="M:Intell.Extension.Add``1(``0[]@,``0[])">
+            <summary>Adds the array of elements to the end of specified array.</summary>
+            <typeparam name="T">The type of the elements of array.</typeparam>
+            <param name="array">The one-dimensional, zero-based array to add.</param>
+            <param name="items">The array of elements to be added to the end of array.</param>
+        </member>
+        <member name="M:Intell.Extension.Insert``1(``0[]@,``0,System.Int32)">
+            <summary>Inserts the element to specified zero-based index of array.</summary>
+            <typeparam name="T">The type of the elements of array.</typeparam>
+            <param name="array">The one-dimensional, zero-based array to add.</param>
+            <param name="item">The element to be added to specified zero-based index of array.</param>
+            <param name="index">The specified zero-based index of array.</param>
+        </member>
+        <member name="M:Intell.Extension.Insert``1(``0[]@,``0[],System.Int32)">
+            <summary>Inserts the array of elements to specified zero-based index of array.</summary>
+            <typeparam name="T">The type of the elements of array.</typeparam>
+            <param name="array">The one-dimensional, zero-based array to add.</param>
+            <param name="items">The array of elements to be added to specified zero-based index of array.</param>
+            <param name="index">The specified zero-based index of array.</param>
+        </member>
+        <member name="M:Intell.Extension.RemoveAt``1(``0[]@,System.Int32)">
+            <summary>Removes the element at the specified index of array.</summary>
+            <typeparam name="T">The type of elements of array.</typeparam>
+            <param name="array">The one-dimensional, zero-based array to remove.</param>
+            <param name="index">The zero-based index of element to remove.</param>
+        </member>
+        <member name="M:Intell.Extension.RemoveAt``1(``0[]@,System.Int32,System.Int32)">
+            <summary>Removes the element at the specified index and length of array.</summary>
+            <typeparam name="T">The type of elements of array.</typeparam>
+            <param name="array">The one-dimensional, zero-based array to remove.</param>
+            <param name="index">The zero-based index of element to remove.</param>
+            <param name="length">The number of elements to remove.</param>
+        </member>
+        <member name="M:Intell.Extension.Remove``1(``0[]@,``0)">
+            <summary>Removes the first occurrence of a specific object from array.</summary>
+            <typeparam name="T">The type of the elements of array.</typeparam>
+            <param name="array">The one-dimensional, zero-based array to remove.</param>
+            <param name="item">The object to remove from array.</param>
+        </member>
+        <member name="M:Intell.Extension.Swap``1(``0[]@,System.Int32,System.Int32)">
+            <summary>Swaps position of two elements by specified zero-based index of array.</summary>
+            <typeparam name="T">The type of the elements of array.</typeparam>
+            <param name="array">The one-dimensional, zero-based array to swap.</param>
+            <param name="index1">The zero-based index of the first element.</param>
+            <param name="index2">The zero-based index of the second element.</param>
+        </member>
+        <member name="M:Intell.Extension.Insert(System.Array,System.Object,System.Int32)">
+            <summary>Inserts the element to specified zero-based index of array.</summary>
+            <param name="array">The one-dimensional, zero-based array to add.</param>
+            <param name="item">The element to be added to specified zero-based index of array.</param>
+            <param name="index">The specified zero-based index of array.</param>
+        </member>
+        <member name="M:Intell.Extension.ToInts32(System.String,System.String)">
+            <summary>Converts the specified string representation of numbers to an equivalent 32-bit signed integer array.</summary>
+            <param name="Delimiter">String used to identify substring limits.</param>
+            <returns>int32 array. If input is a zero-length string (""), returns a single-element array containing a zero-length int32 (0).</returns>
+        </member>
+        <member name="M:Intell.Extension.ToFloats(System.String,System.String)">
+            <summary>Converts the specified string representation of numbers to an equivalent single-precision floating-point number array.</summary>        
+            <param name="Delimiter">String used to identify substring limits.</param>
+            <returns>float array. If input is a zero-length string (""), returns a single-element array containing a zero-length float (0).</returns>
+        </member>
+        <member name="M:Intell.Extension.ToArray``1(System.String,System.String)">
+            <summary>Converts the specified string representation to an equivalent specified type array.</summary>
+            <typeparam name="T">The type of the elements of array.</typeparam>
+            <param name="Delimiter">String used to identify substring limits.</param>
+            <returns>T array. If input is a zero-length string (""), returns a single-element array containing a zero-length T.</returns>
+        </member>
+        <member name="M:Intell.Extension.Replace(System.String,System.String,System.String[])">
+            <summary>Returns a string in which a specified substring has been replaced with other substrings.</summary>
+            <param name="Find">Substring being searched for.</param>
+            <param name="Replacement">Replacement substrings. Substring to be replaced by Replacement in order of array.</param>
+            <returns>String replaced a specified substring by Replacement.</returns>
+        </member>
+        <member name="M:Intell.Extension.Split(System.String,System.String,System.Boolean,System.StringSplitOptions)">
+            <summary>Split a string to string[] unless they are enclosed within quotes.</summary>
+            <param name="value"></param>
+            <param name="separator">Separator.</param>
+            <param name="removeQuotation">False, keep quotation mark after split. True, remove quotation mark.</param>
+            <returns>EX: A "B  C" D => [] = { "A"; "B  C", "D" }</returns>
+        </member>
+        <member name="M:Intell.Extension.ToBytes(System.String,System.Boolean)">
+            <summary>Convert a string to bytes.</summary>
+            <param name="value"></param>
+            <param name="isUnicode">If true, return 2 bytes for each character.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Intell.Extension.QuotationMark(System.String)">
+            <summary>Insert " (quotation mark) character into starting and endding of string.</summary>        
+            <returns>String inserted quotation mark.</returns>
+        </member>
+        <member name="M:Intell.Extension.RemoveQuotationMark(System.String)">
+            <summary>Remove " (quotation mark) character into starting and ending of string.</summary>
+            <param name="value"></param>
+            <returns>String removed quotation mark.</returns>
+        </member>
+        <member name="M:Intell.Extension.Apostrophe(System.String)">
+            <summary>Insert ' (apostrophes) character into starting and endding of string.</summary>
+            <returns>String inserted apostrophes.</returns>
+        </member>
+        <member name="M:Intell.Extension.ContainsUnicode(System.String)">
+            <summary>Returns a value indicating whether the specified System.String object contain unicode characters.</summary>        
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:Intell.Font.Fonts.AddFontResource(System.String)">
+            <summary>The AddFontResource function adds the font resource from the specified file to the system font table. The font can subsequently be used for text output by any application.</summary>
+            <param name="lpFileName">A pointer to a null-terminated string that names a font resource file.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Intell.Font.Fonts.RemoveFontResource(System.String)">
+            <summary>The RemoveFontResource function removes the fonts in the specified file from the system font table.</summary>
+            <param name="lpFileName">A pointer to a null-terminated string that names a font resource file.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Intell.Font.Fonts.Install(System.String,System.String)">
+            <summary>Installs font on the user's system and adds it to the registry so it's available on the next session.</summary>
+            <param name="path">The full file path of font.</param>
+            <param name="valueName">The name of font in registry. Ex: Intell Bold (TrueType).</param>
+        </member>
+        <member name="M:Intell.Font.Fonts.Install(System.String,System.String,System.Boolean)">
+            <summary>Installs font by adding it to the registry so it's available on the next session.</summary>
+            <param name="path">The full file path of font.</param>
+            <param name="valueName">The name of font in registry. Ex: Intell Bold (TrueType).</param>
+            <param name="copyFont">true file will be copied to Windows/Fonts; otherwise, false.</param>
+        </member>
+        <member name="M:Intell.Font.Fonts.Uninstall(System.String)">
+            <summary>Ininstall a font from Registry. Ininstalled fonts can be used until window restart.</summary>
+            <param name="valueName">The name of font in registry. Ex: Intell Bold (TrueType)</param>
+        </member>
+        <member name="M:Intell.Maths.Factorial(System.Decimal)">
+            <summary>Returns the factorial value (n!) of a Decimal number.</summary>
+            <param name="n">n!</param>
+            <returns>A Decimal number.</returns>
+        </member>
+        <member name="M:Intell.Maths.Factorial(System.Double)">
+            <summary>Returns the factorial value (n!) of a double-precision floating-point number.</summary>
+            <param name="n">n!</param>
+            <returns>A double-precision floating-point number.</returns>
+        </member>
+        <member name="M:Intell.Maths.Factorial(System.Int16)">
+            <summary>Returns the factorial value (n!) of a 16-bit signed integer.</summary>
+            <param name="n">n!</param>
+            <returns>A 16-bit signed integer.</returns>
+        </member>
+        <member name="M:Intell.Maths.Factorial(System.Int32)">
+            <summary>Returns the factorial value (n!) of a 32-bit signed integer.</summary>
+            <param name="n">n!</param>
+            <returns>A 32-bit signed integer.</returns>
+        </member>
+        <member name="M:Intell.Maths.Factorial(System.Int64)">
+            <summary>Returns the factorial value (n!) of a 64-bit signed integer.</summary>
+            <param name="n">n!</param>
+            <returns>A 64-bit signed integer.</returns>
+        </member>
+        <member name="M:Intell.Maths.Factorial(System.Single)">
+            <summary>Returns the factorial value (n!) of a single-precision floating-point number.</summary>
+            <param name="n">n!</param>
+            <returns>A single-precision floating-point number.</returns>
+        </member>
+        <member name="M:Intell.Maths.Permutation(System.Int64,System.Int64)">
+            <summary>Returns the Permutation value (nPr) of a 64-bit signed integer.</summary>
+        </member>
+        <member name="M:Intell.Maths.Permutation(System.Double,System.Double)">
+            <summary>Returns the Permutation value (nPr) of a 64-bit floating-point.</summary>
+        </member>
+        <member name="M:Intell.Maths.Permutation(System.Decimal,System.Decimal)">
+            <summary>Returns the Permutation value (nPr) of a 128-bit floating-point.</summary>
+        </member>
+        <member name="M:Intell.Maths.Combination(System.Int64,System.Int64)">
+            <summary>Returns the combination value (nCr) of a 64-bit signed integer.</summary>
+        </member>
+        <member name="M:Intell.Maths.Combination(System.Double,System.Double)">
+            <summary>Returns the combination value (nCr) of a 64-bit floating-point.</summary>
+        </member>
+        <member name="M:Intell.Maths.Combination(System.Decimal,System.Decimal)">
+            <summary>Returns the combination value (nCr) of a 128-bit floating-point.</summary>
+        </member>
+        <member name="M:Intell.Randomize.NextString(System.String,System.Int32)">
+            <summary>Returns a random string that is within a specified chars.</summary>
+            <param name="chars">The specified chars of the random string.</param>
+            <param name="length">Length of returned string.</param>
+        </member>
+        <member name="M:Intell.Randomize.NextString(System.Int32)">
+            <summary>Returns a random string that is within "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".</summary>
+            <param name="length">Length of returned string.</param>
+        </member>
+    </members>
+</doc>

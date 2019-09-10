@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.min.js"></script>
+    <style>
+        .control,.listbox{font-family: 'Segoe UI', Frutiger, 'Frutiger Linotype', 'Dejavu Sans', 'Helvetica Neue', Arial, sans-serif}
+        
+        .listbox{display:inline-block;width:100px; height:200px;-webkit-user-select:none;cursor:default;border-collapse:collapse;border:1px black solid;padding: 6px 9px}
+        .listbox>.item{outline:none;padding:1px 0px}
+        .listbox>.item>span{border-radius:3px;border:1px solid transparent}
+        .listbox>.item>span:hover{border:1px solid #b8d6fb;background-image:linear-gradient(to bottom,#fcfdfe,#ebf3fd)}
+        .listbox>.item.selected>span{border:1px solid #7da2ce;background-image:linear-gradient(to bottom,#dcebfc,#c1dbfc)}
+        
+        .insert-line{display:inline-block;position:absolute;width:80px;height:5px;margin:-2px 0 0 -4px;background: url(../static/images/controls/sprite.png) no-repeat 0 -326px;pointer-events: none;}
+        
+    </style>
+    <script>
+        var intell = {};
+
+        $(function () {
+            document.addEventListener('dragstart', function (e) {
+                if ($(e.target).is('[control] .item') == true) {
+                    intell.sender = $(e.target).parent('[control]')[0];
+                    e.dataTransfer.setData('index', $(e.target).index());
+                }
+            });
+
+            document.addEventListener('dragover', function (e) {
+                var item;
+
+                $('.insert-line').remove();
+
+                if ($(e.target).is('.item') == true) { item = e.target; }
+                else { item = $(e.target).parent('.item')[0]; }
+
+                if (item != undefined) {
+                    e.dataTransfer.dropEffect = 'move';
+                    e.dataTransfer.effectAllowed = 'move';
+                    e.preventDefault();
+                    if (e.offsetY < item.offsetHeight / 2) { item.insertAdjacentHTML('beforebegin', '<div class="insert-line"></div>'); }
+                    else { item.insertAdjacentHTML('afterend', '<div class="insert-line"></div>'); }
+                }
+            });
+
+            document.addEventListener('drop', function (e) {
+                newIndex = $('.insert-line').index();
+                if (newIndex != -1) {
+                    oldIndex = e.dataTransfer.getData('index');
+                    $('.insert-line').remove();
+                }
+            });
+
+            document.body.addEventListener('mousedown', function (e) {
+                var item = $(e.target).parent('.item');
+
+                if (e.buttons == 1) {
+                    $('.selected').removeClass('selected');
+                    item.addClass('selected');
+                }
+
+            });
+
+
+            $('.listbox>.item').attr('draggable', true);
+        });
+    </script>
+</head>
+<body>
+    
+    <div class="listbox" control="listbox">
+        <div class="item">
+            <span>My Life</span>
+        </div>
+        <div class="item">
+            <span>Ocx</span>
+        </div>
+        <div class="item">
+            <span>Ocx</span>
+        </div>
+        <div class="item">
+            <span>Ocx</span>
+        </div>
+        <div class="item">
+            <span>Ocx</span>
+        </div>
+    </div>
+
+    <div class="listbox">
+        <div class="item">
+            <span>My Life</span>
+        </div>
+        <div class="item">
+            <span>Ocx</span>
+        </div>
+        <div class="item">
+            <span>Ocx</span>
+        </div>
+        <div class="item">
+            <span>Ocx</span>
+        </div>
+        <div class="item">
+            <span>Ocx</span>
+        </div>
+    </div>
+
+    <div id="label"></div>
+    <style>
+        table{border-collapse:collapse}
+        table td{border:1px solid black}
+        .table{display:table;border-collapse:collapse}
+        .tbody{border-collapse:collapse}
+        .tr{display:table-row}
+        .td{display:table-cell;border:1px solid black}
+    </style>
+
+
+    <div class="tbody">
+        <div class="tr">
+            <div class="td">AAA</div>    
+        </div>
+        <div class="tr">
+            <div class="td">BBB</div>
+        </div>
+        <div class="tr">
+            <div class="td">CCC</div>
+        </div>
+    </div>
+</body>
+</html>

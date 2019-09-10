@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+
+    <script src="/static/lib/jquery-3.3.1.min.js"></script>
+    <script src="/External/froala/js/froala_editor.pkgd.min.js"></script>
+    <link href="/External/froala/css/froala_editor.pkgd.min.css" rel="stylesheet" />
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" />
+    <style>
+        body{margin:30px}
+        .wysiwyg table{border:none;border-collapse:collapse;empty-cells:show;max-width:100%}
+        .wysiwyg table td{border:1px solid #dddddd}
+        .wysiwyg blockquote{border-left:2px solid gray;padding-left:10px}
+        .wysiwyg .fr-emoticon-img{display:inline-block;width:1em;background-repeat:no-repeat!important;background-position:center!important}
+        
+
+    </style>
+</head>
+<body>
+    <button id="hh">toggle</button>
+    <div class="wysiwyg edit1"></div>
+    <div class="wysiwyg edit2"></div>
+
+    <script>
+        $.FroalaEditor.RegisterCommand('x-formatlist', {
+            title: 'Advanced list',
+            type: 'dropdown',
+            focus: true,
+            icon: '<i class="fa fa-list-ul"></i>',
+            undo: true,
+            refreshAfterCallback: true,
+            options: {
+                'circle': 'circle',
+                'disc': 'black circle',
+                'decimal': 'decimal',
+                'decimal-leading-zero': 'decimal leading zero',
+
+                'lower-alpha': 'lower-alpha',
+                'lower-greek': 'lower-greek',
+                'lower-latin': 'lower-latin',
+                'lower-roman': 'lower-roman',
+                'square': 'square',
+                'upper-alpha': 'upper-alpha',
+                'upper-latin': 'upper-latin',
+                'upper-roman': 'upper-roman'
+
+            },
+
+            callback: function (cmd, value) {
+                xxxx = this;
+
+
+
+
+                if (this.format.is('ul') == false && this.format.is('ol') == false) {
+                    this.lists.format('ul');
+                }
+
+                var element = this.selection.element();
+                $(element).closest('ul,ol').css('list-style-type', value)
+            },
+            // Callback on refresh.
+            refresh: function ($btn) {
+                if (this.format.is('ul') || this.format.is('ol')) $btn.css('color', '#1e88e5');
+                else $btn.css('color', '');
+
+                //console.log('do refresh');
+            },
+            // Callback on dropdown show.
+            refreshOnShow: function ($btn, $dropdown) {
+                var element = this.selection.element();
+                var style = $(element).closest('ul,ol').css('list-style-type');
+
+
+                $dropdown.find('.fr-command').css('color', '');
+                $dropdown.find('[data-param1="' + style + '"]').css('color', '#1e88e5');
+
+                dro = $dropdown;
+                //
+
+            }
+        });
+
+
+        var option1 = {
+            toolbarButtons:
+
+               ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|',
+                'paragraphFormat', 'fontFamily', 'fontSize', 'color', 'clearFormatting', '|',
+                'align', 'x-formatlist', /*'formatOL', 'formatUL',*/ 'outdent', 'indent', 'quote', '-',
+
+                'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|',
+                'emoticons', 'specialCharacters', 'insertHR', 'inlineStyle', 'paragraphStyle', '|', 'print', 'spellChecker', 'help', 'html', '|',
+                'undo', 'redo', '|', 'fullscreen', 'myDropdown'],
+
+            fontFamily: {
+                'Arial,Helvetica,sans-serif': 'Arial',
+                'Georgia,serif': 'Georgia',
+                'Impact,Charcoal,sans-serif': 'Impact',
+                'Tahoma,Geneva,sans-serif': 'Tahoma',
+                "'Times New Roman',Times,serif": 'Times New Roman',
+                'Verdana,Geneva,sans-serif': 'Verdana',
+                "'Segoe UI',Helvetica": 'Segoe UI'
+            },
+            imageUpload: false,
+            spellcheck: false,
+
+
+
+        }
+        var edit1 = $('.edit1').froalaEditor(option1);
+
+        $('#hh').click(function () {
+            if (edit1.data('froala.editor')) {
+                edit1.froalaEditor('destroy');
+            } else {
+                edit1.froalaEditor(option1);
+            }            
+        })
+
+
+        var edit2 = $('.edit2').froalaEditor({
+            toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', '|',
+                'paragraphFormat', 'fontFamily', 'fontSize', 'color', 'clearFormatting', '|',
+                'align', 'x-formatlist', /*'formatOL', 'formatUL',*/ 'outdent', 'indent', '-',
+                'insertLink', 'insertImage', 'embedly', 'insertTable', '|',
+                'emoticons', 'specialCharacters', 'insertHR', 'inlineStyle', 'paragraphStyle', '|', 'help', 'html', '|',
+                'undo', 'redo', '|', 'fullscreen', 'myDropdown'],
+
+            fontFamily: {
+                'Arial,Helvetica,sans-serif': 'Arial',
+                'Georgia,serif': 'Georgia',
+                'Impact,Charcoal,sans-serif': 'Impact',
+                'Tahoma,Geneva,sans-serif': 'Tahoma',
+                "'Times New Roman',Times,serif": 'Times New Roman',
+                'Verdana,Geneva,sans-serif': 'Verdana',
+                "'Segoe UI',Helvetica": 'Segoe UI'
+            },
+            imageUpload: false,
+            spellcheck: false,
+
+
+
+        });
+
+    </script>
+</body>
+</html>
