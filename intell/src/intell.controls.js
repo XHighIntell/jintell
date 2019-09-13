@@ -740,6 +740,7 @@
         var min = undefined;
         var max = undefined;
         var decimalPlaces = 0;
+        var separate = undefined;
 
         //define property
         Object.defineProperties(this, {
@@ -758,7 +759,15 @@
             },
             'increment': {
                 get: function () { return increment },
-                set: function (value) { if (typeof value == 'number') increment = value; }
+                set: function(value) {
+                    if (typeof value == 'number') increment = value;
+                    else if (typeof value == 'string') {
+                        value = parseInt(value);
+                        if (isNaN(value) == false) increment = value;
+                        else throw "increment can't be NaN";
+                    }
+                    else throw "increment is invalid";
+                }
             },
             'unit': {
                 get: function () { return unit },
@@ -804,6 +813,15 @@
                     }
                 }
             },
+            'separate': {
+                get: function() { return separate },
+                set: function(newValue) {
+                    if (separate != newValue) {
+                        separate = newValue;
+                        updateString(value);
+                    }
+                }
+            },
             'input': {
                 get: function () { return _input }
             }
@@ -812,7 +830,7 @@
         this.onchange = $$.createEventFunction()
 
         function updateString(value) {
-            _$input.val(value.formatNumber({ decimals: decimalPlaces }) + unit);
+            _$input.val(value.formatNumber({ decimals: decimalPlaces, separate: separate }) + unit);
         }
         function session_increaseBy(number) {
             session_value += number;
@@ -823,10 +841,15 @@
         }
 
 
-        _$input.keyup(function() {
+        _$input.keyup(function(e) {
             session_value = parseFloat(_input.value.replace(/[, ]/g, ''));
             if (isNaN(session_value)) session_value = 0;
-
+        });
+        _$input.keydown(function(e) {
+            if (e.originalEvent.keyCode == 27) {
+                session_value = value;
+                _$input[0].blur(); return;
+            }
         });
         _$input.on('mousewheel', function (event) {
             var e = event.originalEvent;
@@ -881,6 +904,7 @@
             if (option.increment != undefined) control.increment = option.increment;
             if (option.unit != undefined) control.unit = option.unit;
             if (option.decimalPlaces != undefined) control.decimalPlaces = option.decimalPlaces;
+            if (option.separate != undefined) control.separate = option.separate;
             
         }
         updateString(value);

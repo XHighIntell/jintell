@@ -88,6 +88,7 @@ declare namespace Intell.Controls {
         increment: number;
         unit: string;
         decimalPlaces: number;
+        separate: number;
     }
     interface NumericUpDown {
         /** */
@@ -98,6 +99,7 @@ declare namespace Intell.Controls {
         increment: number;
         unit: string;
         decimalPlaces: number;
+        separate: number;
 
         /** Triggered event. */
         onchange(ev: NumericUpDownOnchangeEvent): void;

@@ -439,7 +439,7 @@
 
         if (option == undefined) option = {};
 
-        var separate = option.separate || ',';
+        var separate = (option.separate == null ? ',' : option.separate);
         var decimal_point = option.decimal_point || '.';
         var decimals = option.decimals;
 
