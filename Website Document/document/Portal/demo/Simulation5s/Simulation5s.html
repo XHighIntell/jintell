@@ -1,31 +1,14 @@
 ﻿<style>
-    #SimulationShortLoading code{white-space:pre}
-
+    #SimulationShortLoading{padding:20px}
+    #SimulationShortLoading .item-code-block{margin-bottom:20px}
+    #SimulationShortLoading .item-code-block>header{padding:5px;margin:5px 0;background:rgba(0,0,0,.2)}
+    #SimulationShortLoading .item-code-block>code{display:block;padding:10px 20px;white-space:pre;line-height:1.3em;background:white;overflow-x:auto}
 </style>
 <div id="SimulationShortLoading">
-    <code>
-    !function() {
-        var app = new PortalApplication();
-        var mainfest = app.mainfest;
-    
-        mainfest.name = "Simulation Short Loading";
-        mainfest.title = "Simulation 5s loading content";
-        mainfest.icon = "/Document/Portal/demo/Simulation5s/Simulation5s.svg";
-        mainfest.html = "/Document/Portal/demo/Simulation5s/Simulation5s.html";
 
-        app.load = function() {
+    <div class="item-code-block" data-file-name="Simulation5s/Simulation5s.js">
+        <header>Simulation5s/Simulation5s.js</header>
+        <code></code>
+    </div>
 
-            return new Promise(function(resolve, reject) {
-                setTimeout(function() {
-                    resolve(app);
-                }, 5000);
-            });
-
-        };
-    
-
-        portal.addApplication(app);
-    }();
-
-    </code>
 </div>

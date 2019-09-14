@@ -4,17 +4,20 @@
     
 </style>
 <div id="SampleApp">
-    <div>/Document/Portal/demo/SampleApp/SampleApp.js</div>
+    <div></div>
 
-    <code>
+    <div class="item-code-block" data-file-name="example.js">
+        <header></header>
+        <code class="hljs">
+
 !function() {
     var app = new PortalApplication();
     var mainfest = app.mainfest;
     
     mainfest.name = "Example Application";
     mainfest.title = "A demo for simple Portal Application";
-    mainfest.icon = "/Document/Portal/demo/SampleApp/SampleApp.svg";
-    mainfest.html = "/Document/Portal/demo/SampleApp/SampleApp.html";
+    mainfest.icon = "ExampleApplication/app.svg";
+    mainfest.html = "ExampleApplication/example.html";
 
     app.load = function() {
         // you can do heavy task here and return Promise
@@ -22,8 +25,7 @@
     
     portal.addApplication(app); // add your application to portal
 }();
-    </code>
 
-
-
+        </code>
+    </div>
 </div>

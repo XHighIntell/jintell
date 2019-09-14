@@ -30,6 +30,13 @@ o.push({ _: 'property', id: 'increment', icon: 'property', name: 'increment',  t
 //unit
 o.push({ _: 'property', id: 'unit', icon: 'property', name: 'unit', type: 'string', default: '""', content: 'Gets or sets the unit display for the spin box.' });
 
+//decimalPlaces
+o.push({ _: 'property', id: 'decimalPlaces', icon: 'property', name: 'decimalPlaces', type: 'string', default: '"."', content: 'Gets or sets the decimal place character of the spin box.' });
+//separate
+o.push({ _: 'property', id: 'separate', icon: 'property', name: 'separate', type: 'string', default: '","', content: 'Gets or sets the separate character for thousands of the spin box.' });
+
+
+
 //event onchange
 o.push({
     _: 'property', id: 'onchange', icon: 'event', name: 'onchange', content: [

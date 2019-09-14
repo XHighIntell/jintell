@@ -6,9 +6,9 @@
     var mainfest = app.mainfest;
     
     mainfest.name = "Simulation Long Loading";
-    mainfest.title = "Simulation 150s loading content";
-    mainfest.icon = "/Document/Portal/demo/SimulationLongLoading/hourglass.svg";
-    mainfest.html = "/Document/Portal/demo/SimulationLongLoading/app.html";
+    mainfest.title ="Simulation 150s loading content";
+    mainfest.icon = "SimulationLongLoading/hourglass.svg";
+    mainfest.html = "SimulationLongLoading/app.html";
 
     app.load = function() {
         return new Promise(function(resolve, reject) {

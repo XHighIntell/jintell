@@ -105,7 +105,8 @@ window.Portal = function() {
                 $portalContentLoading.show();
                 $portalContentLoadingTitle.html("Error while load " + mainfest.name);
 
-                throw error;
+                console.log('Portal error:', error);
+                ///throw error;
             });
 
         }
@@ -161,7 +162,7 @@ window.Portal = function() {
                     jQuery.getScript({ url: value, cache: true }).done(function() {
                         resolve();
                     }).fail(function() {
-                        reject();
+                        reject("Can't find " + value);
                     });
                 }));
             });
@@ -170,8 +171,8 @@ window.Portal = function() {
                 Array.prototype.push.apply(scripts, filted_urls);
                 
                 resolve();
-            }).catch(function() {
-                reject();
+            }).catch(function(err) {
+                reject(err);
             });
 
         });
