@@ -1266,7 +1266,7 @@
 
         control.element = element;
 
-        // asd
+        // NumericUpDown can work even without div
         if (element instanceof HTMLInputElement) {
             _$input = _$element;
             _input = element;

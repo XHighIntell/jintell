@@ -18,3 +18,5 @@ body{margin:0;font-family:'Segoe UI';font-size:16px}
 .navbar-container>.navbar{}
 .navbar-container>.navbar>.navs{display:flex}
 .navbar-container>.navbar>.navs>.nav{font-size:20px;line-height:2em;color:#55b3ff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-decoration:none}        
+.navbar-container>.navbar>.navs>.nav-icon{padding:0 10px;font-family:fontello}
+.navbar-container>.navbar>.navs>.nav-icon:hover{background:rgba(255,255,255,.2)}

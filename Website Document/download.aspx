@@ -12,8 +12,9 @@
         .document-session .name{font-size:30px;text-decoration:underline}
         .document-session .list{margin:5px 0 20px 0;padding-left:40px}
         .document-session .list>.item{display:list-item;list-style-type:decimal;font-size:1.2em}
-        .document-session .list>.item>a{display:inline-block;padding:2px 10px;color:#000;border:dashed 1px transparent;text-decoration:none}
-        .document-session .list>.item>a:hover{border-color:#00bcf2}        
+        .document-session .list>.item .link{display:inline-block;padding:2px 10px;color:#000;border:dashed 1px transparent;text-decoration:none}
+        .document-session .list>.item .link:hover{border-color:#00bcf2}
+        .document-session .list>.item .body{font-size:.8em}
     </style>
 </head>
 <body>
@@ -27,10 +28,27 @@
             <div class="name">Compressed</div>
             <div class="list">
                 <div class="item">
-                    <a class="link" href="/static/download/intell-1.0.0.zip">Core & Intell.Controls</a>
+                    <div class="title">
+                        <a class="link" href="/static/download/intell-0.0.2-production.zip">Core & Intell.Controls</a>
+                    </div>
+                    <div class="body">
+                        <div>"intell.min.js" = Core & Intell.Controls</div>
+                        <div>"portal.min.js" = Portal</div>  
+                    </div>
+
                 </div>
             </div>
         </div>
+
+        <div class="group">
+            <div class="name">Uncompressed</div>
+            <div class="list">
+                <div class="item">
+                    <a class="link" href="/static/download/intell-0.0.2-development.zip">Core & Intell.Controls</a>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </body>

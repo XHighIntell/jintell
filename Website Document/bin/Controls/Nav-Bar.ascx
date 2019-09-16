@@ -5,7 +5,8 @@
         <div class="navs">
             <a class="nav" href="/">Intell Js - User Interface</a>
             <i class="spring"></i>
-            <a class="nav" href="/download">download</a>
+            <a class="nav nav-icon" href="/download" title="Download"></a>
+            <a class="nav nav-icon" href="https://github.com/XHighIntell/jintell" title="Github"></a>
         </div>
     </div>
 </div>
