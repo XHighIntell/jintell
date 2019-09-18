@@ -13,7 +13,7 @@ o.push({
                             '<h4></h4>',
                             '<h2>Parameters</h2>',
                             { _: 'parameter', name: 'element', type: 'HTMLElement', content: 'The menu element.' },
-                            { _: 'parameter', name: 'element', type: 'Intell.Controls.MenuOption', type_ref: '#MenuOption', content: 'Option.' }
+                            { _: 'parameter', name: 'option', type: 'Intell.Controls.MenuOption', type_ref: '#MenuOption', content: 'Option.' }
                         ]
                     },
                     {
@@ -21,7 +21,7 @@ o.push({
                             '<h4></h4>',
                             '<h2>Parameters</h2>',
                             { _: 'parameter', name: 'element', type: 'HTMLElement', content: 'The menu element.' },
-                            { _: 'parameter', name: 'element', type: 'Intell.Controls.MenuOption', type_ref: '#MenuOption', content: 'Option.' }
+                            { _: 'parameter', name: 'option', type: 'Intell.Controls.MenuOption', type_ref: '#MenuOption', content: 'Option.' }
                         ]
                     }
                 ]

@@ -732,6 +732,12 @@
 
         control.element = element;
 
+        // NumericUpDown can work even without div
+        if (element instanceof HTMLInputElement) {
+            _$input = _$element;
+            _input = element;
+        }
+
         //properties
         var value = parseFloat(_$input[0].value.replace(/[, ]/g, '')); if (isNaN(value)) value = 0;
         var session_value = value;

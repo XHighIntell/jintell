@@ -1,5 +1,33 @@
 ﻿/** @type {docObjContent[]} */
 var o = [];
+//Constructor
+o.push({
+    _: 'default', id: 'Constructor', name: 'Constructor', icon: 'method', content: [
+        '<h4>Create a new NumericUpDown or get if it is created before.</h4>',
+        {
+            _: 'overloads',
+            overloads:
+                [
+                    {
+                        syntax: '(element: HTMLElement, option?: Intell.Controls.NumericUpDownOption): Intell.Controls.NumericUpDown', syntax_language: 'typescript', content: [
+                            '<h4></h4>',
+                            '<h2>Parameters</h2>',
+                            { _: 'parameter', name: 'element', type: 'HTMLElement', content: 'The menu element.' },
+                            { _: 'parameter', name: 'option', type: 'Intell.Controls.NumericUpDownOption', type_ref: '#NumericUpDownOption', content: 'Option.' }
+                        ]
+                    },
+                    {
+                        syntax: 'new (element: HTMLElement, option?: Intell.Controls.NumericUpDownOption): Intell.Controls.NumericUpDown', syntax_language: 'typescript', content: [
+                            '<h4></h4>',
+                            '<h2>Parameters</h2>',
+                            { _: 'parameter', name: 'element', type: 'HTMLElement', content: 'The menu element.' },
+                            { _: 'parameter', name: 'option', type: 'Intell.Controls.NumericUpDownOption', type_ref: '#NumericUpDownOption', content: 'Option.' }
+                        ]
+                    }
+                ]
+        }
+    ]
+});
 
 //value
 o.push({

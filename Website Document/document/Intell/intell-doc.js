@@ -349,6 +349,38 @@ o.push({
     ]
 });
 
+//Global
+o.push('<h3>Global</h3>');
+//String.prototype.between
+o.push({
+    id: 'String.prototype.between', name: 'String.prototype.between', icon: 'method', content: [
+        '<h4>Returns the string that between specified start and end string.</h4>',
+        {
+            _: 'overloads', overloads: [
+                {
+                    syntax: 'between(startWith: string, endWith: string, include?: boolean): string', syntax_language: 'typescript', content: [
+                        '<h2>Parameters</h2>',
+                        { _: 'parameter', name: 'startWith', type: 'string', content: 'The return value start with this.' },
+                        { _: 'parameter', name: 'endWith', type: 'string', content: 'The return value end with this' },
+                        {
+                            _: 'parameter', name: 'include', type: 'boolean', content: [
+                                '<h4><mark>true</mark>, return value will include <mark>startWith</mark> & <mark>endwith</mark>, else do not include</h4>',
+                                '<h4>If <mark>include</mark> is not specified, <mark>false</mark> will be used instead.</h4>'
+                            ]
+                                
+                        },
+
+
+                        '<h2>Return</h2>',
+                        { _: 'parameter', type: 'string', content: 'Return null if can not find.' }
+
+                    ]
+                }
+            ]
+        }
+    ]
+});
+
 //Interfaces
 o.push('<h3>Interfaces</h3>');
 o.push({
