@@ -33,6 +33,10 @@ namespace Intell.Document {
                     //Checkbox
                     urlRewriter.Add(new UrlRewriteRule("/Intell/Controls/Checkbox/Demo", "/Document/Intell.Controls.Checkbox/Checkbox.Demo.aspx"));
 
+                    //ComboBox
+                    urlRewriter.Add(new UrlRewriteRule("/Intell/Controls/ComboBox", "/Document/Intell.Controls.ComboBox/ComboBox.aspx"));
+                    urlRewriter.Add(new UrlRewriteRule("/Intell/Controls/ComboBox/Demo", "/Document/Intell.Controls.ComboBox/ComboBox.Demo.aspx"));
+
                     //ContextMenu
                     urlRewriter.Add(new UrlRewriteRule("/Intell/Controls/ContextMenu",      "/Document/Intell.Controls.ContextMenu/ContextMenu.aspx"));
                     urlRewriter.Add(new UrlRewriteRule("/Intell/Controls/ContextMenu/Demo", "/Document/Intell.Controls.ContextMenu/ContextMenu.Demo.aspx"));

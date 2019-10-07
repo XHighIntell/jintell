@@ -43,7 +43,11 @@
                     <a class="link" href="/Intell/Controls/Checkbox/Demo">Demo</a>
                 </div>
 
-                
+                <div class="item">
+                    <a class="link" href="/Intell/Controls/ComboBox">ComboBox</a> - 
+                    <a class="link" href="/Intell/Controls/ComboBox/Demo">demo</a>
+                </div>
+
                 <div class="item" style="display:none">
                     <a class="link" href="/Intell/Controls/ContextMenu">ContextMenu</a> - 
                     <a class="link" href="/Intell/Controls/ContextMenu/Demo">demo</a>
@@ -52,8 +56,6 @@
                 <div class="item">
                     <a class="link" href="/Intell/Controls/Menu">Menu</a> - 
                     <a class="link" href="/Intell/Controls/Menu/Demo">demo</a>
-                    
-
                 </div>
                 <div class="item"><a class="link" href="/Intell/Controls/NumericUpDown">NumericUpDown</a> - <a class="link" href="/Intell/Controls/NumericUpDown/demo">demo</a></div>
                 <div class="item"><a class="link" href="/Intell/Controls/Slideshow">Slideshow</a> - <a class="link" href="/Intell/Controls/Slideshow/demo">demo</a></div>

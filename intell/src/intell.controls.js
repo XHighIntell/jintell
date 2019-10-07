@@ -752,15 +752,18 @@
         Object.defineProperties(this, {
             'value': {
                 get: function () { return value },
-                set: function (newValue, e) {
+                set: function(newValue, e) {
+                    if (typeof newValue == 'string') newValue = parseFloat(newValue);
+                    
+
                     if (value != newValue && typeof newValue == 'number') {
                         value = newValue;
                         if (value < min) value = min;
                         if (value > max) value = max;
 
                         updateString(value);
-
                     }
+                    
                 }
             },
             'increment': {
@@ -903,7 +906,7 @@
         });
 
         if (option != undefined) {
-            //if (option.value != undefined) value = option.value;
+            if (option.value != undefined) value = parseFloat(option.value);
             
             if (option.min != undefined) control.min = option.min;
             if (option.max != undefined) control.max = option.max;
@@ -1250,6 +1253,122 @@
             if (option.confirmKeys != undefined) this.confirmKeys = option.confirmKeys;
         }
         
+    }
+    intell.controls.ComboBox = function ComboBox(element, option) {
+        if (element instanceof jQuery == true) element = element[0];
+        if (element.__ComboBox__ != undefined) return element.__ComboBox__;
+        if (this instanceof ComboBox == false) return new ComboBox(element, option);
+        //////////////////////////////////////////////
+        /** @type {Intell.Controls.ComboBox} */
+        var control = element.__ComboBox__ = this;
+        var $element = $(element);
+        var $options = $element.find('.Options');
+        control.element = element;
+
+
+        var selectedIndex = -1;
+        var selectedElement = undefined;
+        var popupLocations = [9, 1];
+        var popupOption = { insideWindow: true, space: -1 };
+            
+        // properties
+        Object.defineProperties(this, {
+            selectedIndex: {
+                get: function() { return selectedIndex  },
+                set: function(newValue) {
+                    // In this block, when user set a value to selectedIndex
+                    // Display html of selected item, 
+
+                    // 1. ignore if new nalue is same current value
+                    // 2. if newValue is outside range [0, childElementCount], set selectedIndex to -1
+                    // 3. display label base on selectedIndex
+                    // 4. raise onlabel event to get some information.
+
+
+                    // --1--
+                    if (newValue == selectedIndex) return;
+
+                    // --2--
+                    var options_element = $options[0];
+                    if (newValue < 0 || options_element.childElementCount <= newValue) selectedIndex = -1;
+                    else selectedIndex = newValue;
+
+                    // --3--
+                    if (selectedIndex == -1) {
+                        $element.find('.Selected-Option').html('');
+                    } else {
+                        // --4--
+                        var e_onlabel = new intell.Event();
+                        var target = e_onlabel.target = $options[0].children[selectedIndex];
+                        control.onlabel(e_onlabel);
+                        
+                        if (e_onlabel.defaultPrevented == false)
+                            $element.find('.Selected-Option').html(target.outerHTML);
+                    }
+
+                }
+            },
+            selectedElement: {
+                get: function() { return $options[0].children[selectedIndex]; }
+            },
+            popupLocations: {
+                get: function() { return popupLocations },
+                set: function(newValue) {
+                    if (Array.isArray(newValue) == false) throw "newValue must be Array";
+
+                    popupLocations = newValue;
+                }
+            },
+            popupOption: {
+                get: function() { return popupOption },
+                set: function(newValue) { popupOption = newValue; }
+            }
+        });
+
+        // events
+        control.onlabel = intell.createEventFunction();
+        control.onchange = intell.createEventFunction();
+
+        // methods
+
+        $element.mousedown(function(e) {
+            // show dropdown menu when click on control but not from ".Options"
+
+            var ev = e.originalEvent;
+            if (ev.button != 0) return;
+
+            if ($(ev.target).parentsUntil(element, '.Options').length == 0) {
+
+                if ($options.is(':visible') == false) {
+                    intell.showAt(element, $options[0], popupLocations, popupOption);
+
+                    //ev.preventDefault();
+                }
+                else
+                    $options.hide();
+            }
+            
+        });
+        $element.on('click', '.Options>*', function(e) {
+            var ev = e.originalEvent;
+
+            var $option = $(ev.target).closest('.Options>*');
+            var index = $option.index();
+
+            if (selectedIndex == index) {
+
+            } else {
+                control.selectedIndex = index;
+                control.onchange();
+            } 
+            $options.hide();
+        });
+        $element.clickoutside(function() { $options.hide() });
+
+
+        if (option) {
+            if (option.selectedIndex != undefined) control.selectedIndex = option.selectedIndex;
+        }
     }
 
     /** @class */

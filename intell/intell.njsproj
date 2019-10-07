@@ -50,22 +50,20 @@
     <Compile Include="src\intell.controls.js" />
     <Compile Include="src\intell.js" />
     <Compile Include="src\portal.js" />
-    <Compile Include="static\lib\intell.min.js" />
+    <Compile Include="intellisense\jquery-3.3.1.min.js" />
     <Content Include="build\build production.cmd" />
     <Content Include="build\build development.cmd" />
     <Content Include="package.json" />
     <Content Include="src\intell.intellisense.js.exclude" />
-    <Content Include="static\lib\intell.min.js.map" />
     <Content Include="test.html" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="build\" />
-    <Folder Include="static\" />
+    <Folder Include="intellisense\" />
     <Folder Include="output\" />
     <Folder Include="output\development\" />
     <Folder Include="output\production\" />
     <Folder Include="src\" />
-    <Folder Include="static\lib\" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="src\intell.controls.d.ts" />

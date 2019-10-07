@@ -259,6 +259,31 @@ declare namespace Intell.Controls {
         prototype: Intell.Controls.TargetPopup;
     }
     //#endregion
+
+
+    interface ComboBox {
+
+        element: HTMLElement;
+
+        selectedIndex: number;
+
+        selectedElement: HTMLElement;
+
+        /** Gets or sets locations indicating where popup dropdown is displayed at. */
+        popupLocations: number[];
+
+        /** Gets or sets the extra option for position of dropdown.  */
+        popupOption: Intell.IShowAtOption;
+
+        // events
+        onlabel(handler: (this: ComboBox, e: Intell.Event) => void): ComboBox;
+        onchange(handler: (this: ComboBox) => void): ComboBox;
+
+    }
+    interface ComboBoxConstructor {
+        (element: HTMLElement, option?: Intell.Controls.ComboBox): Intell.Controls.ComboBox;
+        new(element: HTMLElement, option?: Intell.Controls.ComboBox): Intell.Controls.ComboBox;
+    }
 }
 
 
@@ -269,6 +294,7 @@ type controls = {
     Slideshow: Intell.Controls.SlideshowConstructor;
     TagsInput: Intell.Controls.TagsInputConstructor;
     TargetPopup: Intell.Controls.TargetPopupConstructor;
+    ComboBox: Intell.Controls.ComboBoxConstructor;
 }
 
 interface intell {
