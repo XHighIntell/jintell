@@ -1,6 +1,6 @@
-// <reference path="intell.d.ts" />
-'use strict';
+﻿/*! intell.js | https://github.com/XHighIntell/jintell */
 
+'use strict';
 
 
 (function() {
@@ -477,8 +477,7 @@
         return this;
     }
     window.addEventListener('click', function(e) {
-
-        var path = e.path || intell.compatible.getFullPath(e.target);
+        var path = e.path || $(e.target).parentsUntil().toArray();
         for (var i = 0; i < _registered_clickout_items.length; i++) {
             var item = _registered_clickout_items[i];
 
@@ -495,7 +494,7 @@
     }
     window.addEventListener('mousedown', function(e) {
 
-        var path = e.path || intell.compatible.getFullPath(e.target);
+        var path = e.path || $(e.target).parentsUntil().toArray();
         for (var i = 0; i < mousedownoutside_items.length; i++) {
             var item = mousedownoutside_items[i];
 
@@ -532,24 +531,26 @@
     }
 }();
 
-'use strict';
+
+if (Object.assign == undefined) {
+    Object.assign = $.extend;
+}﻿'use strict';
 
 !(function () {
     if (window.intell == undefined) window.intell = {};
 
-    /** @type {intell2} */
+    /** @type {intell} */
     var intell = window.intell;
-
+    
        
-
+    /** @type Intell.Controls */
     var controls = intell.controls = {};
 
-
-    controls.hide = function (element) {
+    controls.hide = function(element) {
         var elementcomputedStyle = window.getComputedStyle(element);
         if (elementcomputedStyle.display != 'none') element.style.display = 'none';        
     }
-    function startHide(element, timeout, delayHideClass, oncomplete) {
+    controls.startHide = function(element, timeout, delayHideClass, oncomplete) {
 
         //controls.stopHide(element);
 
@@ -566,457 +567,456 @@
             if (typeof oncomplete === "function") oncomplete();
         }, timeout);
 
-        startHide.items.push({ element: element, timerHander: timerHander, delayHideClass: delayHideClass });
+        controls.startHide.items.push({ element: element, timerHander: timerHander, delayHideClass: delayHideClass });
 
         return timerHander;
     }
-    startHide.items = [];
-    controls.startHide = startHide;
+    controls.startHide.items = [];
     controls.stopHide = function(element) {
         
-        for (var i = 0; i < startHide.items.length; i++) {
-            var item = startHide.items[i];
+        for (var i = 0; i < controls.startHide.items.length; i++) {
+            var item = controls.startHide.items[i];
             if (item.element == element) {
                 $(item.element).removeClass(item.delayHideClass);
                 clearTimeout(item.timerHander);
 
-                startHide.items.splice(i, 1)
+                controls.startHide.items.splice(i, 1)
                 return;
             } 
         }
     }
 
 
-    /**
-     * @this Intell.Controls.Menu
-     * @param {HTMLElement} element
-     * @param {Intell.Controls.MenuOption} option
-     */
-    function Menu(element, option) {
-        if (element instanceof jQuery == true) element = element[0];
-        if (element.__Menu__ != undefined) return element.__Menu__;
-        if (this instanceof Menu == false) return new Menu(element, option);
-        //////////////////////////////////////////////
+    !function() {
+        /** @type Intell.Controls.MenuConstructor */
+        var Menu = controls.Menu = function(element, option) {
+            if (element instanceof jQuery == true) element = element[0];
+            if (element.__Menu__ != undefined) return element.__Menu__;
+            if (this instanceof Menu == false) return new Menu(element, option);
+            //////////////////////////////////////////////
 
-        /** @type {Intell.Controls.Menu} */
-        var menu = element.__Menu__ = this;
-        var $menu = $(element);
-        //properties
-        var showOnHover = false;
-        var rootLocations = [9, 1];
-        var rootOption = { insideWindow: true, space: -1 }
-        var popupLocations = [4, 12];
-        var popupOption = { insideWindow: true }
-        var enableDropdownArrow = false;
+            /** @type {Intell.Controls.Menu} */
+            var menu = element.__Menu__ = this;
+            var $menu = $(element);
+            //properties
+            var showOnHover = false;
+            var rootLocations = [9, 1];
+            var rootOption = { insideWindow: true, space: -1 }
+            var popupLocations = [4, 12];
+            var popupOption = { insideWindow: true }
+            var enableDropdownArrow = false;
 
-        var delayHideTime = 500;    // this is not apply for root
-        var delayHideClass = 'OUT';
-        var rootDelayHideTime = 0;
+            var delayHideTime = 500;    // this is not apply for root
+            var delayHideClass = 'OUT';
+            var rootDelayHideTime = 0;
 
 
-        var activeClass = 'ACTIVE'; // can't change due to 
-        var firstActiveClass = 'FIRST'; 
-        //private
-        var isVisible = false; 
-        var isFadingOut = false;
+            var activeClass = 'ACTIVE'; // can't change due to 
+            var firstActiveClass = 'FIRST';
+            //private
+            var isVisible = false;
+            var isFadingOut = false;
 
-        Object.defineProperties(this, {
-            isVisible: {
-                get: function() { return isVisible },
-            },
-            isFadingOut: {
-                get: function() { return isFadingOut },
-            },
+            Object.defineProperties(this, {
+                isVisible: {
+                    get: function() { return isVisible },
+                },
+                isFadingOut: {
+                    get: function() { return isFadingOut },
+                },
 
-            showOnHover: {
-                get: function() { return showOnHover },
-                set: function(newValue) { showOnHover = newValue }
-            },
-            rootLocations: {
-                get: function() { return rootLocations },
-                set: function(newValue) { rootLocations = newValue },
-            },
-            rootOption: {
-                get: function() { return rootOption },
-                set: function(newValue) { rootOption = newValue },
-            },
+                showOnHover: {
+                    get: function() { return showOnHover },
+                    set: function(newValue) { showOnHover = newValue }
+                },
+                rootLocations: {
+                    get: function() { return rootLocations },
+                    set: function(newValue) { rootLocations = newValue },
+                },
+                rootOption: {
+                    get: function() { return rootOption },
+                    set: function(newValue) { rootOption = newValue },
+                },
 
-            popupLocations: {
-                get: function() { return popupLocations },
-                set: function(newValue) { popupLocations = newValue },
-            },
-            popupOption: {
-                get: function() { return popupOption },
-                set: function(newValue) { popupOption = newValue },
-            },
+                popupLocations: {
+                    get: function() { return popupLocations },
+                    set: function(newValue) { popupLocations = newValue },
+                },
+                popupOption: {
+                    get: function() { return popupOption },
+                    set: function(newValue) { popupOption = newValue },
+                },
 
-            delayHideTime: {
-                get: function() { return delayHideTime },
-                set: function(newValue) { delayHideTime = newValue }
-            },
-            delayHideClass: {
-                get: function() { return delayHideClass },
-                set: function(newValue) { delayHideClass = newValue }
-            },
-            rootDelayHideTime: {
-                get: function() { return rootDelayHideTime },
-                set: function(newValue) { rootDelayHideTime = newValue }
-            },
-            firstActiveClass: {
-                get: function() { return firstActiveClass },
-                set: function(newValue) { firstActiveClass = newValue }
-            },
-            enableDropdownArrow: {
-                get: function() { return enableDropdownArrow },
-                set: function(newValue) {
-                    if (typeof newValue == "boolean") enableDropdownArrow = newValue
-                    else console.warn("Cannot implicitly convert value to 'bool'");
-                }
-            },
-        });
+                delayHideTime: {
+                    get: function() { return delayHideTime },
+                    set: function(newValue) { delayHideTime = newValue }
+                },
+                delayHideClass: {
+                    get: function() { return delayHideClass },
+                    set: function(newValue) { delayHideClass = newValue }
+                },
+                rootDelayHideTime: {
+                    get: function() { return rootDelayHideTime },
+                    set: function(newValue) { rootDelayHideTime = newValue }
+                },
+                firstActiveClass: {
+                    get: function() { return firstActiveClass },
+                    set: function(newValue) { firstActiveClass = newValue }
+                },
+                enableDropdownArrow: {
+                    get: function() { return enableDropdownArrow },
+                    set: function(newValue) {
+                        if (typeof newValue == "boolean") enableDropdownArrow = newValue
+                        else console.warn("Cannot implicitly convert value to 'bool'");
+                    }
+                },
+            });
 
 
-        //methods
-        this.setItems = function(items) {
-            $menu.find('>.X-Menu-Items').remove();
-            $menu.append(Menu.createMenuItemsElement(items));
-        }
-        this.show = function(arg1, arg2, arg3) {
-            //show(element?: HTMLElement): void
-            //show(offset: JQuery.CoordinatesPartial): void
+            //methods
+            this.setItems = function(items) {
+                $menu.find('>.X-Menu-Items').remove();
+                $menu.append(Menu.createMenuItemsElement(items));
+            }
+            this.show = function(arg1, arg2, arg3) {
+                //show(element?: HTMLElement): void
+                //show(offset: JQuery.CoordinatesPartial): void
 
-            if (arg1 == undefined || arg1 instanceof HTMLElement == true) return showAtElement.apply(this, arguments);
-            else return showAtPoint.apply(this, arguments);
-        }
-        this.hide = function() {
-            // Case 
-            // 1. Invisible
-            // 2. Visible, Fadeout
-            // 3. Visible, Fadein (We don't have this state, because CSS will do it by set class name as FIRST)
-            // 4. Visible completely
-            //      maybe children maybe fadeout
-
-            if (isVisible == false) {
-                // 1. Invisible 
-            } else if (isVisible == true && isFadingOut == true) {
+                if (arg1 == undefined || arg1 instanceof HTMLElement == true) return showAtElement.apply(this, arguments);
+                else return showAtPoint.apply(this, arguments);
+            }
+            this.hide = function() {
+                // Case 
+                // 1. Invisible
                 // 2. Visible, Fadeout
-            } else {
+                // 3. Visible, Fadein (We don't have this state, because CSS will do it by set class name as FIRST)
+                // 4. Visible completely
+                //      maybe children maybe fadeout
+
+                if (isVisible == false) {
+                    // 1. Invisible 
+                } else if (isVisible == true && isFadingOut == true) {
+                    // 2. Visible, Fadeout
+                } else {
+                    // 4. Visible completely
+
+                    if (rootDelayHideTime == 0) this.hideDropDownImmediately();
+                    else {
+                        isFadingOut = true;
+
+                        // add "OUT", remove "ACTIVE"
+                        $menu.addClass(delayHideClass).removeClass(activeClass);
+
+                        // find all active
+                        $menu.find('.X-Menu-Item.ACTIVE>.X-Menu-Items').removeClass('ACTIVE').each(function() {
+                            controls.startHide(this, rootDelayHideTime, delayHideClass);
+                        });
+
+                        var rootElement = $menu.find('>.X-Menu-Items').removeClass('ACTIVE')[0];
+                        controls.startHide(rootElement, rootDelayHideTime, delayHideClass, function() {
+                            isVisible = false;
+                            isFadingOut = false;
+
+
+                            $menu.removeClass([firstActiveClass, delayHideClass].join(' ')).find('.X-Menu-Item.ACTIVE').removeClass('ACTIVE');
+                            menu.ondropdownclose();
+                        });
+                    };
+                }
+
+            }
+            this.hideDropDownImmediately = function() {
+                // if menu is ACTIVE, remove class and raise event
+                isVisible = false;
+                isFadingOut = false;
+
+                // Stop Fadeout and hide element with class .X-Menu-Items.OUT
+                $menu.find('.X-Menu-Items').each(function() {
+                    controls.stopHide(this)
+                }).removeClass('ACTIVE').hide();
+
+                $menu.removeClass([activeClass, firstActiveClass, delayHideClass].join(' ')).find('.X-Menu-Item.ACTIVE').removeClass('ACTIVE');
+                this.ondropdownclose();
+            }
+
+            //methods overloads
+            function showAtElement(target) {
+                // Case 
+                // 1. Invisible
+                // 2. Visible, Fadeout
+                // 3. Visible, Fadein (We don't have this state, because CSS will do it by set class name as FIRST)
                 // 4. Visible completely
 
-                if (rootDelayHideTime == 0) this.hideDropDownImmediately();
-                else {
-                    isFadingOut = true;
 
-                    // add "OUT", remove "ACTIVE"
-                    $menu.addClass(delayHideClass).removeClass(activeClass); 
+                if (isVisible == false) {
+                    // 1. Invisible
+                    isVisible = true;
 
-                    // find all active
-                    $menu.find('.X-Menu-Item.ACTIVE>.X-Menu-Items').removeClass('ACTIVE').each(function() {
-                        controls.startHide(this, rootDelayHideTime, delayHideClass);
-                    });
+                    var result = intell.showAt(target || element, $menu.find('>.X-Menu-Items')[0], rootLocations, rootOption);
+                    $menu.addClass(activeClass); // element only
+                    $menu.find('>.X-Menu-Items').addClass('ACTIVE');
 
-                    var rootElement = $menu.find('>.X-Menu-Items').removeClass('ACTIVE')[0];
-                    controls.startHide(rootElement, rootDelayHideTime, delayHideClass, function() {
-                        isVisible = false;
-                        isFadingOut = false;
+                    this.ondropdownopen({ result: result });
+                }
+                else if (isVisible == true && isFadingOut == true) {
+                    //2. Visible, Fadeout
+                    stopFadingOut();
+                }
+            }
+            function showAtPoint(offset) {
+                if (isVisible == false) {
+                    // 1. Invisible
+                    isVisible = true;
+                    var result = intell.showAt(offset, $menu.find('>.X-Menu-Items')[0], rootLocations, rootOption);
+                    $menu.find('>.X-Menu-Items').addClass('ACTIVE');
 
-
-                        $menu.removeClass([firstActiveClass, delayHideClass].join(' ')).find('.X-Menu-Item.ACTIVE').removeClass('ACTIVE');
-                        menu.ondropdownclose();
-                    });
-                };
+                    this.ondropdownopen({ result: result });
+                }
+                else if (isVisible == true && isFadingOut == true) {
+                    //2. Visible, Fadeout
+                    stopFadingOut();
+                }
             }
 
-        }
-        this.hideDropDownImmediately = function() {
-            // if menu is ACTIVE, remove class and raise event
-            isVisible = false;
-            isFadingOut = false;
-
-            // Stop Fadeout and hide element with class .X-Menu-Items.OUT
-            $menu.find('.X-Menu-Items').each(function() {
-                controls.stopHide(this)
-            }).removeClass('ACTIVE').hide();
-
-            $menu.removeClass([activeClass, firstActiveClass, delayHideClass].join(' ')).find('.X-Menu-Item.ACTIVE').removeClass('ACTIVE');
-            this.ondropdownclose();
-        }
-
-        //methods overloads
-        function showAtElement(target) {
-            // Case 
-            // 1. Invisible
-            // 2. Visible, Fadeout
-            // 3. Visible, Fadein (We don't have this state, because CSS will do it by set class name as FIRST)
-            // 4. Visible completely
-
-
-            if (isVisible == false) {
-                // 1. Invisible
-                isVisible = true;
-
-                var result = intell.showAt(target || element, $menu.find('>.X-Menu-Items')[0], rootLocations, rootOption);
-                $menu.addClass(activeClass); // element only
-                $menu.find('>.X-Menu-Items').addClass('ACTIVE');
-
-                this.ondropdownopen({ result: result });
-            }
-            else if (isVisible == true && isFadingOut == true) {
+            function stopFadingOut() {
                 //2. Visible, Fadeout
-                stopFadingOut();
+                isFadingOut = false;
+
+                // add "ACTIVE", remove "OUT"
+                $menu.addClass(activeClass).removeClass(delayHideClass);
+
+                // stop FadeOut processing: only stop ">.X-Menu-Items" and ".X-Menu-Item.ACTIVE>.X-Menu-Items"
+                $menu.find('>.X-Menu-Items').add($menu.find('.X-Menu-Item.ACTIVE>.X-Menu-Items')).each(function() {
+                    controls.stopHide(this);
+                }).addClass('ACTIVE');
             }
-        }
-        function showAtPoint(offset) {
-            if (isVisible == false) {
-                // 1. Invisible
-                isVisible = true;
-                var result = intell.showAt(offset, $menu.find('>.X-Menu-Items')[0], rootLocations, rootOption);
-                $menu.find('>.X-Menu-Items').addClass('ACTIVE');
-               
-                this.ondropdownopen({ result: result});
-            }
-            else if (isVisible == true && isFadingOut == true) {
-                //2. Visible, Fadeout
-                stopFadingOut();
-            }
-        }
-
-        function stopFadingOut() {
-            //2. Visible, Fadeout
-            isFadingOut = false;
-
-            // add "ACTIVE", remove "OUT"
-            $menu.addClass(activeClass).removeClass(delayHideClass);
-
-            // stop FadeOut processing: only stop ">.X-Menu-Items" and ".X-Menu-Item.ACTIVE>.X-Menu-Items"
-            $menu.find('>.X-Menu-Items').add($menu.find('.X-Menu-Item.ACTIVE>.X-Menu-Items')).each(function() {
-                controls.stopHide(this);
-            }).addClass('ACTIVE');
-        }
 
 
-        //events
-        var ondropdownopen = this.ondropdownopen = $$.createEventFunction();
-        var ondropdownclose = this.ondropdownclose = $$.createEventFunction();
-        var onmenuitemclick = this.onmenuitemclick = $$.createEventFunction();
+            //events
+            var ondropdownopen = this.ondropdownopen = $$.createEventFunction();
+            var ondropdownclose = this.ondropdownclose = $$.createEventFunction();
+            var onmenuitemclick = this.onmenuitemclick = $$.createEventFunction();
 
-        $menu.mousedown(function(e) {
-            // In this block, we need to showDropDown or HideDropDown
-            // 1. only allow left button to do the action
-            // 2. find the closest element X-Menu-Item or X-Menu, 
-            //    if the element is X-Menu-Item, nothing
-            //    if the element is X-Item, do
+            $menu.mousedown(function(e) {
+                // In this block, we need to showDropDown or HideDropDown
+                // 1. only allow left button to do the action
+                // 2. find the closest element X-Menu-Item or X-Menu, 
+                //    if the element is X-Menu-Item, nothing
+                //    if the element is X-Item, do
 
-            // --1--
-            var event = e.originalEvent;
-            if (event.buttons != 1) return;
-            
-            // --2--
-            var $closest = $(event.target).closest('.X-Menu-Item,.X-Menu');
+                // --1--
+                var event = e.originalEvent;
+                if (event.buttons != 1) return;
 
-            if ($closest.is('.X-Menu-Item') == true) { }
-            else if ($closest.is('.X-Menu') == true) {
-                if (isVisible == true && isFadingOut == false && showOnHover == false) menu.hide();
-                else {
-                    $menu.addClass(firstActiveClass);
+                // --2--
+                var $closest = $(event.target).closest('.X-Menu-Item,.X-Menu');
+
+                if ($closest.is('.X-Menu-Item') == true) { }
+                else if ($closest.is('.X-Menu') == true) {
+                    if (isVisible == true && isFadingOut == false && showOnHover == false) menu.hide();
+                    else {
+                        $menu.addClass(firstActiveClass);
+                        menu.show();
+                    }
+                    //prevent default, so user can hold down and up to select
+                    event.preventDefault();
+                }
+            });
+            $menu.mouseup(function(e) {
+                // In this block: when left click on X-Menu-Item raise onmenuitemclick if it doesn't have any child
+                // 
+                // 1. only allow left button
+                // 2. Find the closest X-Menu-Item, raise event if it doesn't have any child.
+
+                // -- 1 --
+                var originalEvent = e.originalEvent;
+                if (originalEvent.button != 0) return;
+
+                // -- 2 --
+                var $menu_item = $(originalEvent.target).closest('.X-Menu-Item');
+                if ($menu_item.length > 0 && $menu_item.find('>.X-Menu-Items>.X-Menu-Item').length == 0) {
+                    var event = intell.Event();
+                    event.target = $menu_item[0];
+
+                    onmenuitemclick(event);
+
+                    if (event.defaultPrevented == false) menu.hideDropDownImmediately()
+                }
+
+            });
+            $menu.mouseenter(function() {
+                // check is there a opened menu before us?
+                var hasPreviousMenu = false;
+
+                //1. find another active menu (not this) & hide it.
+
+                var $othersMenus = $menu.parent().find('>.X-Menu').not(element);
+                $othersMenus.each(function() {
+                    var activedMenu = this.__Menu__;
+                    if (activedMenu == undefined) return;
+
+                    if (activedMenu.isVisible == true) {
+                        activedMenu.hideDropDownImmediately();
+                        hasPreviousMenu = true;
+                        return false;
+                    }
+                });
+
+
+                if (showOnHover == false) {
+                    if (hasPreviousMenu == true) menu.show();
+                } else {
+                    if (hasPreviousMenu == false) $menu.addClass(firstActiveClass);
                     menu.show();
                 }
-                //prevent default, so user can hold down and up to select
-                event.preventDefault();
-            }
-        });
-        $menu.mouseup(function(e) {
-            // In this block: when left click on X-Menu-Item raise onmenuitemclick if it doesn't have any child
-            // 
-            // 1. only allow left button
-            // 2. Find the closest X-Menu-Item, raise event if it doesn't have any child.
+            })
+            $menu.mouseleave(function() { if (showOnHover == true) menu.hide() });
+            $menu.mousedownoutside(function() { if (isVisible == true) menu.hide() });
+            $menu.on('mouseenter', '.X-Menu-Item', function() {
+                // find previous .X-Menu-Item.ACTIVE and hide previous
+                // Case
+                // 1. Previous .X-Menu-Item do not have children items
+                // 2. Previous .X-Menu-Item have children items
 
-            // -- 1 --
-            var originalEvent = e.originalEvent;
-            if (originalEvent.button != 0) return;
+                var $current = $(this);
 
-            // -- 2 --
-            var $menu_item = $(originalEvent.target).closest('.X-Menu-Item');
-            if ($menu_item.length > 0 && $menu_item.find('>.X-Menu-Items>.X-Menu-Item').length == 0) {
-                var event = intell.Event();
-                event.target = $menu_item[0];
-                
-                onmenuitemclick(event);
+                var $previous = $(this).parent().find('>.X-Menu-Item.ACTIVE');
+                if ($previous.is(this) == false) {
+                    //when enter another menu-item;
+                    $previous.removeClass('ACTIVE').find('.X-Menu-Item.ACTIVE').removeClass('ACTIVE');
+                    $previous.find('>.X-Menu-Items').removeClass('ACTIVE');
 
-                if (event.defaultPrevented == false) menu.hideDropDownImmediately()
-            }
+                    //stop hide timer and hide previous .X-Menu-Items immediately
+                    var $needHide = $previous.find('.X-Menu-Items:visible');
+                    for (var i = 0; i < $needHide.length; i++) controls.stopHide($needHide[i]);
+                    $needHide.hide();
 
-        });
-        $menu.mouseenter(function() {
-            // check is there a opened menu before us?
-            var hasPreviousMenu = false;
+                    var $items = $current.find('>.X-Menu-Items');
+                    $items.addClass('ACTIVE'); // XYZ
 
-            //1. find another active menu (not this) & hide it.
-
-            var $othersMenus = $menu.parent().find('>.X-Menu').not(element);
-            $othersMenus.each(function() {
-                var activedMenu = this.__Menu__;
-                if (activedMenu == undefined) return;
-
-                if (activedMenu.isVisible == true) {
-                    activedMenu.hideDropDownImmediately();
-                    hasPreviousMenu = true;
-                    return false;
+                    if ($items.length > 0) {
+                        controls.stopHide($items[0]);
+                        intell.showAt(this, $items[0], popupLocations, popupOption);
+                    }
+                    $current.addClass('ACTIVE');
                 }
+            });
+            $menu.on('mouseleave', '.X-Menu-Items', function(e) {
+                // In this block, 
+                // When mouse leave '.X-Menu-Items', we will find ">.X-Menu-Item.ACTIVE" and hide its ".X-Menu-Items" (This mean we don't hide itself but its child).
+                // There is a problem, when mouse leave '.X-Menu-Items', it may leave everything (X-Menu) so this block will be called many time.
+                //
+                // 1. Prevent call many time, because we don't want to hide every thing
+                // 2. Find .X-Menu-Item.ACTIVE and hide it .X-Menu-Items if exist
+
+                // --1--
+                var $closest = $(e.originalEvent.target).closest('.X-Menu-Items');
+                if ($closest[0] != this) return; // this keyword change every call
+
+                // --2--
+                var $active = $(this).find('.X-Menu-Item.ACTIVE');
+                var $active_items = $active.find('>.X-Menu-Items').removeClass('ACTIVE');
+
+                $active_items.each(function() {
+                    controls.startHide(this, delayHideTime, delayHideClass);
+                });
+                $active.removeClass('ACTIVE');
+            });
+
+            this.ondropdownopen(function(e) {
+                if (enableDropdownArrow == false) return;
+                var $arrow1 = $menu.find('>.Label>.Arrow');
+                var $arrow2 = $menu.find('>.X-Menu-Items>.Arrow');
+
+                if ($arrow1.length == 0) return;
+                if ($arrow2.length == 0) return;
+
+                var offset = $arrow1.offset();
+                offset.left += $arrow1.outerWidth() / 2;
+                offset.top += $arrow1.outerHeight() / 2;
+
+                Menu.SetArrowDirection($arrow2, e.result.location, offset);
             });
 
 
-            if (showOnHover == false) {
-                if (hasPreviousMenu == true) menu.show();
-            } else {
-                if (hasPreviousMenu == false) $menu.addClass(firstActiveClass);
-                menu.show();
+            if (option != undefined) {
+                if (option.showOnHover != undefined) menu.showOnHover = option.showOnHover;
+                if (option.rootLocations != undefined) menu.rootLocations = option.rootLocations;
+                if (option.rootOption != undefined) menu.rootOption = option.rootOption;
+                if (option.popupLocations != undefined) menu.popupLocations = option.popupLocations;
+                if (option.popupOption != undefined) menu.popupOption = option.popupOption;
+                if (option.delayHideTime != undefined) menu.delayHideTime = option.delayHideTime;
+                if (option.delayHideClass != undefined) menu.delayHideClass = option.delayHideClass;
+
+                if (option.rootDelayHideTime != undefined) menu.rootDelayHideTime = option.rootDelayHideTime;
+                if (option.firstActiveClass != undefined) menu.firstActiveClass = option.firstActiveClass;
+                if (option.enableDropdownArrow != undefined) menu.enableDropdownArrow = option.enableDropdownArrow;
             }
-        })
-        $menu.mouseleave(function() { if (showOnHover == true) menu.hide() });
-        $menu.mousedownoutside(function() { if (isVisible == true) menu.hide() });
-        $menu.on('mouseenter', '.X-Menu-Item', function() {
-            // find previous .X-Menu-Item.ACTIVE and hide previous
-            // Case
-            // 1. Previous .X-Menu-Item do not have children items
-            // 2. Previous .X-Menu-Item have children items
-
-            var $current = $(this);
-
-            var $previous = $(this).parent().find('>.X-Menu-Item.ACTIVE');
-            if ($previous.is(this) == false) {
-                //when enter another menu-item;
-                $previous.removeClass('ACTIVE').find('.X-Menu-Item.ACTIVE').removeClass('ACTIVE');
-                $previous.find('>.X-Menu-Items').removeClass('ACTIVE');
-
-                //stop hide timer and hide previous .X-Menu-Items immediately
-                var $needHide = $previous.find('.X-Menu-Items:visible');
-                for (var i = 0; i < $needHide.length; i++) controls.stopHide($needHide[i]);
-                $needHide.hide();
-
-                var $items = $current.find('>.X-Menu-Items');
-                $items.addClass('ACTIVE'); // XYZ
-
-                if ($items.length > 0) {
-                    controls.stopHide($items[0]);
-                    intell.showAt(this, $items[0], popupLocations, popupOption);
-                }
-                $current.addClass('ACTIVE');
-            }
-        });
-        $menu.on('mouseleave', '.X-Menu-Items', function(e) {
-            // In this block, 
-            // When mouse leave '.X-Menu-Items', we will find ">.X-Menu-Item.ACTIVE" and hide its ".X-Menu-Items" (This mean we don't hide itself but its child).
-            // There is a problem, when mouse leave '.X-Menu-Items', it may leave everything (X-Menu) so this block will be called many time.
-            //
-            // 1. Prevent call many time, because we don't want to hide every thing
-            // 2. Find .X-Menu-Item.ACTIVE and hide it .X-Menu-Items if exist
-
-            // --1--
-            var $closest = $(e.originalEvent.target).closest('.X-Menu-Items');
-            if ($closest[0] != this) return; // this keyword change every call
-
-            // --2--
-            var $active = $(this).find('.X-Menu-Item.ACTIVE');
-            var $active_items = $active.find('>.X-Menu-Items').removeClass('ACTIVE'); 
-
-            $active_items.each(function() {
-                controls.startHide(this, delayHideTime, delayHideClass);
-            });
-            $active.removeClass('ACTIVE');
-        });
-        
-        this.ondropdownopen(function(e) {
-            if (enableDropdownArrow == false) return;
-            var $arrow1 = $menu.find('>.Label>.Arrow');
-            var $arrow2 = $menu.find('>.X-Menu-Items>.Arrow');
-
-            if ($arrow1.length == 0) return;
-            if ($arrow2.length == 0) return;
-
-            var offset = $arrow1.offset();
-            offset.left += $arrow1.outerWidth() / 2;
-            offset.top += $arrow1.outerHeight() / 2;
-
-            Menu.SetArrowDirection($arrow2, e.result.location, offset);
-        });
-        
-
-        if (option != undefined) {
-            if (option.showOnHover != undefined) menu.showOnHover = option.showOnHover;
-            if (option.rootLocations != undefined) menu.rootLocations = option.rootLocations;
-            if (option.rootOption != undefined) menu.rootOption = option.rootOption;
-            if (option.popupLocations != undefined) menu.popupLocations = option.popupLocations;
-            if (option.popupOption != undefined) menu.popupOption = option.popupOption;
-            if (option.delayHideTime != undefined) menu.delayHideTime = option.delayHideTime;
-            if (option.delayHideClass != undefined) menu.delayHideClass = option.delayHideClass;
-
-            if (option.rootDelayHideTime != undefined) menu.rootDelayHideTime = option.rootDelayHideTime;
-            if (option.firstActiveClass != undefined) menu.firstActiveClass = option.firstActiveClass;
-            if (option.enableDropdownArrow != undefined) menu.enableDropdownArrow = option.enableDropdownArrow;
         }
-    }
-    Menu.createMenuItemsElement = function(items) {
 
-        if (items == undefined || items.length == 0) return;
+        
+        Menu.createMenuItemsElement = function(items) {
 
-        var elements = [];
+            if (items == undefined || items.length == 0) return;
 
-        for (var i = 0; i < items.length; i++) {
-            var item = items[i];
+            var elements = [];
 
-            var $X_Menu_Item;
+            for (var i = 0; i < items.length; i++) {
+                var item = items[i];
 
-            if (item == '-') $X_Menu_Item = $('<div class="X-Separator"></div>');
-            else {
-                $X_Menu_Item = $('<div class="X-Menu-Item"><div class="Label"><div class="Icon"></div><div class="Name"></div></div></div>');
-                var $label = $X_Menu_Item.find('>.Label');
-                var $icon = $X_Menu_Item.find('>.Label>.Icon');
-                var $name = $X_Menu_Item.find('>.Label>.Name');
+                var $X_Menu_Item;
 
-                if (item.icon != undefined) { $icon.html(item.icon) }
-                if (item.name != undefined) { $name.html(item.name) }
-                if (item.shortcut != undefined) $label.append('<div class="Shortcut">' + item.shortcut + '</div>');
+                if (item == '-') $X_Menu_Item = $('<div class="X-Separator"></div>');
+                else {
+                    $X_Menu_Item = $('<div class="X-Menu-Item"><div class="Label"><div class="Icon"></div><div class="Name"></div></div></div>');
+                    var $label = $X_Menu_Item.find('>.Label');
+                    var $icon = $X_Menu_Item.find('>.Label>.Icon');
+                    var $name = $X_Menu_Item.find('>.Label>.Name');
 
-                if (item.items != undefined) {
-                    var children = intell.controls.Menu.createMenuItemsElement(item.items);
-                    if (children != undefined) {
+                    if (item.icon != undefined) { $icon.html(item.icon) }
+                    if (item.name != undefined) { $name.html(item.name) }
+                    if (item.shortcut != undefined) $label.append('<div class="Shortcut">' + item.shortcut + '</div>');
 
-                        $X_Menu_Item.append(children);
+                    if (item.items != undefined) {
+                        var children = intell.controls.Menu.createMenuItemsElement(item.items);
+                        if (children != undefined) {
 
-                        $X_Menu_Item.find('>.Label').append('<div class="Arrow"></div>');
+                            $X_Menu_Item.append(children);
+
+                            $X_Menu_Item.find('>.Label').append('<div class="Arrow"></div>');
+
+                        }
 
                     }
-
                 }
+                elements.push($X_Menu_Item);
+
             }
-            elements.push($X_Menu_Item);
+
+            if (elements.length == 0) return;
+            else return $('<div class="X-Menu-Items"></div>').append(elements)[0];
 
         }
+        Menu.SetArrowDirection = function(arrow, location, offset) {
+            var $arrow = $(arrow);
 
-        if (elements.length == 0) return;
-        else return $('<div class="X-Menu-Items"></div>').append(elements)[0];
+            if (offset instanceof HTMLElement == true) {
+                var $target = $(offset);
+                offset = $target.offset();
+                offset.left += $target.outerWidth() / 2;
+                offset.top += $target.outerHeight() / 2;
+            }
 
-    }
-    Menu.SetArrowDirection = function(arrow, location, offset) {
-        var $arrow = $(arrow);
+            $arrow.removeClass('LEFT UP RIGHT DOWN').css({ left: '', top: '' });
 
-        if (offset instanceof HTMLElement == true) {
-            var $target = $(offset);
-            offset = $target.offset();
-            offset.left += $target.outerWidth() / 2;
-            offset.top += $target.outerHeight() / 2;
+            if (location <= 3) $arrow.offset({ left: Math.round(offset.left - $arrow.outerWidth() / 2) }).addClass('DOWN');
+            else if (location <= 6) $arrow.offset({ top: Math.round(offset.top - $arrow.outerHeight() / 2) }).addClass('LEFT');
+            else if (location <= 9) $arrow.offset({ left: Math.round(offset.left - $arrow.outerWidth() / 2) }).addClass('UP');
+            else $arrow.offset({ top: Math.round(offset.top - $arrow.outerWidth() / 2) }).addClass('RIGHT');
         }
 
-        $arrow.removeClass('LEFT UP RIGHT DOWN').css({ left: '', top: '' });
-
-        if (location <= 3) $arrow.offset({ left: Math.round(offset.left - $arrow.outerWidth() / 2) }).addClass('DOWN');
-        else if (location <= 6) $arrow.offset({ top: Math.round(offset.top - $arrow.outerHeight() / 2) }).addClass('LEFT');
-        else if (location <= 9) $arrow.offset({ left: Math.round(offset.left - $arrow.outerWidth() / 2) }).addClass('UP');
-        else $arrow.offset({ top: Math.round(offset.top - $arrow.outerWidth() / 2) }).addClass('RIGHT');
-    }
-    intell.controls.Menu = Menu
-
+    }();
+   
 
     intell.controls.ContextMenu = function ContextMenu(element, option) {
         if (element instanceof jQuery == true) element = element[0];
@@ -1793,12 +1793,15 @@
         if (element.__ComboBox__ != undefined) return element.__ComboBox__;
         if (this instanceof ComboBox == false) return new ComboBox(element, option);
         //////////////////////////////////////////////
+
         /** @type {Intell.Controls.ComboBox} */
         var control = element.__ComboBox__ = this;
         var $element = $(element);
+
+        var optionsElement = $element.find('.Options')[0];
         var $options = $element.find('.Options');
         control.element = element;
-
+        
 
         var selectedIndex = -1;
         var selectedElement = undefined;
@@ -1835,9 +1838,16 @@
                         var e_onlabel = new intell.Event();
                         var target = e_onlabel.target = $options[0].children[selectedIndex];
                         control.onlabel(e_onlabel);
-                        
-                        if (e_onlabel.defaultPrevented == false)
+
+                        $options.find('>div').removeClass('ACTIVE');
+                        target.classList.add('ACTIVE');
+
+                        if (e_onlabel.defaultPrevented == false) {
+                            
+
                             $element.find('.Selected-Option').html(target.outerHTML);
+                        }
+                            
                     }
 
                 }
@@ -1856,6 +1866,9 @@
             popupOption: {
                 get: function() { return popupOption },
                 set: function(newValue) { popupOption = newValue; }
+            },
+            optionsElement: {
+                get: function() { return optionsElement }
             }
         });
 
@@ -1874,6 +1887,7 @@
             if ($(ev.target).parentsUntil(element, '.Options').length == 0) {
 
                 if ($options.is(':visible') == false) {
+                    e.preventDefault();
                     intell.showAt(element, $options[0], popupLocations, popupOption);
 
                     //ev.preventDefault();
@@ -1883,21 +1897,30 @@
             }
             
         });
-        $element.on('click', '.Options>*', function(e) {
-            var ev = e.originalEvent;
+        $element.mouseup(function(e) {
+            var originalEvent = e.originalEvent;
+            if (originalEvent.button != 0) return;
 
-            var $option = $(ev.target).closest('.Options>*');
-            var index = $option.index();
+            var $target = $(originalEvent.target)
+            if ($target.closest('.Selected-Option', element).length != 0) return;
+
+            var $item = $target.closest('.Options>*', element);
+            var index = $item.index();
 
             if (selectedIndex == index) {
 
             } else {
                 control.selectedIndex = index;
                 control.onchange();
-            } 
+            }
             $options.hide();
         });
-        $element.clickoutside(function() { $options.hide() });
+        
+        $element.mousedownoutside(function() { $options.hide() });
+        //$element.on('mouseenter', '.Options>*', function() { $(this).addClass('ACTIVE') });
+        //$element.on('mouseleave', '.Options>*', function() {
+        //    $(this).removeClass('ACTIVE')
+        //})
 
 
         if (option) {

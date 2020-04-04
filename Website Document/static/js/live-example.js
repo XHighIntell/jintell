@@ -73,6 +73,3 @@ var liveexample = new function () {
 
 
 
-
-
-

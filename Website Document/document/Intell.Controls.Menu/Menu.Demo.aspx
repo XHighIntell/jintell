@@ -8,7 +8,7 @@
 <head runat="server">
     <title>Intell UI API Documentation</title>
     <script src="/static/lib/jquery-3.3.1.min.js"></script>
-    <script src="/static/lib/intell.js"></script>
+    <script src="/static/lib/intell.min.js"></script>
     <script src="/static/lib/highlight.pack.js"></script>
     <script src="/static/lib/docjs.js"></script>
 

@@ -1,6 +1,6 @@
-﻿// <reference path="intell.d.ts" />
-'use strict';
+﻿/*! intell.js | https://github.com/XHighIntell/jintell */
 
+'use strict';
 
 
 (function() {
@@ -477,8 +477,7 @@
         return this;
     }
     window.addEventListener('click', function(e) {
-
-        var path = e.path || intell.compatible.getFullPath(e.target);
+        var path = e.path || $(e.target).parentsUntil().toArray();
         for (var i = 0; i < _registered_clickout_items.length; i++) {
             var item = _registered_clickout_items[i];
 
@@ -495,7 +494,7 @@
     }
     window.addEventListener('mousedown', function(e) {
 
-        var path = e.path || intell.compatible.getFullPath(e.target);
+        var path = e.path || $(e.target).parentsUntil().toArray();
         for (var i = 0; i < mousedownoutside_items.length; i++) {
             var item = mousedownoutside_items[i];
 
@@ -531,3 +530,8 @@
         return position;
     }
 }();
+
+
+if (Object.assign == undefined) {
+    Object.assign = $.extend;
+}

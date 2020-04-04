@@ -31,24 +31,47 @@
             </div>
         </div>
         <main class="portal-content">
-            <div class="portal-content-loading">
-                <div class="icon"></div>
-                <div class="title"></div>
+            <div class="Loading-Overlay" style="display:none">
+                <i class="spring"></i>
+                <div class="content">
+                    <i class="spring"></i>
+                    <div class="Application-Name"></div>
+                    <div class="Application-Description"></div>
+                    <i class="spring" style="flex-grow:1.5"></i>
+                </div>
+                
+                <i class="spring"></i>
+                <div class="Waiting-Box">
+                    <div class="cycle"></div>
+                    <div class="cycle" style="animation-delay:.15s"></div>
+                    <div class="cycle" style="animation-delay:.3s"></div>
+                    <div class="cycle" style="animation-delay:.45s"></div>
+                    <div class="cycle" style="animation-delay:.6s"></div>
+                </div>
             </div>
+                        
+            <div class="Error-Overlay" style="display:none">
+                <i class="spring"></i>
+                <div>
+                    <i class="spring"></i>
+                    <div class="header">
+                        <div class="icon">✖</div>
+                        <div>
+                            <div class="Application-Name"></div>
+                            <div class="Message"></div>
+                        </div>
+                    </div>
+                    <div class="Stack"></div>
+                    <i class="spring" style="flex-grow:1.5"></i>
+                </div>
+                <i class="spring"></i>
+            </div>
+
         </main>
     </div>
 
     <script>
-        var portal = window.portal = new Portal();
-        var $sidebar = $('.main-portal .sidebar');
-
-        if (localStorage.getItem('portal.sidebar.collapsed') == "true")  $sidebar.addClass('collapsed');
-       
-
-        $('.collapse-button').click(function() {
-            var collapsed = $sidebar.toggleClass('collapsed').is('.collapsed');
-            localStorage.setItem('portal.sidebar.collapsed', collapsed);
-        });
+        var portal = window.portal = new Portal($('.main-portal')[0]);
     </script>
 
     <!-- List Application -->
@@ -56,6 +79,7 @@
     <script src="ExampleApplication/example.js"></script>
     <script src="Simulation5s/Simulation5s.js"></script>
     <script src="SimulationLongLoading/app.js"></script>
+
     <!-- Add many applications as you can -->
 
 </body>

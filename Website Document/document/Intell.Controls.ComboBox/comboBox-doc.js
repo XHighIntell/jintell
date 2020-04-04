@@ -1,4 +1,5 @@
-﻿/** @type {docObjContent[]} */
+﻿
+/** @type {docObjContent[]} */
 var o = [];
 //Constructor
 o.push({
@@ -40,22 +41,6 @@ o.push({
 });
 //popupOption
 o.push({ _: 'property', icon: 'property', name: 'popupOption', type: 'IShowAtOption', type_ref: '/Intell#IShowAtOption', default: '{ insideWindow: true, space: -1 }', id: 'popupOption', content: 'Gets or sets the extra option for position of dropdown.' });
-
-
-// enableDropdownArrow
-o.push({
-    _: 'property', icon: 'property', name: 'enableDropdownArrow', type: 'boolean', default: 'false', id: 'enableDropdownArrow', content: [
-        'Gets or set a value indicating whether the menu turn on the feature automatically modify position of Arrow when open.',
-        '<h3>Remark</h3>',
-        "Menu finds 2 arrows $menu.find('>.Label>.Arrow') and $menu.find('>.X-Menu-Items>.Arrow'). If they are exist, do follow steps:",
-        {
-            _: 'list', content: [
-                'Get center of <mark>>.Label>.Arrow</mark> by use it\'s outer width and outer height divide by 2.',
-                'Set direction of <mark>>.X-Menu-Items>.Arrow</mark> by SetArrowDirection($arrow, e.result.location, center)',
-            ]
-        }
-    ]
-});
 
 //  onchange
 o.push({

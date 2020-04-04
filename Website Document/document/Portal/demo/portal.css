@@ -38,13 +38,22 @@ body{display:flex;flex-direction:column;height:100%;margin:0;font-family:'Segoe 
 .main-portal .sidebar.collapsed .sidebar-app>.name{display:none}
 
 .portal-content{position:relative;flex:1 1 100%;display:flex;overflow:auto}
+.portal-content>.Loading-Overlay{position:absolute;left:0;right:0;top:0;bottom:0;display:flex}
+.portal-content>.Loading-Overlay>.content{display:flex;flex-direction:column;align-items:center;max-width:500px}
+.portal-content>.Loading-Overlay>.content .Application-Name{font-size:1.3em;color:black;margin-bottom:5px}
+.portal-content>.Loading-Overlay>.content .Application-Description{color:rgba(0,0,0,.5)}
+.portal-content>.Loading-Overlay .Waiting-Box{position:absolute;height:5px;top:50%;overflow:hidden;left:0;right:0}
+.portal-content>.Loading-Overlay .Waiting-Box .cycle{position:absolute;left:-10px;width:5px;height:5px;background:#00abff;border-radius:1px;animation:5s wd infinite cubic-bezier(0,0.85,1,0.15)}
+@keyframes wd{0%{left:-10px}70%{left:100%}100%{left:100%}}
+
+.portal-content>.Error-Overlay{position:absolute;left:0;right:0;top:0;bottom:0;display:flex}
+.portal-content>.Error-Overlay .header{display:flex;align-items:center;margin-bottom:20px;border:1px solid grey;border-radius:4px;padding:10px;background:rgba(255,0,0,.06)}
+.portal-content>.Error-Overlay .header .Application-Name{font-size:1.3em;color:black}
+.portal-content>.Error-Overlay .header>.icon{padding-right:10px;font-size:32px;color:#e20000;text-shadow:black 0 0 3px}
+.portal-content>.Error-Overlay .Stack{white-space:pre-wrap;color:#ec0000}
+.portal-content>.Error-Overlay>div{display:flex;flex-direction:column;padding:10px}
 
 
-@keyframes waiting{from{transform:rotateZ(0deg)}to{transform:rotateZ(720deg)}}
-.portal-content .portal-content-loading{position:absolute;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.portal-content .portal-content-loading>.icon{font-family:fontello;animation:waiting 4s infinite}
-.portal-content .portal-content-loading>.icon::before{content:""}
-.portal-content .portal-content-loading>.title{padding:0 10px}
 
 .portal-content>*{min-width:100%}
 /*

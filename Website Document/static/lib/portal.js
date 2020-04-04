@@ -1,252 +1,388 @@
-﻿
-/** @class */
-window.Portal = function() {
+﻿/*! portal.js | @ license | https://github.com/XHighIntell/jintell */
 
-    /** @type {Portal} */
+window.Portal = function(element) {
+    /** @type Portal */
     var portal = this;
+    var $portal = $(element);
+    var $portalContent = $portal.find('.portal-content'); //.portal-content
     
-    
-    var $sidebarMiddle = $(document).find('.sidebar-middle');
-    var $sidebarAppBase = $sidebarMiddle.find('.sidebar-app.BASE-CONTROL').removeClass('BASE-CONTROL').remove(); 
-    var $portalContent = $(document).find('.portal-content');                   //.portal-content
-    var $portalContentLoading = $portalContent.find('.portal-content-loading'); //.portal-content .portal-content-loading
-    var $portalContentLoadingTitle = $portalContentLoading.find('>.title');     //.portal-content .portal-content-loading .icon
+    portal.sidebar = new function() {
+        /** @type Portal.Sidebar */
+        var sidebar = this;
+        var $sidebar = $portal.find('.sidebar');
+        var $sidebarMiddle = $portal.find('.sidebar .sidebar-middle');
+        var $sidebarTop = $portal.find('.sidebar .sidebar-top');
+        var $sidebarAppAbstract = $portal.find('.sidebar .sidebar-middle .sidebar-app.BASE-CONTROL').removeClass('BASE-CONTROL').remove();
 
-    //properties
+
+        // methods
+        sidebar.add = function(application) {
+            var $element = $sidebarAppAbstract.clone();
+            var element = $element[0];
+            var manifest = application.manifest;
+
+
+            $element.attr('title', manifest.title);
+            if (manifest.icon) $element.find('.icon').css('background-image', 'url("' + manifest.icon + '")');
+            $element.find('.name').html(manifest.name);
+
+
+            sidebar.setApplication(element, application);
+            $sidebarMiddle.append($element);
+
+            return element;
+        }
+        sidebar.get = function(application) {
+            return $sidebarMiddle.find('>.sidebar-app').toArray().find(function(value) {
+                return sidebar.getApplication(value) == application;
+            });
+        }
+        sidebar.active = function(application) {
+            var element = sidebar.get(application);
+
+            if (element == null) return;
+
+            $sidebarMiddle.find('>.sidebar-app').each(function() {
+                if (this == element) 
+                    $(this).addClass('ACTIVE')
+                else
+                    $(this).removeClass('ACTIVE')
+                
+            })
+
+            return element;
+        }
+
+        sidebar.getApplication = function(element) { return element._application }
+        sidebar.setApplication = function(element, application) { element._application = application }
+
+        // handle events
+        $sidebarTop.find('.collapse-button').click(function() {
+            var collapsed = $sidebar.toggleClass('collapsed').is('.collapsed');
+            localStorage.setItem('portal.sidebar.collapsed', collapsed);
+        });
+        $sidebarMiddle.on('click', '.sidebar-app', function() {
+            var application = sidebar.getApplication(this);
+            if (application) {
+                portal.open(application);
+            }
+        });
+        
+
+        if (localStorage.getItem('portal.sidebar.collapsed') == "true") $sidebar.addClass('collapsed');
+
+    }();
+    /** @type Portal.Overlay */
+    var overlay = portal.overlay = new function() {
+        /** @type Portal.Overlay */
+        var overlay = this;
+        var $loadingOverlay = $portalContent.find('.Loading-Overlay');
+        var $errorOverlay = $portalContent.find('.Error-Overlay');
+
+        // methods 
+        overlay.showLoading = function(application) {
+            $loadingOverlay.find('.Application-Name').text(application.manifest.name);
+            $loadingOverlay.find('.Application-Description').text(application.manifest.description);
+            $loadingOverlay.show();
+
+            $errorOverlay.hide();
+        }
+        overlay.showError = function(application) {
+            $errorOverlay.find('.Application-Name').html(application.manifest.name);
+            $errorOverlay.find('.Message').html(application.error.message);
+            $errorOverlay.find('.Stack').html(application.error.stack);
+            $errorOverlay.show();
+
+            $loadingOverlay.hide();
+        }
+        overlay.hide = function() {
+            $loadingOverlay.hide();
+            $errorOverlay.hide();
+        }
+    }();
+    
+    // fields
+    /** @type {Portal.Application[]} */
     var applications = [];
+    /** @type {Portal.Application} */
     var activeApplication;
+    /** @type string[] */
+    var jsUrls = portal.jsUrls = [];
 
-    
-    Object.defineProperties(this, {
-        applications: { value: applications },
-        activeApplication: {
-            get: function() { return activeApplication; }
+
+    // properties
+    Object.defineProperties(portal, {
+        applications: {
+            get: function() { return applications }
         },
+        activeApplication: {
+            get: function() { return activeApplication }
+        }
     });
 
-    //events
-    var onAppAdd = this.onAppAdd = intell.createEventFunction();
-    var onAppLoad = this.onAppLoad = intell.createEventFunction();
+    // methods
+    portal.add = function(application) {
+        var manifest = application.manifest;
 
-    // private fields
-    var scripts = []; // loaded script
+        // 1. find sidebar element of application
+        // 2. 
+        // 3. create shortcut base on manifest
 
-    
-    
-    /////////////////////
-    // public function
-    /////////////////////
+        // --1--
+        var element = portal.sidebar.get(application);
+        if (element != null) return;
 
-    portal.addApplication = addApplication;
-    portal.openApplication = openApplication;
+        applications.push(application);
 
-    /** @param {PortalApplication} app */
-    function addApplication(app) {
-        var mainfest = app.mainfest;
         
+        // --22
+        if (manifest.shortcut == true) element = portal.sidebar.add(application);
 
-        if (mainfest.pinned == true) {
-            var $sidebar = $sidebarAppBase.clone();
-            var sidebar = $sidebar[0];
 
-            sidebar.application = app;
-            sidebar.mainfest = mainfest;
 
-            if (mainfest.icon) $sidebar.find('.icon').css('background-image', 'url("' + mainfest.icon + '")');
-            $sidebar.find('.name').html(mainfest.name);
-            sidebar.title = mainfest.title;
 
-            app.shortcut = sidebar;
-
-            $sidebarMiddle.append($sidebar);
-        }
-        if (mainfest.startup == true) {
-            openApplication(app);
-
-            if ($sidebar) $sidebar.addClass('ACTIVE');
-        }
-
-        applications.push(app);
-        onAppAdd(app);
     }
+    portal.open = function(application) {
+        var manifest = application.manifest;
+        
+        // 1. if open an application already opened, exit this block
+        // 2. 
+        // 3. 
 
-    /** @param {PortalApplication} application */
-    function openApplication(application) {
-
-        var mainfest = application.mainfest;
-
-        activeApplication = application; // set current application
         
 
-        if (application.status == 0) { //NONE: application never load before
-            
+        // --1--
+        if (activeApplication == application) return;
 
-            $portalContentLoading.show();
-            $portalContentLoadingTitle.html(mainfest.title);
+        var oldApplication = activeApplication;
+        var newApplication = application;
 
-            application.status = 1;
 
-            loadApplication(application).then(function() {
-                // this is asynchronous action when code reach here, user may open another apps
+        // --2--
+        activeApplication = application; // set current application
+
+        portal.sidebar.active(application);
+        portal.applications.forEach(function(value) {
+            $(value.root).hide();
+        });
+
+
+        if (application.status == "NONE") {
+            // application never load before
+            // 1. show loading overlay
+            // 2.
+
+            overlay.showLoading(application);
+
+            portal.load(application).then(function() {
 
                 $portalContent.append(application.root);
-                application.status = 2;
-                onAppLoad(application);
-                
+
                 if (activeApplication == application) {
-                    $portalContentLoading.hide();
+                    overlay.hide();
                     $(application.root).show();
                 }
-                else $(application.root).hide();
+                else
+                    $(application.root).hide();
 
-            }).catch(function(error) {
-                application.status = 3;
-
-                $portalContentLoading.show();
-                $portalContentLoadingTitle.html("Error while load " + mainfest.name);
-
-                console.log('Portal error:', error);
-                ///throw error;
+                //onAppLoad(application);
+            }, function(error) {
+                if (activeApplication == application) 
+                    overlay.showError(application);
+                
             });
-
+        
         }
-        else if (application.status == 1) { //LOADING: application is loading
-            $portalContentLoading.show();
-            $portalContentLoadingTitle.html(mainfest.title);
-
+        else if (application.status == "LOADING") {
+            // application is loading
+            overlay.showLoading(application);
         }
-        else if (application.status == 2) { //LOADED
-            $portalContentLoading.hide();
+        else if (application.status == "LOADED") { //LOADED
+            overlay.hide();
             $(application.root).show();
         }
-        else if (application.status == 3) { //FAIL
-            $portalContentLoading.show();
-            $portalContentLoadingTitle.html("Error while load " + mainfest.name);
-
-            //throw "Not implement";
+        else if (application.status == "FAIL") { //FAIL
+            overlay.showError(application);
         }
+
+        portal.sidebar.active(application);
+        portal.onchange({ oldApplication: oldApplication, newApplication: newApplication });
     }
+    portal.contains = function(application) {
+        return applications.indexOf(application) != -1;
+    }
+    portal.load = function(application) {
+        // 1. The application status must be none
+        // 2. Load html
+        // 3. Load script
 
-    /////////////////////
-    // private function
-    /////////////////////
+        // --1--
+        if (application.status != "NONE") throw "Application is already loaded";
 
-    /** @param {string} urls @returns {Promise<XMLHttpRequest>}  */
-    function loadHtml(url) {
-        if (!url) return Promise.resolve(null);        
+        application.status = "LOADING";
 
-        return new Promise(function(resolve, reject) {
-            intell.get(url).load(function() {
-                resolve(this);
-            }).error(function() {
-                reject(this);
-            }).send();
-        });
-    };
+        var manifest = application.manifest;
+        var promise = Promise.resolve();
 
-    /** @param {string[]} urls @returns {Promise<XMLHttpRequest>}  */
-    function loadScript(urls) {
-        if (Array.isArray(urls) == false) urls = [urls];
+        // --2--
+        if (manifest.content.html) {
+            promise = promise.then(function() {
+                return new Promise(function(resolve, reject) {
+                    intell.get(manifest.content.html).load(function() {
 
+                        // 1. if have more than 1 element, swap in another div
 
-        var filted_urls = urls.filter(function(value) {
-            return scripts.indexOf(value) == -1;
-        });
+                        // --1--
+                        var $root = $(this.responseText);
+                        if ($root.length > 1)
+                            $root = $('<div></div>').append($root);
+                        application.root = $root[0];
 
-        return new Promise(function(resolve, reject) {
-            var promises = [];
-
-            filted_urls.forEach(function(value, index) {
-
-                promises.push(new Promise(function(resolve, reject) {
-                    jQuery.getScript({ url: value, cache: true }).done(function() {
                         resolve();
-                    }).fail(function() {
-                        reject("Can't find " + value);
-                    });
-                }));
+
+                    }).error(function() {
+                        reject("ERR_INTERNET_DISCONNECTED");
+                    }).send();
+
+                });
             });
-
-            Promise.all(promises).then(function() {
-                Array.prototype.push.apply(scripts, filted_urls);
-                
-                resolve();
-            }).catch(function(err) {
-                reject(err);
-            });
-
-        });
-
-    }
-
-    /** @param {PortalApplication} application; @returns {Promise<XMLHttpRequest>} */
-    function loadApplication(application) {
-        var mainfest = application.mainfest;
-        
-        return loadHtml(mainfest.html).then(function(request) {
-            if (request != null) {
-                var $all = $(request.responseText);
-                if ($all.length > 1) $all = $('<div></div>').append($all);
-                application.root = $all[0];
-            }
-
-            return loadScript(mainfest.js);
-        }).then(function() {
-            return application.load();
-        });
-    }
-
-
-
-    
-
-    $sidebarMiddle.on('click', '.sidebar-app', function() {
-        var $this = $(this);
-        var application = this.application;
-
-        portal.applications.forEach(function(item) { $(item.root).hide() });
-        portal.openApplication(application);
-
-        $this.parent().find('>.sidebar-app.ACTIVE').removeClass('ACTIVE');
-        $this.addClass('ACTIVE');
-    });
-}
-window.PortalApplication = function PortalApplication() {
-    if (this instanceof PortalApplication == false) return new PortalApplication();
-
-    this.mainfest = {
-        name: undefined,
-        icon: undefined,
-
-        html: undefined,
-        css: [],
-        js: [],
-        pinned: true,
-        startup: false,
-    };
-
-    
-    this.status = 0;
-
-    this.loaded = false;
-
-    this.load = function() { }
-
-
-    Object.defineProperties(this, {
-        statusName: {
-            get: function() {
-                var status = this.status;
-                if (status == 0) return "NONE";
-                else if (status == 1) return "LOADING";
-                else if (status == 2) return "LOADED";
-                else if (status == 3) return "FAIL";
-                
-            },
         }
-    });
+
+        // --3--
+        if (manifest.content.js && manifest.content.js.length > 0) {
+            promise = promise.then(function() {
+                return new Promise(function(resolve, reject) {
+
+                    var tasks = Array.from(manifest.content.js);
+
+                    processTask();
+
+                    function processTask() {
+                        var url = tasks.shift();
+                        if (url == null) { onFinish(); return }
+
+                        portal.loadJavascript(url).then(function() {
+                            processTask();
+                        }, function(e) {
+                            reject(e);
+                        })
+                    }
+                    function onFinish() { resolve() }
+
+                });
+            })
 
 
-    this.onShow = intell.createEventFunction(false);
-    this.onHide = intell.createEventFunction(false);
+        }
+
+
+        return promise.then(function() {
+            if (typeof application.load == 'function')
+                return application.load();
+        }).then(function() {
+            application.status = "LOADED";
+        }).catch(function(error) {
+            application.status = "FAIL";
+            application.error = error;
+
+            console.error(error);
+
+            return Promise.reject(error);
+        });
+
+    }
+    portal.loadJavascript = function(relative_url) {
+        
+        var url = new URL(relative_url, document.baseURI);
+
+        if (jsUrls.indexOf(url.href) != -1) {
+            // already exist 
+            return Promise.resolve();
+        } else {
+            return new Promise(function(resolve, reject) {
+                return $.getScript({ url: url.href, cache: true }).done(function() {
+                    jsUrls.push(url.href);
+                    resolve();
+                }).fail(function() {
+                    reject(new Error('Can\'t load javascript: ' + relative_url));
+                })
+            });
+        }
+    }
+
+    // events
+    portal.onchange = intell.createEventFunction();
+
+
+    // handle events
+    $(document).ready(function() {
+
+        // let find a application to open first
+        // 1. find application have id equal to query string (?app=)
+        // 2. find application have manifest.startup equal true
+
+        /** @type Portal.Application */
+        var application;
+
+        // --1--
+        var qs = intell.qs();
+        if (qs.app) {
+            application = applications.find(function(value) {
+                return value.manifest.id == qs.app;
+            });
+        }
+
+        // --2--
+        if (application == null) {
+            application = applications.find(function(value) {
+                return value.manifest.startup == true;
+            });
+
+            if (application) portal.open(application);
+        }
+
+        portal.open(application);
+    })
+    portal.onchange(function(e) {
+        console.log('portal.onchange', e);
+
+        var qs = intell.qs();
+        qs.app = e.newApplication.manifest.id;
+
+        var names = Object.getOwnPropertyNames(qs);
+        var seach = '?' + names.map(function(name) {
+            return name + '=' + qs[name];
+        }).join('&');
+
+        history.pushState(null, document.title, seach);
+    })
+
+
+
 }
+
+window.PortalApplication = function(element) {
+    /** @type Portal.Application */
+    var application = this;
+
+    application.manifest = {
+        id: "",
+        icon: "",
+        name: "",
+        title: "",
+        description: "",
+
+        content: {
+            js: [],
+            css: [],
+            html: ""
+        },
+
+        shortcut: true,
+        startup: false,
+    }
+    application.status = "NONE";
+
+}
+
+

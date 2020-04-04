@@ -1,11 +1,13 @@
 ﻿!function() {
     var app = new PortalApplication();
-    var mainfest = app.mainfest;
-    
-    mainfest.name = "Simulation Short Loading";
-    mainfest.title = "Simulation 5s loading content";
-    mainfest.icon = "Simulation5s/Simulation5s.svg";
-    mainfest.html = "Simulation5s/Simulation5s.html";
+    var manifest = app.manifest;
+
+    manifest.id = "app_5s"
+    manifest.name = "Simulation Short Loading";
+    manifest.title = "Simulation 5s loading content";
+    manifest.icon = "Simulation5s/Simulation5s.svg";
+    manifest.content.html = "Simulation5s/Simulation5s.html";
+    manifest.content.js = ["/static/lib/highlight.pack.js"];
 
     app.load = function() {
 
@@ -18,13 +20,8 @@
 
         
 
-        return new Promise(function(resolve, reject) {
-            setTimeout(function() {
-                resolve(app);
-            }, 5000);
-        });
     };
     
 
-    portal.addApplication(app);
+    portal.add(app);
 }();

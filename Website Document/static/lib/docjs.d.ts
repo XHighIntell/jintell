@@ -10,7 +10,7 @@ type docObj =
 
         syntax: string,
         syntax_language: string,
-        icon: string,
+        icon: 'interface' | 'field' |'class',
         id: string,
         content: docObjContent
     } |

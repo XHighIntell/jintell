@@ -47,12 +47,12 @@ declare namespace Intell {
     type OnFunctionT<Target> = <K extends keyof WindowEventMap, T>(this: T, type: K, handler: (this: Target, ev: WindowEventMap[K]) => any, options?: boolean | AddEventListenerOptions) => T;
 
 
-    interface EventFunction<E = undefined> {
+    interface EventFunction<Argument1 = any, Argument2 = any> {
         /**Fire events.*/
-        <T, E>(this: T, arg: E): T;
+        <T, Argument1>(this: T, arg1: Argument1, arg2: Argument2): T;
 
         /**Adds event listener.*/
-        <T>(this: T, handler: (this: T, ev: E) => void): T;
+        <T>(this: T, handler: (this: T, arg1: Argument1, arg2: Argument2) => void): T;
     }
     interface EventFunctionT<E> {
         /**Fire events.*/
@@ -218,7 +218,9 @@ interface JQuery {
     /**Get the center coordinates of the first element in the set of matched elements, relative to the document.*/
     centerOffset(): JQuery.Coordinates;
 
-    clickoutside(hander: (this: HTMLElement) => any): this;
+    clickoutside(handler: (this: HTMLElement) => any): this;
+
+    mousedownoutside(handler: (this: HTMLElement) => any): this;
 }
 
 declare namespace Intell.Controls {

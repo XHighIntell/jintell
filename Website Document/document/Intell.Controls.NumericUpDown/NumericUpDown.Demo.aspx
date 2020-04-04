@@ -38,12 +38,16 @@
             <style>
                 .X-NumericUpDown.Light{display:inline-flex;border-color:#ccc}
                 .X-NumericUpDown.Light input{text-align:right;padding-right:4px;border:1px solid;border-color:inherit}
+                .X-NumericUpDown.Light input:focus{outline:none}
                 .X-NumericUpDown.Light .X-Numeric-Buttons{border:1px solid;border-color:inherit;border-left:none}
                 .X-NumericUpDown.Light .X-Numeric-Buttons .Button{display:flex;height:50%;align-items:center;padding:0 5px;cursor:pointer}
                 .X-NumericUpDown.Light .X-Numeric-Buttons .Button:hover{background:rgba(0,0,0,.1)}
                 .X-NumericUpDown.Light .X-Numeric-Buttons .Button:active{background:rgba(0,0,0,.2)}
                 .X-NumericUpDown.Light .X-Up::before{content:"";font-family:fontello}
                 .X-NumericUpDown.Light .X-Down::before{content:"";font-family:fontello}
+
+                .X-NumericUpDown.Light.ACTIVE{}
+                .X-NumericUpDown.Light.ACTIVE input{border-color:#0098ff}
             </style>
 
             <div id="control1" class="X-NumericUpDown Light">
@@ -92,13 +96,43 @@
             </div>
 
             <script>
-                var control2 = new intell.controls.NumericUpDown($('#control2'), { increment: 5, decimalPlaces: 2, max: 99.99, min: 0});
+                var control2 = new intell.controls.NumericUpDown($('#control2'), { increment: 5, decimalPlaces: 2, max: 99.99, min: 0 });
             </script>
         </div>
 
         <div class="item-code-block">
             <header>Source code</header>
             <code data-code-name="Example2"></code>    
+        </div>
+    </div>
+
+
+    <div class="example-template Content">
+        <div class="title">Dark Themes</div>
+        <div data-code-ref="Example3" style="padding:10px;background:linear-gradient(141deg, #355c5c 0%, #006874 51%, #114d64 75%)">
+            <style>
+
+               
+            </style>
+
+            <input id="control3" type="text" value="2.99" class="X-NumericUpDown Dark">
+
+            <div  class="X-NumericUpDown Dark">
+                
+                <div class="X-Numeric-Buttons">
+                    <div class="Button X-Up"></div>
+                    <div class="Button X-Down"></div>
+                </div>
+            </div>
+
+            <script>
+                var control3 = new intell.controls.NumericUpDown($('#control3'), { increment: 0, decimalPlaces: 2, max: 99.99, min: 0 });
+            </script>
+        </div>
+
+        <div class="item-code-block">
+            <header>Source code</header>
+            <code data-code-name="Example3"></code>
         </div>
     </div>
 </body>

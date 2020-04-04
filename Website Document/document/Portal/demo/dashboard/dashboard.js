@@ -1,17 +1,22 @@
 ﻿!function () {
     var app = new PortalApplication();
-    var mainfest = app.mainfest;
+    var manifest = app.manifest;
 
-    mainfest.name = "Dashboard";
-    mainfest.title = "Dashboard - Summary Report";
-    mainfest.icon = "dashboard/icon.svg";
-    mainfest.html = "dashboard/dashboard.html";
-    mainfest.js = ["/static/lib/highlight.pack.js"];
-    mainfest.pinned = true;
-    mainfest.startup = true;
+    manifest.id = "dashboard";
+    manifest.name = "Dashboard";
+    manifest.title = "Dashboard - Summary Report";
+    manifest.icon = "dashboard/icon.svg";
+    
+    manifest.content = {
+        html: "dashboard/dashboard.html",
+        js: ["/static/lib/highlight.pack.js"],
+    }
+    manifest.shortcut = true;
+    manifest.startup = true;
 
 
     app.load = function() {
+
 
         intell.get('portal.html').load(function() {
             var code_element = $(app.root).find('[data-file-name="demo.html"]>code')[0];
@@ -25,7 +30,8 @@
             hljs.highlightBlock(code_element);
         }).send();
 
+        
     }
 
-    portal.addApplication(app);    
+    portal.add(app);
 }();

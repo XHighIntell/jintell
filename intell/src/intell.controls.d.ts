@@ -263,10 +263,16 @@ declare namespace Intell.Controls {
 
     interface ComboBox {
 
+        /** The root element. */
         element: HTMLElement;
 
+        /** Gets the options element. */
+        optionsElement: HTMLElement;
+
+        /** Gets or sets selected index. */
         selectedIndex: number;
 
+        /** Gets the selected element. */
         selectedElement: HTMLElement;
 
         /** Gets or sets locations indicating where popup dropdown is displayed at. */
@@ -287,18 +293,27 @@ declare namespace Intell.Controls {
 }
 
 
+declare namespace Intell {
+    interface Controls {
+        hide(element: HTMLElement): void;
 
-type controls = {
-    Menu: Intell.Controls.MenuConstructor;
-    NumericUpDown: Intell.Controls.NumericUpDownConstructor;
-    Slideshow: Intell.Controls.SlideshowConstructor;
-    TagsInput: Intell.Controls.TagsInputConstructor;
-    TargetPopup: Intell.Controls.TargetPopupConstructor;
-    ComboBox: Intell.Controls.ComboBoxConstructor;
+        startHide(element: HTMLElement, timeout: number, delayHideClass: string, oncomplete: () => void): number;
+        stopHide(element: HTMLElement): void;
+
+        Menu: Intell.Controls.MenuConstructor;
+        NumericUpDown: Intell.Controls.NumericUpDownConstructor;
+        Slideshow: Intell.Controls.SlideshowConstructor;
+        TagsInput: Intell.Controls.TagsInputConstructor;
+        TargetPopup: Intell.Controls.TargetPopupConstructor;
+        ComboBox: Intell.Controls.ComboBoxConstructor;
+    }
+
 }
 
+
+
 interface intell {
-    controls: controls;
+    controls: Intell.Controls;
 }
 
 

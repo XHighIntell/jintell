@@ -1,5 +1,7 @@
 # intell Project
 intell/[Bb]in/
+intell/build/install.cmd
+intell/intellisense/jquery-3.3.1.min.js
 intell/output
 intell/bundleconfig.json
 intell/bundleconfig.json.bindings
@@ -20,4 +22,4 @@ Website Document - backend/[Bb]in
 *.user
 *.userosscache
 *.sln.docstates
-intell/intellisense/jquery-3.3.1.min.js
+

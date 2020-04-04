@@ -1,27 +1,23 @@
-﻿ssss = document.currentScript;
+﻿!function() {
+    var application = new PortalApplication();
+    var manifest = application.manifest;
 
+    manifest.id = "app_150s";
+    manifest.name = "Simulation Long Loading";
+    manifest.title = "Simulation 150s loading content";
+    manifest.description = "Simulation 150s loading content";
+    manifest.icon = "SimulationLongLoading/hourglass.svg";
+    manifest.content.html = "SimulationLongLoading/app.html";
 
-!function() {
-    var app = new PortalApplication();
-    var mainfest = app.mainfest;
-    
-    mainfest.name = "Simulation Long Loading";
-    mainfest.title ="Simulation 150s loading content";
-    mainfest.icon = "SimulationLongLoading/hourglass.svg";
-    mainfest.html = "SimulationLongLoading/app.html";
-
-    app.load = function() {
+    application.load = function() {
         return new Promise(function(resolve, reject) {
             setTimeout(function() {
-                resolve(app);
+                resolve(application);
             }, 150000);
         });
     }
     
 
-    portal.addApplication(app);
-
-    $(app.shortcut).addClass('app4')
-    
-    
+    portal.add(application);
+       
 }();

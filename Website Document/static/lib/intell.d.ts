@@ -1,4 +1,4 @@
-declare namespace Intell {
+﻿declare namespace Intell {
     interface Rectangle {
         x: number;
         y: number;
@@ -47,12 +47,12 @@ declare namespace Intell {
     type OnFunctionT<Target> = <K extends keyof WindowEventMap, T>(this: T, type: K, handler: (this: Target, ev: WindowEventMap[K]) => any, options?: boolean | AddEventListenerOptions) => T;
 
 
-    interface EventFunction<E = undefined> {
+    interface EventFunction<Argument1 = any, Argument2 = any> {
         /**Fire events.*/
-        <T, E>(this: T, arg: E): T;
+        <T>(this: T, arg1: Argument1, arg2: Argument2): T;
 
         /**Adds event listener.*/
-        <T>(this: T, handler: (this: T, ev: E) => void): T;
+        <T>(this: T, handler: (this: T, arg1: Argument1, arg2: Argument2) => void): T;
     }
     interface EventFunctionT<E> {
         /**Fire events.*/
@@ -182,7 +182,6 @@ interface intell {
      * @param search location.search.substr(1) */
     qs(search?: string): object;
 }
-interface intell2 extends intell { }
  
 declare var $$: intell;
 declare var intell: intell;
@@ -218,9 +217,10 @@ interface JQuery {
     /**Get the center coordinates of the first element in the set of matched elements, relative to the document.*/
     centerOffset(): JQuery.Coordinates;
 
-    clickoutside(hander: (this: HTMLElement) => any): this;
-}
+    clickoutside(handler: (this: HTMLElement) => any): this;
 
+    mousedownoutside(handler: (this: HTMLElement) => any): this;
+}﻿
 declare namespace Intell.Controls {
     // #regionMenu Controls
     type IMenuItem = { icon?: string; name: string; shortcut?: string, items?: IMenuItem[] };
@@ -485,10 +485,16 @@ declare namespace Intell.Controls {
 
     interface ComboBox {
 
+        /** The root element. */
         element: HTMLElement;
 
+        /** Gets the options element. */
+        optionsElement: HTMLElement;
+
+        /** Gets or sets selected index. */
         selectedIndex: number;
 
+        /** Gets the selected element. */
         selectedElement: HTMLElement;
 
         /** Gets or sets locations indicating where popup dropdown is displayed at. */
@@ -509,18 +515,27 @@ declare namespace Intell.Controls {
 }
 
 
+declare namespace Intell {
+    interface Controls {
+        hide(element: HTMLElement): void;
 
-type controls = {
-    Menu: Intell.Controls.MenuConstructor;
-    NumericUpDown: Intell.Controls.NumericUpDownConstructor;
-    Slideshow: Intell.Controls.SlideshowConstructor;
-    TagsInput: Intell.Controls.TagsInputConstructor;
-    TargetPopup: Intell.Controls.TargetPopupConstructor;
-    ComboBox: Intell.Controls.ComboBoxConstructor;
+        startHide(element: HTMLElement, timeout: number, delayHideClass: string, oncomplete: () => void): number;
+        stopHide(element: HTMLElement): void;
+
+        Menu: Intell.Controls.MenuConstructor;
+        NumericUpDown: Intell.Controls.NumericUpDownConstructor;
+        Slideshow: Intell.Controls.SlideshowConstructor;
+        TagsInput: Intell.Controls.TagsInputConstructor;
+        TargetPopup: Intell.Controls.TargetPopupConstructor;
+        ComboBox: Intell.Controls.ComboBoxConstructor;
+    }
+
 }
 
+
+
 interface intell {
-    controls: controls;
+    controls: Intell.Controls;
 }
 
 
