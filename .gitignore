@@ -1,6 +1,5 @@
 # intell Project
 intell/[Bb]in/
-intell/build/install.cmd
 intell/intellisense/jquery-3.3.1.min.js
 intell/output
 intell/bundleconfig.json

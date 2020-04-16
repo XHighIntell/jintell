@@ -13,49 +13,95 @@ body{display:flex;flex-direction:column;height:100%;margin:0;font-family:'Segoe 
 .topbar{display:flex;flex:0 0 auto;height:40px;background-color:#1c1c1c}
 .topbar-logo{margin-left:10px;padding:0 10px;font-size:20px;line-height:40px;color:#55b3ff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-decoration:none}
 
+/* Main Portal */
 .main-portal{display:flex;flex:1 1 auto;flex-flow:row nowrap;overflow:hidden}
-.main-portal .sidebar{display:flex;flex-direction:column;background:#252525;overflow:hidden;flex:0 0 220px}
-.main-portal .sidebar.collapsed{flex:0 0 60px}
-.main-portal .sidebar *:focus{outline:#00bcf2 dashed 1px;outline-offset:-1px}
-.main-portal .sidebar .sidebar-top{box-sizing:border-box;border-bottom:1px solid #444}
-.main-portal .sidebar .sidebar-top .collapse-button{display:flex;height:23px;align-items:center;justify-content:flex-end;padding-right:8px;color:#969696;letter-spacing:-2px;font-family:fontello;cursor:pointer}
-.main-portal .sidebar .sidebar-top .collapse-button:hover{background-color:#3d3d3d} 
-.main-portal .sidebar .sidebar-top .collapse-button:focus{outline:#00bcf2 dashed 1px;outline-offset:-1px}
-.main-portal .sidebar .sidebar-top .collapse-button::before{content:""}
-.main-portal .sidebar.collapsed .sidebar-top .collapse-button::before{content:""}
-
-.main-portal .sidebar-middle{flex:1 1 auto;overflow-y:auto}
-.main-portal .sidebar.collapsed .sidebar-middle{width:100px}
-.main-portal .sidebar-app{display:flex;min-height:40px;align-items:center;padding-left:18px;font-size:13px;cursor:pointer}
-.main-portal .sidebar-app:hover{background-color:rgba(255,255,255,.05)}
-.main-portal .sidebar-app:focus{outline:#00bcf2 dashed 1px;outline-offset:-1px}
-.main-portal .sidebar-app.ACTIVE{background:rgba(0,194,255,.15)}
+.main-portal>.Sidebar{display:flex;flex-direction:column;background:#252525;overflow:hidden;flex:0 0 220px}
+.main-portal>.Sidebar.collapsed{flex:0 0 60px}
+.main-portal>.Sidebar *:focus{outline:#00bcf2 dashed 1px;outline-offset:-1px}
+.main-portal>.Sidebar .Sidebar-Top{box-sizing:border-box;border-bottom:1px solid #444}
+.main-portal>.Sidebar .Sidebar-Top .collapse-button{display:flex;height:23px;align-items:center;justify-content:flex-end;padding-right:8px;color:#969696;letter-spacing:-2px;font-family:fontello;cursor:pointer}
+.main-portal>.Sidebar .Sidebar-Top .collapse-button:hover{background-color:#3d3d3d} 
+.main-portal>.Sidebar .Sidebar-Top .collapse-button:focus{outline:#00bcf2 dashed 1px;outline-offset:-1px}
+.main-portal>.Sidebar .Sidebar-Top .collapse-button::before{content:""}
 
 
+.main-portal>.Sidebar .Sidebar-Middle{flex:1 1 auto;overflow-y:auto}
+.main-portal>.Sidebar .Sidebar-Middle>.Group{}
+.main-portal>.Sidebar .Sidebar-Middle>.Group>header{display:flex;align-items:center;height:1em;margin:10px 0 4px;padding:0 10px}
+.main-portal>.Sidebar .Sidebar-Middle>.Group>header .Name{position:relative;color:#a5a5a5;font-size:11px;font-weight:500}
 
-.main-portal .sidebar-app>.icon{height:24px;flex:0 0 24px;background:center no-repeat}
-.main-portal .sidebar-app>.name{margin-left:10px;color:#fff;font-size:13px}
-.main-portal .sidebar.collapsed .sidebar-app>.name{display:none}
 
-.portal-content{position:relative;flex:1 1 100%;display:flex;overflow:auto}
-.portal-content>.Loading-Overlay{position:absolute;left:0;right:0;top:0;bottom:0;display:flex}
-.portal-content>.Loading-Overlay>.content{display:flex;flex-direction:column;align-items:center;max-width:500px}
-.portal-content>.Loading-Overlay>.content .Application-Name{font-size:1.3em;color:black;margin-bottom:5px}
-.portal-content>.Loading-Overlay>.content .Application-Description{color:rgba(0,0,0,.5)}
-.portal-content>.Loading-Overlay .Waiting-Box{position:absolute;height:5px;top:50%;overflow:hidden;left:0;right:0}
-.portal-content>.Loading-Overlay .Waiting-Box .cycle{position:absolute;left:-10px;width:5px;height:5px;background:#00abff;border-radius:1px;animation:5s wd infinite cubic-bezier(0,0.85,1,0.15)}
+.main-portal>.Sidebar .Sidebar-Middle .Sidebar-App{display:flex;min-height:40px;align-items:center;padding-left:18px;font-size:13px;cursor:pointer}
+.main-portal>.Sidebar .Sidebar-Middle .Sidebar-App:hover{background-color:rgba(255,255,255,.05)}
+.main-portal>.Sidebar .Sidebar-Middle .Sidebar-App:focus{outline:#00bcf2 dashed 1px;outline-offset:-1px}
+.main-portal>.Sidebar .Sidebar-Middle .Sidebar-App.ACTIVE{background:rgba(0,194,255,.15)}
+.main-portal>.Sidebar .Sidebar-Middle .Sidebar-App>.Icon{height:24px;flex:0 0 24px;background:center no-repeat}
+.main-portal>.Sidebar .Sidebar-Middle .Sidebar-App>.Name{margin-left:10px;color:#fff;font-size:13px}
+            
+
+.main-portal>.Sidebar.collapsed .Sidebar-Top .collapse-button::before{content:""}
+.main-portal>.Sidebar.collapsed .Sidebar-Middle{width:100px}
+.main-portal>.Sidebar.collapsed .Sidebar-Middle>.Group>header{display:flex;align-items:center;width:60px;box-sizing:border-box}
+.main-portal>.Sidebar.collapsed .Sidebar-Middle>.Group>header::before{content:"";flex:1 1;height:1px;background:#5b5b5b}
+.main-portal>.Sidebar.collapsed .Sidebar-Middle>.Group>header .Name{display:none}
+.main-portal>.Sidebar.collapsed .Sidebar-Middle .Sidebar-App>.Name{display:none}
+            
+.main-portal>.Portal-Content{position:relative;flex:1 1 100%;display:flex;overflow:auto}
+.main-portal>.Portal-Content>.Loading-Overlay{position:absolute;left:0;right:0;top:0;bottom:0;display:flex;opacity:0}
+.main-portal>.Portal-Content>.Loading-Overlay.ACTIVE{opacity:1;transition:opacity .5s .2s}
+.main-portal>.Portal-Content>.Loading-Overlay>.content{display:flex;flex-direction:column;align-items:center;max-width:500px}
+.main-portal>.Portal-Content>.Loading-Overlay>.content .Application-Name{font-size:1.3em;color:black;margin-bottom:5px}
+.main-portal>.Portal-Content>.Loading-Overlay>.content .Application-Description{color:rgba(0,0,0,.5)}
+.main-portal>.Portal-Content>.Loading-Overlay .Waiting-Box{position:absolute;height:5px;top:50%;overflow:hidden;left:0;right:0}
+.main-portal>.Portal-Content>.Loading-Overlay .Waiting-Box .cycle{position:absolute;left:-10px;width:5px;height:5px;background:#00abff;border-radius:1px;animation:5s wd infinite cubic-bezier(0,0.85,1,0.15)}
 @keyframes wd{0%{left:-10px}70%{left:100%}100%{left:100%}}
 
-.portal-content>.Error-Overlay{position:absolute;left:0;right:0;top:0;bottom:0;display:flex}
-.portal-content>.Error-Overlay .header{display:flex;align-items:center;margin-bottom:20px;border:1px solid grey;border-radius:4px;padding:10px;background:rgba(255,0,0,.06)}
-.portal-content>.Error-Overlay .header .Application-Name{font-size:1.3em;color:black}
-.portal-content>.Error-Overlay .header>.icon{padding-right:10px;font-size:32px;color:#e20000;text-shadow:black 0 0 3px}
-.portal-content>.Error-Overlay .Stack{white-space:pre-wrap;color:#ec0000}
-.portal-content>.Error-Overlay>div{display:flex;flex-direction:column;padding:10px}
+.main-portal>.Portal-Content>.Error-Overlay{position:absolute;left:0;right:0;top:0;bottom:0;display:flex}
+.main-portal>.Portal-Content>.Error-Overlay .header{display:flex;align-items:center;margin-bottom:20px;border:1px solid grey;border-radius:4px;padding:10px;background:rgba(255,0,0,.06)}
+.main-portal>.Portal-Content>.Error-Overlay .header .Application-Name{font-size:1.3em;color:black}
+.main-portal>.Portal-Content>.Error-Overlay .header>.icon{padding-right:10px;font-size:32px;color:#e20000;text-shadow:black 0 0 3px}
+.main-portal>.Portal-Content>.Error-Overlay .Stack{white-space:pre-wrap;color:#ec0000}
+.main-portal>.Portal-Content>.Error-Overlay>div{display:flex;flex-direction:column;padding:10px}
+.main-portal>.Portal-Content>*{min-width:100%}
+
+/* .Sub-Portal */
+.sub-portal{display:flex;flex:1 1 auto;flex-flow:row nowrap;overflow:hidden}
+.sub-portal .Sidebar{display:flex;flex-direction:column;overflow:hidden;flex:0 0 180px}
+.sub-portal .Sidebar.collapsed{flex:0 0 60px}
+.sub-portal .Sidebar *:focus{outline:#00bcf2 dashed 1px;outline-offset:-1px}
+.sub-portal .Sidebar .Sidebar-Top{box-sizing:border-box;border-bottom:1px solid #444}
+.sub-portal .Sidebar .Sidebar-Top .collapse-button{display:flex;height:23px;align-items:center;justify-content:flex-end;padding-right:8px;color:#969696;letter-spacing:-2px;font-family:fontello;cursor:pointer}
+.sub-portal .Sidebar .Sidebar-Top .collapse-button:hover{}
+.sub-portal .Sidebar .Sidebar-Top .collapse-button:focus{outline:#00bcf2 dashed 1px;outline-offset:-1px}
+.sub-portal .Sidebar .Sidebar-Top .collapse-button::before{content:""}
 
 
+.sub-portal .Sidebar .Sidebar-Middle{flex:1 1 auto;overflow-y:auto}
+.sub-portal .Sidebar .Sidebar-Middle .Sidebar-App{display:flex;align-items:center;padding:8px 10px;cursor:pointer}
+.sub-portal .Sidebar .Sidebar-Middle .Sidebar-App:hover{background-color:rgba(0,194,255,.15)}
+.sub-portal .Sidebar .Sidebar-Middle .Sidebar-App:focus{outline:#00bcf2 dashed 1px;outline-offset:-1px}
+.sub-portal .Sidebar .Sidebar-Middle .Sidebar-App.ACTIVE{background:rgba(0,194,255,.15)}
+.sub-portal .Sidebar .Sidebar-Middle .Sidebar-App>.Icon{height:18px;flex:0 0 18px;background:center no-repeat}
+.sub-portal .Sidebar .Sidebar-Middle .Sidebar-App>.Name{margin-left:10px}
 
-.portal-content>*{min-width:100%}
-/*
-.portal-content>*{flex:1 1 100%;display:table;min-height:100%;min-width:100%}
-*/
+.sub-portal .Sidebar.collapsed .Sidebar-Top .collapse-button::before{content:""}
+.sub-portal .Sidebar.collapsed .Sidebar-Middle{width:100px}
+.sub-portal .Sidebar.collapsed .Sidebar-Middle .Sidebar-App>.Name{display:none}
+
+.sub-portal .Portal-Content{position:relative;flex:1 1 100%;display:flex;overflow:auto}
+.sub-portal .Portal-Content>.Loading-Overlay{position:absolute;left:0;right:0;top:0;bottom:0;display:flex;opacity:0}
+.sub-portal .Portal-Content>.Loading-Overlay.ACTIVE{opacity:1;transition:opacity .5s 0.2s}
+.sub-portal .Portal-Content>.Loading-Overlay>.content{display:flex;flex-direction:column;align-items:center;max-width:500px}
+.sub-portal .Portal-Content>.Loading-Overlay>.content .Application-Name{font-size:1.3em;color:black;margin-bottom:5px}
+.sub-portal .Portal-Content>.Loading-Overlay>.content .Application-Description{color:rgba(0,0,0,.5)}
+.sub-portal .Portal-Content>.Loading-Overlay .Waiting-Box{position:absolute;height:5px;top:50%;overflow:hidden;left:0;right:0}
+.sub-portal .Portal-Content>.Loading-Overlay .Waiting-Box .cycle{position:absolute;left:-10px;width:5px;height:5px;background:#00abff;border-radius:1px;animation:5s wd infinite cubic-bezier(0,0.85,1,0.15)}
+@keyframes wd{0%{left:-10px}70%{left:100%}100%{left:100%}}
+
+.sub-portal .Portal-Content>.Error-Overlay{position:absolute;left:0;right:0;top:0;bottom:0;display:flex}
+.sub-portal .Portal-Content>.Error-Overlay .header{display:flex;align-items:center;margin-bottom:20px;border:1px solid grey;border-radius:4px;padding:10px;background:rgba(255,0,0,.06)}
+.sub-portal .Portal-Content>.Error-Overlay .header .Application-Name{font-size:1.3em;color:black}
+.sub-portal .Portal-Content>.Error-Overlay .header>.icon{padding-right:10px;font-size:32px;color:#e20000;text-shadow:black 0 0 3px}
+.sub-portal .Portal-Content>.Error-Overlay .Stack{white-space:pre-wrap;color:#ec0000}
+.sub-portal .Portal-Content>.Error-Overlay>div{display:flex;flex-direction:column;padding:10px}
+.sub-portal .Portal-Content>*{min-width:100%}

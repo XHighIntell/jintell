@@ -21,9 +21,9 @@ declare namespace Portal {
     
 
     interface Application {
-
         manifest: ApplicationManifest;
 
+        /** The root element of application. */
         root: HTMLElement;
 
         /** Gets the sidebar element. */
@@ -31,11 +31,13 @@ declare namespace Portal {
 
         /** The status of this application. "NONE" = 0, "LOADING" = 1, "LOADED" = 2, "FAIL" = 3 */
         status: "NONE" | "LOADING" | "LOADED" | "FAIL";
+
         error: Error;
 
-        load(): Promise<Application>;
-        onShow: Intell.EventFunction;
-        onHide: Intell.EventFunction;
+        load(): Promise<any>;
+
+        /** Occur when the portal opens this application. */
+        onopen: Intell.EventFunction;
     }
     interface ApplicationManifest {
 
@@ -57,8 +59,12 @@ declare namespace Portal {
         /** Pin this application to menu. The default is true. */
         shortcut: boolean;
 
+        /** The shortcut group */
+        group: string;
+
         /** Load the application immediately after add. The default is false. */
         startup: boolean;
+
 
         content: ApplicationManifestContent;
         
@@ -76,8 +82,11 @@ declare namespace Portal {
 
 
     interface Sidebar {
+        /** A collection of keyname of localStorage that allow sidebar to access. */
+        keys: { collapsed: "portal.sidebar.collapsed" };
 
-        /** Add a shortcut to sidebar from application. */
+
+        /** Add a shortcut to sidebar from application. This function doesn't check application already exist or not.*/
         add(application: Application): HTMLElement;
 
         /** Gets element from application */
@@ -91,6 +100,9 @@ declare namespace Portal {
 
         /** Sets an application to element. */
         setApplication(element: HTMLElement, application: Application): void;
+
+        enableCollapseStorage(key: string): void;
+        
     }
     interface Overlay {
         showLoading(application: Application): void;
@@ -119,17 +131,30 @@ interface Portal {
 
 
     // methods
+    /** Add an application to portal. */
     add(application: Portal.Application): void;
+    /** Add a manifest to portal. */
+    addManifest(manifest: Portal.ApplicationManifest, callback: ((application: Portal.Application) => void));
+    /** Open the first application that have manifest.startup equal true.  */
+    open(): void;
+    /** Open an application that added before. */
     open(application: Portal.Application): void;
+    /** Open an application specified by its id. If there are no match id open default applcation. */
+    open(applicationId: string): void;
+
+
     contains(application: Portal.Application): boolean;
 
-    /** Load all resources of an application. */
-    load(application: Portal.Application): Promise2<any, Error>;
-    /** Load a single javascript. Javascript will be ignored if url that have loaded before. */
-    loadJavascript(url: string): Promise2<any, Error>;
 
+    /** (private) Load all resources of an application. */
+    load(application: Portal.Application): Promise2<any, Error>;
+    /** (private) Load a single javascript. Javascript will be ignored if url that have loaded before. */
+    loadJavascript(url: string): Promise2<any, Error>;
+    /** (private) Load a single style sheet. Style sheet will be ignored if url that have loaded before. */
+    loadStyle(url: string): Promise2<any, Error>;
 
     // events
+    /** Occurs when the activeApplication property value changes. */
     onchange: Intell.EventFunction<Portal.PortalChangeEvent>;
 
 }
@@ -141,8 +166,8 @@ declare var Portal: {
     (element: HTMLElement): Portal;
 }
 declare var PortalApplication: {
-    new(element: HTMLElement): Portal.Application;
-    (element: HTMLElement): Portal.Application;
+    new(): Portal.Application;
+    (): Portal.Application;
 }
 
 

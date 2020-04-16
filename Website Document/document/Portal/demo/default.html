@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Portal - Demo</title>
+    <!-- 3 important scripts -->
+    <script src="/static/lib/jquery-3.3.1.min.js"></script>
+    <script src="/static/lib/intell.min.js"></script>
+    <script src="/static/lib/portal.js"></script>
+
+    <!-- 1 important style sheet -->
+    <link href="portal.css" rel="stylesheet" />
+
+    <!-- place resources, that share for all applications-->
+</head>
+<body>
+    <div class="topbar">
+        <a class="topbar-logo" href="/">Xortal demo</a>
+        <div class="spring"></div>
+    </div>
+
+
+    <div class="main-portal">
+        <div class="Sidebar">
+            <div class="Sidebar-Top">
+                <div class="collapse-button" tabindex="0"></div>
+            </div>
+            <div class="Sidebar-Middle"></div>
+        </div>
+        <main class="Portal-Content"></main>
+    </div>
+
+
+    <script>
+        var $portal = $('.main-portal');
+        var portal = window.portal = new Portal($portal[0]);
+
+        $(document).ready(function() {
+            portal.open();
+        })
+    </script>
+
+    <!-- List Application -->
+    <script src="dashboard/dashboard.js"></script>
+    <script src="simple-application/simple-application.js"></script>
+    <script src="simple-application2/simple-application.js"></script>
+    <script src="loading_5s/app.js"></script>
+    <script src="loading_150s/app.js"></script>
+    <!-- Add many applications as you want -->
+
+</body>
+</html>

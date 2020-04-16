@@ -51,8 +51,9 @@
             </div>
 
             <script>
-                var control1 = intell.controls.TagsInput($('#control1'), { value: ['Microsoft', 'Intel'] });
-
+                $(document).ready(function() {
+                    var control1 = intell.controls.TagsInput($('#control1'), { value: ['Microsoft', 'Intel'] });
+                })
             </script>
         </div>
 
@@ -74,15 +75,18 @@
                 .X-TagsInput.Dark input{min-width:100px;padding:5px 10px;font-size:100%;border:none;outline:none;background:transparent;color:#fff}
                 .X-TagsInput.Dark input::placeholder{}
 
-        
                 @keyframes TagsInput-Tag-Dark {from{}50%{background:#047ed2}to{}}
             </style>
+
             <div id="control2" class="X-TagsInput Dark">
                 <input type="text" placeholder="add a tag" size="1">
             </div>
 
             <script>
-                var control2 = intell.controls.TagsInput($('#control2'), { value: ['Microsoft', 'Intel'] });
+                $(document).ready(function() {
+                    var control2 = intell.controls.TagsInput($('#control2'), { value: ['Microsoft', 'Intel'] });
+                })
+                
 
             </script>
         </div>

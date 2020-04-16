@@ -115,10 +115,10 @@
                
             </style>
 
-            <input id="control3" type="text" value="2.99" class="X-NumericUpDown Dark">
+            
 
             <div  class="X-NumericUpDown Dark">
-                
+                <input id="control3" type="text" value="2.99" class="X-NumericUpDown Dark">
                 <div class="X-Numeric-Buttons">
                     <div class="Button X-Up"></div>
                     <div class="Button X-Down"></div>

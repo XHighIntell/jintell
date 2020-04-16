@@ -2,6 +2,6 @@
 
 call "environment.cmd"
 
-"%node%" "build.js" --mode "production" --output "output/production"
+node "build.js" --mode "production" --output "output/production"
 
 pause

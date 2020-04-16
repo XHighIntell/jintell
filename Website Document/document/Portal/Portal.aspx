@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head runat="server">
-    <title></title>
+    <title>Portal - Documents</title>
     <script src="/static/lib/jquery-3.3.1.min.js"></script>
     <script src="/static/lib/docjs.js"></script>
     <script src="/static/lib/highlight.pack.js"></script>

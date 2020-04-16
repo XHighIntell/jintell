@@ -1,0 +1,31 @@
+﻿<style>
+    #SampleApp{padding:30px}
+    #SampleApp code{padding-left:10px;white-space:pre}
+    
+</style>
+<div id="SampleApp">
+    <div></div>
+
+    <div class="item-code-block" data-file-name="example.js">
+        <header>addManifest</header>
+        <code class="hljs">
+!function() {
+    var manifest = {
+        id: "simple-application2",
+        name: "Example Application",
+        title: "A demo for simple Portal Application",
+        icon: "simple-application2/app.svg",
+        content: {
+            html: "simple-application2/simple-application.html",
+            js: ["/static/lib/highlight.pack.js"],
+            css: ["/static/css/hljs.css"]
+        }
+    }
+
+    portal.addManifest(manifest, function(application) {
+        // you can do heavy task here and return a Promise
+    });
+}();
+        </code>
+    </div>
+</div>

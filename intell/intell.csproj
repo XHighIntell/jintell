@@ -51,20 +51,18 @@
     <Content Include="src\intell.controls.js" />
     <Content Include="src\intell.js" />
     <Content Include="src\portal.js" />
-    <Content Include="src\Portal2.js" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="build\build.d.ts" />
     <TypeScriptCompile Include="src\intell.controls.d.ts" />
     <TypeScriptCompile Include="src\intell.d.ts" />
-    <TypeScriptCompile Include="src\portal2.d.ts" />
     <TypeScriptCompile Include="src\portal.d.ts" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="build\environment.cmd" />
     <None Include="build\build development to website.cmd" />
     <None Include="build\build development.cmd" />
     <None Include="build\build production.cmd" />
-    <None Include="build\build - base.cmd" />
     <None Include="build\build production to website.cmd" />
     <None Include="build\install.cmd" />
     <None Include="src\intell.intellisense.js.exclude" />

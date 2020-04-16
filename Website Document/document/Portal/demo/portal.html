@@ -6,7 +6,7 @@
     <!-- 3 important scripts -->
     <script src="/static/lib/jquery-3.3.1.min.js"></script>
     <script src="/static/lib/intell.min.js"></script>
-    <script src="/static/lib/portal.min.js"></script>
+    <script src="/static/lib/portal.js"></script>
 
     <!-- 1 important style sheet -->
     <link href="portal.css" rel="stylesheet" />
@@ -14,23 +14,34 @@
     <!-- place resources, that share for all applications-->
 </head>
 <body>
-
     <div class="topbar">
         <a class="topbar-logo" href="/">Xortal demo</a>
         <div class="spring"></div>
     </div>
+
+
     <div class="main-portal">
-        <div class="sidebar">
-            <div class="sidebar-top">
+        <div class="Sidebar">
+            <div class="Sidebar-Top">
                 <div class="collapse-button" tabindex="0"></div>
             </div>
-            <div class="sidebar-middle">
-                <div class="sidebar-app BASE-CONTROL" title="" tabindex="0">
-                    <i class="icon"></i><span class="name"></span>
+            <div class="Sidebar-Middle">
+                <!-- Portal give the best ways to customize ui -->
+                <div class="Group" data-group="Account">
+                    <header>
+                        <div class="Name">Account</div>
+                    </header>
+                    <div class="Apps"></div>
                 </div>
+
+                <div class="Sidebar-App abstract" tabindex="0">
+                    <i class="Icon"></i>
+                    <span class="Name"></span>
+                </div>
+                <!--  -->
             </div>
         </div>
-        <main class="portal-content">
+        <main class="Portal-Content">
             <div class="Loading-Overlay" style="display:none">
                 <i class="spring"></i>
                 <div class="content">
@@ -70,16 +81,48 @@
         </main>
     </div>
 
+
     <script>
-        var portal = window.portal = new Portal($('.main-portal')[0]);
+        var $portal = $('.main-portal');
+        var portal = window.portal = new Portal($portal[0]);
+
+        $(document).ready(function() {
+            /* Allow portal to load/save collapsed key on localStorage */
+            portal.sidebar.enableCollapseStorage('portal.sidebar.collapsed');
+            
+
+            /* add a listener to customize url for current state of portal. */
+            portal.onchange(function(e) {
+                var qs = intell.qs();
+
+                if (qs.application && qs.application.split('/')[0] == e.newApplication.manifest.id)
+                    return;
+
+                qs.application = e.newApplication.manifest.id;
+
+                var names = Object.getOwnPropertyNames(qs);
+                var url = '?' + names.map(function(name) {
+                    return name + '=' + qs[name];
+                }).join('&') + location.hash;
+
+                history.replaceState(null, document.title, url);
+            });
+
+            var applicationId = intell.qs().application;
+            if (applicationId) applicationId = applicationId.split('/')[0];
+
+            
+            portal.open(applicationId);
+        })
     </script>
 
     <!-- List Application -->
     <script src="dashboard/dashboard.js"></script>
-    <script src="ExampleApplication/example.js"></script>
-    <script src="Simulation5s/Simulation5s.js"></script>
-    <script src="SimulationLongLoading/app.js"></script>
-
+    <script src="simple-application/simple-application.js"></script>
+    <script src="simple-application2/simple-application.js"></script>
+    <script src="loading_5s/app.js"></script>
+    <script src="loading_150s/app.js"></script>
+    <script src="sub-portal/sub-portal.js"></script>
     <!-- Add many applications as you can -->
 
 </body>

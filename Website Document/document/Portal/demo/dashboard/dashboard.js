@@ -2,6 +2,8 @@
     var app = new PortalApplication();
     var manifest = app.manifest;
 
+    console.log(document.currentScript);
+
     manifest.id = "dashboard";
     manifest.name = "Dashboard";
     manifest.title = "Dashboard - Summary Report";
@@ -10,6 +12,7 @@
     manifest.content = {
         html: "dashboard/dashboard.html",
         js: ["/static/lib/highlight.pack.js"],
+        css: ["/static/css/hljs.css"],
     }
     manifest.shortcut = true;
     manifest.startup = true;
@@ -18,7 +21,7 @@
     app.load = function() {
 
 
-        intell.get('portal.html').load(function() {
+        intell.get(location.pathname).load(function() {
             var code_element = $(app.root).find('[data-file-name="demo.html"]>code')[0];
             code_element.textContent = this.responseText;
             hljs.highlightBlock(code_element);

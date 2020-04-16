@@ -57,10 +57,50 @@ o.push({
                     ]
                 },
                 {
+                    name: 'addManifest', icon: 'method', content: [
+                        '<h4>Add a manifest to portal.</h4>',
+                        {
+                            _: 'overloads', overloads: [
+                                {
+                                    syntax: 'add(manifest: ApplicationManifest, callback: (application: Application) => void): void', syntax_language: 'typescript', content: [
+                                        '<h4>Add an application to portal.</h4>',
+                                        '<h2>Parameters</h2>',
+                                        { _: 'parameter', name: 'manifest', type: 'ApplicationManifest', type_ref: '#ApplicationManifest', content: 'A manifest of application to add to the portal.' },
+                                        {
+                                            _: 'parameter', name: 'callback', type: 'function', content: [
+                                                '<h4>Callback will occours when application open.</h4>',
+                                                {
+                                                    _: 'item-members', content: [
+                                                        { _: 'parameter', name: 'application', icon: 'field', type: 'Application', type_ref: '#Application', content: 'The fully load application.' },
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        '<h2>Remark</h2>',
+                        '<h4>The <mark>callback</mark> will called after loads javascript, html, css.</h4>',
+                        '<h4><mark>AddManifest</mark> is another way of adding an application to portal. Adding via addManifest is readable and reasonable in some situations.</h4>',
+                        {
+                            _: 'list', content: [
+                                'The application completed loading before return in callback, <mark>root</mark> element is ready to use. Some people found declaring varible with empty then set it again in <mark>Application.load</mark> when <mark>root</mark> ready is clunky .',
+                                'Intellisense in Typescript'
+                            ]
+                        }
+                    ]
+                },
+                {
                     name: 'open', icon: 'method', content: [
                         '<h4>Open an application that added before.</h4>',
                         {
                             _: 'overloads', overloads: [
+                                {
+                                    syntax: 'function open(): void', content: [
+                                        '<h4>Open the first application that have <mark>manifest.startup</mark> equal true.</h4>'
+                                    ]
+                                },
                                 {
                                     syntax: 'function open(application: Application): void', content: [
                                         '<h4>Open an application that added before.</h4>',
@@ -68,10 +108,19 @@ o.push({
                                         { _: 'parameter', name: 'application', type: 'Application', type_ref: '#Application', content: 'The application to open.' }
 
                                     ]
+                                },
+                                {
+                                    syntax: 'function open(applicationId: string): void', content: [
+                                        '<h4>Open an application specified by its <mark>manifest.id</mark>. If there are no match with id, portal will open default applcation.</h4>',
+                                        '<h2>Parameters</h2>',
+                                        { _: 'parameter', name: 'applicationId', type: 'string', content: 'The application <mark>manifest.id</mark>.' }
+
+                                    ]
                                 }
                             ]
                         },
                         '<h2>Remark</h2>',
+                        '<h4>Poral gives the best customize for development, we control starting portal manually when ready.</h4>',
                         'see <mark>application.load</mark>.'
                     ]
                 },
@@ -84,14 +133,16 @@ o.push({
                                     syntax: 'function load(application: Application): Promise2&lt;any, Error&gt;', content: [
                                         '<h4>Load all resources of an application.</h4>',
                                         '<h2>Parameters</h2>',
-                                        { _: 'parameter', name: 'application', type: 'Application', type_ref: '#Application', content: 'The application to open.' }
-
+                                        { _: 'parameter', name: 'application', type: 'Application', type_ref: '#Application', content: 'The application to open.' },
+                                        '<h2>Return</h2>',
+                                        { _: 'parameter', type: 'Promise2&lt;any, Error&gt;', content: "Return <mark>Promise</mark> of async loading content." },
                                     ]
                                 }
                             ]
                         },
+                        
                         '<h2>Remark</h2>',
-                        'Load will create a chain promise for load html, js (content of manifest) and application.load.',
+                        'Load will create a chain promise for load html, js, css (content of manifest) and application.load.',
                         '<h4>Throw "Application is already loaded" if call more than one time.</h4>',
                         '<h4>This is private function of portal.</h4>'
                     ]
@@ -116,8 +167,6 @@ o.push({
                         '<h4>This is private function of portal.</h4>'
                     ]
                 },
-
-
                 {
                     _: 'default', name: 'onchange', icon: 'event', content: [
                         '<h4>Occurs when the activeApplication property value changes.</h4>',
@@ -191,15 +240,15 @@ o.push({
                             }
                         },
                         '<h2>Remarks</h2>',
-                        'When code reach <mark>load</mark> Portal loaded <mark>manifest.html</mark> and <mark>manifest.js</mark>, so you can use <mark>root</mark> or call function of library in <mark>manifest.js</mark>'
+                        'When code reach <mark>load</mark> Portal loaded <mark>manifest.content.html</mark> and <mark>manifest.content.js</mark>, so you can use <mark>root</mark> or call function of library in <mark>manifest.content.js</mark>'
                     ]
                 },
 
                 {
-                    name: 'onShow', icon: 'event', content: [
+                    name: 'onopen', icon: 'event', content: [
                         '<h4>Occur when the application show.</h4>',
 
-                        { _: 'code-block', language: 'typescript', code: 'onShow(handler: (this: Application) => void): Application' },
+                        { _: 'code-block', language: 'typescript', code: 'onopen(handler: (this: Application) => void): Application' },
 
                         '<h2>Parameters</h2>',
                         {
@@ -218,7 +267,10 @@ o.push({
                             _: 'parameter', type: 'Application', content: [
                                 'Return this application.',
                             ]
-                        }
+                        },
+
+                        '<h2>Remark</h2>',
+                        '<h4><mark>onopen</mark> occur for every time application open.</h4>'
                     ]
                 },
                 {
@@ -284,6 +336,8 @@ o.push({
 
 //Interfaces
 o.push('<h3>Interfaces</h3>');
+
+//ApplicationManifest
 o.push({
     id: 'ApplicationManifest', syntax: 'interface ApplicationManifest { }', icon: 'interface', content: [
         '<h4>Manifest of application.</h4>',
@@ -295,6 +349,7 @@ o.push({
                 { _: 'sproperty', name: 'title', icon: 'field', type: 'string', content: 'A short description of the application.' },
                 { _: 'sproperty', name: 'icon', icon: 'field', type: 'string', content: 'Url to icon/image of the application.' },
                 { _: 'sproperty', name: 'shortcut', icon: 'field', type: 'boolean', default: 'true', content: 'Pin this application to menu.' },
+                { _: 'sproperty', name: 'group', icon: 'field', type: 'string', default: '', content: 'The group name of shortcut element.' },
                 { _: 'sproperty', name: 'startup', icon: 'field', type: 'boolean', default: 'false', content: 'Load the application immediately after add.' },
                 { _: 'property', name: 'content', icon: 'field', type: 'ApplicationManifestContent', type_ref: '#ApplicationManifestContent', content: 'The manifest content of application.' },
             ]
@@ -302,6 +357,7 @@ o.push({
     ]
 });
 
+//ApplicationManifestContent
 o.push({
     id: 'ApplicationManifestContent', syntax: 'interface ApplicationManifestContent { }', icon: 'interface', content: [
         '<h4>Manifest content of application.</h4>',
