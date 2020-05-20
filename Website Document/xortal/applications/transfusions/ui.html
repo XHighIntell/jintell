@@ -1,0 +1,64 @@
+﻿<style>
+    #Transfusions{padding:15px}
+   
+    #Transfusions>.feature{}
+    #Transfusions>.feature>header{}
+    #Transfusions>.feature>header>.title{font-size:1.5em}
+    #Transfusions>.feature>header>.description{color:red}
+    
+    #Transfusions>.Text-Transfusion{}
+    #Transfusions>.Text-Transfusion>textarea{width:100%;min-height:200px;resize:vertical;box-sizing:border-box}
+    
+
+    #Transfusions .File-Transfusion .file-table{border-collapse:collapse}
+    #Transfusions .File-Transfusion .file-table thead{}
+    #Transfusions .File-Transfusion .file-table thead>tr{background:#e5e5e5}
+    #Transfusions .File-Transfusion .file-table thead>tr>td{padding:4px}
+    #Transfusions .File-Transfusion .file-table tbody{}
+    #Transfusions .File-Transfusion .file-table tbody>tr{}
+    #Transfusions .File-Transfusion .file-table tbody>tr:hover{background:rgba(0,174,255,.4)}
+    #Transfusions .File-Transfusion .file-table tbody>tr>td{padding:10px 4px}
+    
+</style>
+<div id="Transfusions">
+    <div class="Text-Transfusion feature">
+        <header>
+            <div class="title">Text</div>
+            <div class="description">Save a string with limit upto 1mb.</div>
+        </header>
+        
+        <textarea></textarea>
+    </div>
+    <div class="File-Transfusion feature">
+        <header>
+            <div class="title">File</div>
+            <div class="description">Upload files to server with limit upto 5mb per file.</div>
+        </header>
+        
+
+        <table class="file-table">
+            <thead>
+                <tr>
+                    <td class="name" style="width:70%">Name</td>
+                    <td class="date">Date</td>
+                    <td class="size">Size</td>
+                </tr>
+            </thead>
+            <tbody class="files">
+                <tr class="file abstract">
+                    <td class="name">iis.exe</td>
+                    <td class="date">5/15/2020 9:32</td>
+                    <td class="size">1.4mb</td>
+                </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+    
+</div>
+
+
+
+
+

@@ -56,6 +56,9 @@ declare namespace Portal {
         /** Url to icon/image of the application. */
         icon: string;
 
+        /** Display a text as icon/image of the application. */
+        iconText: string;
+
         /** Pin this application to menu. The default is true. */
         shortcut: boolean;
 
@@ -134,7 +137,7 @@ interface Portal {
     /** Add an application to portal. */
     add(application: Portal.Application): void;
     /** Add a manifest to portal. */
-    addManifest(manifest: Portal.ApplicationManifest, callback: ((application: Portal.Application) => void));
+    addManifest(manifest: Portal.ApplicationManifest, callback: ((application: Portal.Application) => void)): Portal.Application;
     /** Open the first application that have manifest.startup equal true.  */
     open(): void;
     /** Open an application that added before. */

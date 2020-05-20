@@ -62,7 +62,7 @@ o.push({
                         {
                             _: 'overloads', overloads: [
                                 {
-                                    syntax: 'add(manifest: ApplicationManifest, callback: (application: Application) => void): void', syntax_language: 'typescript', content: [
+                                    syntax: 'add(manifest: ApplicationManifest, callback: (application: Application) => void): Application', syntax_language: 'typescript', content: [
                                         '<h4>Add an application to portal.</h4>',
                                         '<h2>Parameters</h2>',
                                         { _: 'parameter', name: 'manifest', type: 'ApplicationManifest', type_ref: '#ApplicationManifest', content: 'A manifest of application to add to the portal.' },
@@ -72,16 +72,20 @@ o.push({
                                                 {
                                                     _: 'item-members', content: [
                                                         { _: 'parameter', name: 'application', icon: 'field', type: 'Application', type_ref: '#Application', content: 'The fully load application.' },
+                                                        '<h2>Return</h2>',
+                                                        { _: 'parameter', type: 'void | Promise', content: "Return Promise for async run or undefined if application don't have any tasks to complete." },
                                                     ]
                                                 }
                                             ]
-                                        }
+                                        },
+                                        '<h2>Return</h2>',
+                                        { _: 'parameter', type: 'Application', type_ref: "#Application", content: "Return application." },
                                     ]
                                 }
                             ]
                         },
                         '<h2>Remark</h2>',
-                        '<h4>The <mark>callback</mark> will called after loads javascript, html, css.</h4>',
+                        '<h4>The <mark>callback</mark> will called after load javascript, html, css.</h4>',
                         '<h4><mark>AddManifest</mark> is another way of adding an application to portal. Adding via addManifest is readable and reasonable in some situations.</h4>',
                         {
                             _: 'list', content: [
@@ -348,6 +352,7 @@ o.push({
                 { _: 'sproperty', name: 'description', icon: 'field', type: 'string', content: 'A plain text string (no HTML or other formatting) that describes the application while loading.' },
                 { _: 'sproperty', name: 'title', icon: 'field', type: 'string', content: 'A short description of the application.' },
                 { _: 'sproperty', name: 'icon', icon: 'field', type: 'string', content: 'Url to icon/image of the application.' },
+                { _: 'sproperty', name: 'iconText', icon: 'field', type: 'string', content: 'Display a text as icon/image of the application. It is useful for icon font.' },
                 { _: 'sproperty', name: 'shortcut', icon: 'field', type: 'boolean', default: 'true', content: 'Pin this application to menu.' },
                 { _: 'sproperty', name: 'group', icon: 'field', type: 'string', default: '', content: 'The group name of shortcut element.' },
                 { _: 'sproperty', name: 'startup', icon: 'field', type: 'boolean', default: 'false', content: 'Load the application immediately after add.' },

@@ -1,1 +1,1 @@
-﻿<%@ Application Inherits="Intell.Document.ApplicationModule" Language="C#" %>
+﻿<%@ Application Inherits="Jintell.ApplicationModule" Language="C#" %>

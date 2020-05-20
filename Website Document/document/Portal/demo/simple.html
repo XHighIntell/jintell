@@ -9,9 +9,16 @@
     <script src="/static/lib/portal.js"></script>
 
     <!-- 1 important style sheet -->
-    <link href="portal.css" rel="stylesheet" />
+    <link href="/static/css/portal.css" rel="stylesheet" />
 
     <!-- place resources, that share for all applications-->
+    <style>
+        html{height:100%}
+        body{display:flex;flex-direction:column;height:100%;margin:0;font-family:'Segoe UI';font-size:16px;background-color:#fff}
+
+        .topbar{display:flex;flex:0 0 auto;height:40px;background-color:#1c1c1c}
+        .topbar-logo{margin-left:10px;padding:0 10px;font-size:20px;line-height:40px;color:#55b3ff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-decoration:none}
+    </style>
 </head>
 <body>
     <div class="topbar">
@@ -20,19 +27,17 @@
     </div>
 
 
-    <div class="main-portal">
+    <div class="X-Portal">
         <div class="Sidebar">
             <div class="Sidebar-Top">
-                <div class="collapse-button" tabindex="0"></div>
-            </div>
-            <div class="Sidebar-Middle"></div>
+                <div class="Collapse-Button" tabindex="0"></div>
+            </div>    
         </div>
-        <main class="Portal-Content"></main>
     </div>
 
 
     <script>
-        var $portal = $('.main-portal');
+        var $portal = $('.X-Portal');
         var portal = window.portal = new Portal($portal[0]);
 
         $(document).ready(function() {

@@ -69,7 +69,7 @@
             <div class="name">Layouts</div>
             <div class="list">
                 <div class="item">
-                    <a class="link" href="Portal">Portal</a> - <a class="link" href="document/Portal/demo/default.html">demo</a> - <a class="link" href="document/Portal/demo/portal.html">customize</a>
+                    <a class="link" href="Portal">Portal</a> - <a class="link" href="document/Portal/demo/portal.html">demo</a> - <a class="link" href="document/Portal/demo/simple.html">simple demo</a>
                 </div>
             </div>
         </div>

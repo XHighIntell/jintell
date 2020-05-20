@@ -5,30 +5,40 @@
 'use strict';
 
 window.Portal = function(element) {
+
+    if (element == null) throw new Error("Failed to construct 'Portal': element can't be null.");
+
     /** @type Portal */
     var portal = this;
     var $portal = $(element);
     var $portalContent = $portal.find('.Portal-Content'); // .Portal-Content
-    
+
+    if ($portalContent.length == 0) $portalContent = $('<main class="Portal-Content"></main>').appendTo($portal);
+
     portal.sidebar = new function() {
         /** @type Portal.Sidebar */
+        var shortcutClass = 'Shortcut';
+
         var sidebar = this;
         var $sidebar = $portal.find('.Sidebar');
         var $sidebarTop = $sidebar.find('.Sidebar-Top');
         var $sidebarMiddle = $sidebar.find('.Sidebar-Middle');
-        var $sidebarAppAbstract = $sidebarMiddle.find('.Sidebar-App.abstract').removeClass('abstract').remove();
+        var $sidebarAppAbstract = $sidebarMiddle.find('.' + shortcutClass +'.abstract').removeClass('abstract').remove();
         var $groupAbstract = $sidebarMiddle.find('.Group.abstract').removeClass('abstract').remove();
 
+        if ($sidebar.length == 0) $sidebar = $('<div class="Sidebar"></div>').insertBefore($portalContent);
+        if ($sidebarTop.length == 0) { }
+        if ($sidebarMiddle.length == 0) $sidebarMiddle = $('<div class="Sidebar-Middle"></div>').appendTo($sidebar);
         if ($sidebarAppAbstract.length == 0) $sidebarAppAbstract =
-$(`<div class="Sidebar-App abstract" title="" tabindex="0">
+$(`<div class="Shortcut" title="" tabindex="0">
     <i class="Icon"></i>
     <span class="Name"></span>
 </div>`);
 
         if ($groupAbstract.length == 0) $groupAbstract =
-$(`<div class="Group" data-group="Account">
+$(`<div class="Group" data-group="">
     <header>
-        <div class="Name">Account</div>
+        <div class="Name"></div>
     </header>
     <div class="Apps">
                         
@@ -46,6 +56,8 @@ $(`<div class="Group" data-group="Account">
 
             $element.attr('title', manifest.title);
             if (manifest.icon) $element.find('.Icon').css('background-image', 'url("' + manifest.icon + '")');
+            else if (manifest.iconText) $element.find('.Icon').html(manifest.iconText);
+
             $element.find('.Name').html(manifest.name);
 
             sidebar.setApplication(element, application);
@@ -95,7 +107,7 @@ $(`<div class="Group" data-group="Account">
             return element;
         }
         sidebar.get = function(application) {
-            return $sidebarMiddle.find('.Sidebar-App').toArray().find(function(value) {
+            return $sidebarMiddle.find('.' + shortcutClass).toArray().find(function(value) {
                 return sidebar.getApplication(value) == application;
             });
         }
@@ -104,7 +116,7 @@ $(`<div class="Group" data-group="Account">
 
             if (element == null) return;
 
-            $sidebarMiddle.find('.Sidebar-App').each(function() {
+            $sidebarMiddle.find('.' + shortcutClass).each(function() {
                 if (this == element) 
                     $(this).addClass('ACTIVE')
                 else
@@ -121,17 +133,17 @@ $(`<div class="Group" data-group="Account">
             sidebar.keys.collapsed = key;
 
             if (sidebar.keys.collapsed) {
-                if (localStorage.getItem(key) == "true") $sidebar.addClass('collapsed');
+                if (localStorage.getItem(key) == "true") $sidebar.addClass('COLLAPSED');
             }
         }
 
         // handle events
-        $sidebarTop.find('.collapse-button:first').click(function() {
-            var collapsed = $sidebar.toggleClass('collapsed').is('.collapsed');
+        $sidebarTop.find('.Collapse-Button:first').click(function() {
+            var collapsed = $sidebar.toggleClass('COLLAPSED').is('.COLLAPSED');
 
             if (sidebar.keys.collapsed) localStorage.setItem(sidebar.keys.collapsed, collapsed);
         });
-        $sidebarMiddle.on('click', '.Sidebar-App', function() {
+        $sidebarMiddle.on('click', '.' + shortcutClass, function() {
             var application = sidebar.getApplication(this);
             if (application) {
                 portal.open(application);
@@ -186,7 +198,7 @@ $(`<div class="Group" data-group="Account">
     </div>
                 
     <i class="spring"></i>
-    <div class="Waiting-Box">
+    <div class="waiting-box">
         <div class="cycle"></div>
         <div class="cycle" style="animation-delay:.15s"></div>
         <div class="cycle" style="animation-delay:.3s"></div>
@@ -268,6 +280,7 @@ $(`<div class="Group" data-group="Account">
         if (manifest.description != null) application.manifest.description = manifest.description;
         if (manifest.title != null) application.manifest.title = manifest.title;
         if (manifest.icon != null) application.manifest.icon = manifest.icon;
+        if (manifest.iconText != null) application.manifest.iconText = manifest.iconText;
         if (manifest.shortcut != null) application.manifest.shortcut = manifest.shortcut;
         if (manifest.group != null) application.manifest.group = manifest.group;
         if (manifest.startup != null) application.manifest.startup = manifest.startup;
@@ -281,6 +294,8 @@ $(`<div class="Group" data-group="Account">
         application.load = function() { return callback(application) }
 
         portal.add(application);
+
+        return application;
     }
     portal.open = function(application) {
 
@@ -331,7 +346,29 @@ $(`<div class="Group" data-group="Account">
                 // --2--
                 portal.load(application).then(function() {
 
-                    $portalContent.append(application.root);
+                    // we can't simply append root use jquery:
+                    // ================================
+                    $portalContent.append(application.root)
+                    // =================================
+                    // [Deprecation] Synchronous XMLHttpRequest on the main thread is deprecated 
+                    // because of its detrimental effects to the end user's experience. 
+                    // For more help, check https://xhr.spec.whatwg.org/.
+
+                    // we have to appendChild via native javascript
+                    // then find all script tag and clone them insertAfter the real one
+                    // ================================
+                    // $portalContent[0].appendChild(application.root);
+                    // $(application.root).find('script').each(function() {
+                    //     var script = document.createElement('script');
+                    //     script.src = this.src;
+                    //     script.type = this.type;
+                    // 
+                    //     this.parentElement.insertBefore(script, this.nextSibling);
+                    //     $(this).remove();
+                    // })
+                    // ========================
+
+
 
                     if (activeApplication == application) {
                         overlay.hide();
@@ -557,6 +594,7 @@ window.PortalApplication = function(element) {
     application.manifest = {
         id: "",
         icon: "",
+        iconText: "",
         name: "",
         title: "",
         description: "",
