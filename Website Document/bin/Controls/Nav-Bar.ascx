@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Nav-Bar.ascx.cs" Inherits="WebUserControl" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" %>
 
 <div class="navbar-container">
     <div class="navbar Content">

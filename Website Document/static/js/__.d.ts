@@ -42,17 +42,39 @@ declare namespace __.Api.Xortal {
 
 declare namespace __.Api.Xortal.Transfusions {
     interface Namespace {
-        get_all_file(): ApiPromise<GetAllFileResponse>;
+
+        get_text(): ApiPromise<GetTextResponse>;
+        set_text(text: string): ApiPromise;
+
+        get_files(path: string): ApiPromise<GetFilesResponse>;
+        get_folders(path: string): ApiPromise<GetFoldersResponse>;
+        upload_files(path: string, files: File[]): ApiPromise<GetFoldersResponse>;
+        download(path: string): void;
+        delete(path: string): ApiPromise<DeleteResponse>;
+
+        // not api
+        getDownloadURL(path: string): string;
     }
 
     interface FileDetail {
+        path: string;
         name: string;
         date: string;
         size: number;
     }
 
-    interface GetAllFileResponse extends SuccessReponse {
+    interface GetTextResponse extends SuccessReponse {
+        text: string;
+    }
+
+    interface GetFilesResponse extends SuccessReponse {
         files: FileDetail[];
+    }
+    interface GetFoldersResponse extends SuccessReponse {
+        folders: FileDetail[];
+    }
+    interface DeleteResponse extends SuccessReponse {
+        
     }
 }
 

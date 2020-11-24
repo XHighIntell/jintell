@@ -51,7 +51,7 @@
             </style>
 
             <div id="control1" class="X-NumericUpDown Light">
-                <input type="text" value="2.99">
+                <input type="text">
                 <div class="X-Numeric-Buttons">
                     <div class="Button X-Up"></div>
                     <div class="Button X-Down"></div>
@@ -59,7 +59,9 @@
             </div>
 
             <script>
-                var control1 = new intell.controls.NumericUpDown($('#control1'), { increment: 5, decimalPlaces: 2, max: 99.99, min: 0});
+                var control1 = new intell.controls.NumericUpDown($('#control1'), {
+                    increment: 5, decimalPlaces: 2, max: 99.99, min: 2
+                });
             </script>
         </div>
 

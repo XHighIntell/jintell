@@ -78,7 +78,11 @@
                     var location = popup1.previousSolution.location;
                     
 
+                    var $arrow = popup1.$element.find('>.X-Arrow');
+                    intell.controls.Menu.SetArrowDirection($arrow[0], location, $(this).centerOffset());
+                    //intell.controls.Menu.SetArrowDirectionAuto($arrow[0], $(this).centerOffset());
 
+                    return;
                     var $arrow = popup1.$element.find('>.X-Arrow').removeClass('LEFT UP RIGHT DOWN').css({ left: '', top: '' });
                     var centerOffset = $(this).centerOffset();
                     centerOffset.left -= $arrow.outerWidth() / 2;

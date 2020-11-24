@@ -49,7 +49,18 @@
     <Content Include="build\build.js" />
     <Content Include="intellisense\jquery-3.3.1.min.js" />
     <Content Include="src\intell.controls.js" />
+    <TypeScriptCompile Include="src\intell.controls\ListView.d.ts" />
+    <TypeScriptCompile Include="src\intell.controls\Menu2.d.ts" />
+    <TypeScriptCompile Include="src\intell.controls\Waiting.d.ts" />
+    <TypeScriptCompile Include="src\intell.controls\Menu.d.ts" />
+    <Content Include="src\intell.controls\ListView.js" />
+    <Content Include="src\intell.controls\Menu2.js" />
+    <Content Include="src\intell.controls\Waiting.js" />
+    <Content Include="src\intell.controls\Menu.js" />
+    <Content Include="src\intell.controls\TreeView.js" />
+    <TypeScriptCompile Include="src\intell.controls\TreeView.d.ts" />
     <Content Include="src\intell.js" />
+    <Content Include="src\____.js" />
     <Content Include="src\portal.js" />
   </ItemGroup>
   <ItemGroup>
@@ -65,7 +76,6 @@
     <None Include="build\build production.cmd" />
     <None Include="build\build production to website.cmd" />
     <None Include="build\install.cmd" />
-    <None Include="src\intell.intellisense.js.exclude" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

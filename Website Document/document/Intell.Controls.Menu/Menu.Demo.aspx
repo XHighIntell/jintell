@@ -70,7 +70,9 @@
             
                 <!-- Menu File -->
                 <div class="X-Menu VS2017" id="menu1">
-                    <div class="Label"><div class="Name">File</div></div>
+                    <div class="Label">
+                        <div class="Name">File</div>
+                    </div>
                     <div class="X-Menu-Items">
                         <div class="X-Menu-Item">
                             <div class="Label">
@@ -126,8 +128,7 @@
                         </div>
                     </div>
                 </div>
-
-                
+   
             </div>
 
             <script>
@@ -214,6 +215,22 @@
                                 </div>
                                 <div class="X-Menu-Item">
                                     <div class="Label"><div class="Icon"></div><div class="Name">Video…</div></div>
+                                </div>
+                            </div>
+                        
+                        </div>
+                        <div class="X-Menu-Item">
+                            <div class="Label">
+                                <div class="Icon"></div>
+                                <div class="Name">Open</div>
+                                <div class="Arrow"></div>
+                            </div>
+                            <div class="X-Menu-Items">
+                                <div class="X-Menu-Item">
+                                    <div class="Label"><div class="Icon"></div><div class="Name">File…</div></div>
+                                </div>
+                                <div class="X-Menu-Item">
+                                    <div class="Label"><div class="Icon"></div><div class="Name">Folder…</div></div>
                                 </div>
                             </div>
                         
@@ -323,6 +340,92 @@
             <code data-code-name="Example3"></code>    
         </div>
     </div>
+
+    <div id="example4" class="example-template Content">
+        <div class="title">ContextMenu</div>
+
+        <div data-code-ref="Example4">
+            <style>
+                #example4 .box{height:100px;padding:4px 10px;border:1px solid;}
+
+            </style>
+            <div class="box">
+                right click to popup context menu
+            </div>
+
+            <div class="X-Menu VS2017" id="menu10">
+                <div class="X-Menu-Items">
+                    <div class="X-Menu-Item">
+                        <div class="Label">
+                            <div class="Icon"></div>
+                            <div class="Name">New</div>
+                            <div class="Arrow"></div>
+                        </div>
+                        <div class="X-Menu-Items">
+                            <div class="X-Menu-Item">
+                                <div class="Label"><div class="Icon"></div><div class="Name">Image…</div></div>
+                            </div>
+                            <div class="X-Menu-Item">
+                                <div class="Label"><div class="Icon"></div><div class="Name">Video…</div></div>
+                            </div>
+                            <div class="X-Menu-Item">
+                                <div class="Label"><div class="Icon"></div><div class="Name">Other</div><div class="Arrow"></div></div>
+
+                                <div class="X-Menu-Items">
+                                    <div class="X-Menu-Item">
+                                        <div class="Label"><div class="Icon"></div><div class="Name">doc…</div></div>
+                                    </div>
+                                    <div class="X-Menu-Item">
+                                        <div class="Label"><div class="Icon"></div><div class="Name">txt…</div></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        
+                    </div>  
+                    <div class="X-Menu-Item">
+                        <div class="Label"><div class="Icon"></div><div class="Name">Save</div><div class="Shortcut">Ctrl+S</div></div>
+                    </div>
+                    <div class="X-Separator"></div>
+                    <div class="X-Menu-Item">
+                        <div class="Label"><div class="Icon"></div><div class="Name">Exit</div><div class="Shortcut">Alt+F4</div></div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                !function() {
+                    var $menu = $('#menu10')
+                    var $example = $('#example4');
+                    var $box = $example.find('.box');
+                    var menu10 = window.menu10 = intell.controls.Menu($menu, { rootLocations: [9, 7, 1, 3] });
+                    
+                    
+
+                    $box.mouseup(function(e) {
+                        var e = e.originalEvent;
+                        if (e.button == 2) {
+                            
+                            menu10.rootOption.insideRect = new intell.Rectangle(
+                                window.pageXOffset, window.pageYOffset,
+                                Math.min(document.body.clientWidth, window.innerWidth), Math.min(document.body.clientHeight, window.innerHeight));
+
+                            //menu10.show($box[0]);
+                            menu10.show({ left: e.pageX    , top: e.pageY });
+                        }
+                    })
+                    $menu.add($box).contextmenu(function(e) { e.originalEvent.preventDefault(); });
+                    
+
+                }();
+            </script>
+        </div>
+        <div class="item-code-block">
+            <header>Source code - ContextMenu</header>
+            <code data-code-name="Example4"></code>    
+        </div>
+    </div>
+
 
     <div class="Content" style="margin-top:10px">
         To create a custom theme, you should pick up a theme then edit it. Menu provides many state class as "FIRST" "ACTIVE" "OUT".

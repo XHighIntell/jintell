@@ -12,13 +12,16 @@ window.Portal = function(element) {
     var portal = this;
     var $portal = $(element);
     var $portalContent = $portal.find('.Portal-Content'); // .Portal-Content
+    var $portalApplications = $portalContent.find('.Portal-Applications');
 
     if ($portalContent.length == 0) $portalContent = $('<main class="Portal-Content"></main>').appendTo($portal);
+    if ($portalApplications.length == 0) $portalApplications = $('<div class="Portal-Applications"></div>').appendTo($portalContent)
+
 
     portal.sidebar = new function() {
         /** @type Portal.Sidebar */
         var shortcutClass = 'Shortcut';
-
+        /** @type Portal.Sidebar */
         var sidebar = this;
         var $sidebar = $portal.find('.Sidebar');
         var $sidebarTop = $sidebar.find('.Sidebar-Top');
@@ -206,7 +209,8 @@ $(`<div class="Group" data-group="">
         <div class="cycle" style="animation-delay:.6s"></div>
     </div>
 </div>`);
-                $portalContent.append($loadingOverlay);
+
+                $portalContent.prepend($loadingOverlay);
             }
             if ($errorOverlay.length == 0) {
                 $errorOverlay = $(`<div class="Error-Overlay" style="display:none">
@@ -225,7 +229,7 @@ $(`<div class="Group" data-group="">
     </div>
     <i class="spring"></i>
 </div>`);
-                $portalContent.append($errorOverlay);
+                $portalContent.prepend($errorOverlay);
             }
 
         }();
@@ -348,7 +352,7 @@ $(`<div class="Group" data-group="">
 
                     // we can't simply append root use jquery:
                     // ================================
-                    $portalContent.append(application.root)
+                    $portalApplications.append(application.root)
                     // =================================
                     // [Deprecation] Synchronous XMLHttpRequest on the main thread is deprecated 
                     // because of its detrimental effects to the end user's experience. 
@@ -357,7 +361,7 @@ $(`<div class="Group" data-group="">
                     // we have to appendChild via native javascript
                     // then find all script tag and clone them insertAfter the real one
                     // ================================
-                    // $portalContent[0].appendChild(application.root);
+                    // $portalApplications[0].appendChild(application.root);
                     // $(application.root).find('script').each(function() {
                     //     var script = document.createElement('script');
                     //     script.src = this.src;

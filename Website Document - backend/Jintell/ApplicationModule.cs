@@ -4,11 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Routing;
+//using System.Web.
+
 
 using Intell.WebGadget;
 using Intell.WebGadget.Web;
 
-namespace Intell.Document {
+namespace Jintell {
     public partial class ApplicationModule : HttpApplication {
         static UrlRewriter urlRewriter;
         ///<summary>Gets urlrewriter.</summary>
@@ -45,6 +48,9 @@ namespace Intell.Document {
                     urlRewriter.Add(new UrlRewriteRule("/Intell/Controls/Menu",      "/Document/Intell.Controls.Menu/Menu.aspx"));
                     urlRewriter.Add(new UrlRewriteRule("/Intell/Controls/Menu/Demo", "/Document/Intell.Controls.Menu/Menu.Demo.aspx"));
 
+                    //Menu2
+                    urlRewriter.Add(new UrlRewriteRule("/Intell/Controls/Menu2", "/Document/Intell.Controls.Menu2/Menu.aspx"));
+                    urlRewriter.Add(new UrlRewriteRule("/Intell/Controls/Menu2/Demo", "/Document/Intell.Controls.Menu2/Menu.Demo.aspx"));
 
 
                     //NumericUpDown
@@ -60,18 +66,28 @@ namespace Intell.Document {
                     //TargetPopup
                     urlRewriter.Add(new UrlRewriteRule("/Intell/Controls/TargetPopup",      "/Document/Intell.Controls.TargetPopup/TargetPopup.aspx"));
                     urlRewriter.Add(new UrlRewriteRule("/Intell/Controls/TargetPopup/Demo", "/Document/Intell.Controls.TargetPopup/TargetPopup.Demo.aspx"));
-                    
+
+                    // TreeView
+                    urlRewriter.Add(new UrlRewriteRule("/Intell/Controls/TreeView",      "/Document/Intell.Controls.TreeView/TreeView.aspx"));
+                    urlRewriter.Add(new UrlRewriteRule("/Intell/Controls/TreeView/Demo", "/Document/Intell.Controls.TreeView/TreeView.Demo.aspx"));
+
+                    // ListView
+                    urlRewriter.Add(new UrlRewriteRule("/Intell/Controls/ListView", "/Document/Intell.Controls.ListView/ListView.aspx"));
+                    urlRewriter.Add(new UrlRewriteRule("/Intell/Controls/ListView/Demo", "/Document/Intell.Controls.ListView/ListView.Demo.aspx"));
+
+
                     //urlRewriter.Add(new RewriteRule("/Portal", "/Portal/document.html"));
 
-                    urlRewriter.Add(new UrlRewriteRule("/Controls/NumericUpDown/demo", "/Controls/NumericUpDown/demo.aspx"));
-                    urlRewriter.Add(new UrlRewriteRule("/Controls/TagsInput/demo", "/Controls/TagsInput/demo.aspx"));
-                    urlRewriter.Add(new UrlRewriteRule("/Controls/TargetPopup/demo", "/Controls/TargetPopup/TargetPopupDemo.aspx"));
+                    //urlRewriter.Add(new UrlRewriteRule("/Controls/NumericUpDown/demo", "/Controls/NumericUpDown/demo.aspx"));
+                    //urlRewriter.Add(new UrlRewriteRule("/Controls/TagsInput/demo", "/Controls/TagsInput/demo.aspx"));
+                    //urlRewriter.Add(new UrlRewriteRule("/Controls/TargetPopup/demo", "/Controls/TargetPopup/TargetPopupDemo.aspx"));
 
-                    urlRewriter.Add(new UrlRewriteRule("/Controls/Slideshow/demo", "/Controls/Slideshow/SlideshowDemo.aspx"));
-                    urlRewriter.Add(new UrlRewriteRule("/Controls/Menu/demo", "/Controls/Menu/MenuDemo.aspx"));
+                    //urlRewriter.Add(new UrlRewriteRule("/Controls/Slideshow/demo", "/Controls/Slideshow/SlideshowDemo.aspx"));
+
 
                     urlRewriter.Add(new UrlRewriteRule("/download", "/download.aspx"));
 
+                    urlRewriter.Add(new UrlRewriteRule("/xortal/[*]", "/xortal/xortal.aspx", UrlRewriteRuleAction.Rewrite));
 
                     //urlRewriter.Add(new UrlRewriteRule("/products/[*]", "/products/products.aspx",  UrlRewriteRuleAction.Rewrite));
 
@@ -80,8 +96,13 @@ namespace Intell.Document {
             }
         }
 
-        protected void Application_BeginRequest(object sender, EventArgs e) {
 
+        protected void Application_Start(object sender, EventArgs e) {
+
+        }
+
+        protected void Application_BeginRequest(object sender, EventArgs e) {
+            
 
             if (Request.RawUrl == "/.well-known/acme-challenge/YVwOIOUc5YLmMi9UPLlfHnxLvuKtHAhls7QEuXZkMFs") {
                 Response.Write("YVwOIOUc5YLmMi9UPLlfHnxLvuKtHAhls7QEuXZkMFs.qPUheL3087MJ3Xqh9hYIdWweaOmz7M6DXsvWfORlzcI");
@@ -92,10 +113,12 @@ namespace Intell.Document {
                 Response.Write("pzZW_AZIgXtYd6y3A1cnCobrv-WbvreGXyg3tG2OpvY.qPUheL3087MJ3Xqh9hYIdWweaOmz7M6DXsvWfORlzcI");
                 Response.End();
             }
-
-
+            
+            //System.Web.Routing.RouteTable.Routes.MapPageRoute()
             var result = UrlRewriter.Rewrite(Context);
             if (result == null) UrlRewriter.RewriteDefaultFile(Context, UrlRewriteRuleAction.Rewrite);
         }
     }
+
+    
 }

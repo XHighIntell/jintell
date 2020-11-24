@@ -39,7 +39,7 @@ src:url(/static/font/fontello.woff2) format('woff2'),
 .X-Portal>.Sidebar.COLLAPSED .Sidebar-Middle .Shortcut{width:60px;box-sizing:border-box}
 .X-Portal>.Sidebar.COLLAPSED .Sidebar-Middle .Shortcut>.Name{display:none}
             
-.X-Portal>.Portal-Content{position:relative;flex:1 1 100%;display:flex;overflow:auto}
+.X-Portal>.Portal-Content{position:relative;flex:1 1 100%;display:flex;flex-direction:column;overflow:hidden}
 .X-Portal>.Portal-Content>.Loading-Overlay{position:absolute;left:0;right:0;top:0;bottom:0;display:flex;opacity:0}
 .X-Portal>.Portal-Content>.Loading-Overlay.ACTIVE{opacity:1;transition:opacity .5s .2s}
 .X-Portal>.Portal-Content>.Loading-Overlay>.content{display:flex;flex-direction:column;align-items:center;max-width:500px}
@@ -55,7 +55,11 @@ src:url(/static/font/fontello.woff2) format('woff2'),
 .X-Portal>.Portal-Content>.Error-Overlay .header>.icon{padding-right:10px;font-size:32px;color:#e20000;text-shadow:black 0 0 3px}
 .X-Portal>.Portal-Content>.Error-Overlay .Stack{white-space:pre-wrap;color:#ec0000}
 .X-Portal>.Portal-Content>.Error-Overlay>div{display:flex;flex-direction:column;padding:10px}
-.X-Portal>.Portal-Content>*{min-width:100%}
+
+
+.X-Portal>.Portal-Content>.Portal-Applications{display:flex;height:100%;overflow-x:auto}
+.X-Portal>.Portal-Content>.Portal-Applications>*{min-width:100%}
+    
 
 /* Any child .X-Portal  */
 .X-Portal .X-Portal{}

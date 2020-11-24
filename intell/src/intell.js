@@ -5,7 +5,7 @@
 
 (function() {
     var intell = window.intell = {};
-    if (window.$$ == undefined) window.$$ = intell;
+    if (window.intell == undefined) window.intell = intell;
        
     
     
@@ -151,7 +151,7 @@
 
         var result = { location: location };
 
-        var position = new $$.Rectangle(0, 0, elementRect.width, elementRect.height);
+        var position = new intell.Rectangle(0, 0, elementRect.width, elementRect.height);
         var perfect = true;
         var canSeeTarget = true;
 
@@ -288,6 +288,7 @@
                     option.insideRect = new intell.Rectangle(inside_offset.left, inside_offset.top, offsetParent.clientWidth, offsetParent.clientHeight);
                 } else if (option.insideWindow == true) {
                     option.insideRect = new intell.Rectangle(0, 0, document.documentElement.scrollWidth, document.documentElement.scrollHeight);
+                    
                 }
             }
         }
@@ -320,8 +321,9 @@
             
             //if option.insideRect == null, we will help to create them from options
             if (option.insideRect == undefined) {
-                if (option.insideWindow == true) option.insideRect = new intell.Rectangle(0, 0, document.documentElement.scrollWidth, document.documentElement.scrollHeight);
-                
+                //if (option.insideWindow == true) option.insideRect = new intell.Rectangle(0, 0, document.documentElement.scrollWidth, document.documentElement.scrollHeight);
+                //if (option.insideWindow == true) option.insideRect = new intell.Rectangle(window.pageXOffset, window.pageYOffset, window.innerWidth, window.innerHeight);
+                if (option.insideWindow == true) option.insideRect = new intell.Rectangle(window.pageXOffset, window.pageYOffset, document.documentElement.clientWidth, document.documentElement.clientHeight);
             }
         }
 

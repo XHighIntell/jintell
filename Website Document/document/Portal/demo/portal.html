@@ -19,12 +19,22 @@
 
         .topbar{display:flex;flex:0 0 auto;height:40px;background-color:#1c1c1c}
         .topbar-logo{margin-left:10px;padding:0 10px;font-size:20px;line-height:40px;color:#55b3ff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-decoration:none}
+        .topbar-button{display:flex;width:40px;align-items:center;justify-content:center;cursor:pointer}
+        .topbar-button>.icon{width:24px;height:24px;background:center no-repeat}
+        .topbar-button:hover{background:#3d3d3d}
+
+
+        .topbar-button.console .icon{background-image:url(image/console.svg)}
     </style>
 </head>
 <body>
+    
     <div class="topbar">
-        <a class="topbar-logo" href="/">Xortal demo</a>
+        <a class="topbar-logo" href="/">Xortal demo - Full Implement - Version 0.0.01</a>
         <div class="spring"></div>
+        <div class="topbar-button console">
+            <div class="icon"></div>
+        </div>
     </div>
 
 
@@ -35,9 +45,9 @@
             </div>
             <div class="Sidebar-Middle">
                 <!-- Portal give the best ways to customize ui -->
-                <div class="Group" data-group="Account">
+                <div class="Group abstract" data-group="Account">
                     <header>
-                        <div class="Name">Account</div>
+                        <div class="Name"></div>
                     </header>
                     <div class="Apps"></div>
                 </div>
@@ -86,9 +96,13 @@
                 <i class="spring"></i>
             </div>
 
+            <div class="Portal-Applications">
+
+
+            </div>
         </main>
     </div>
-
+    
 
     <script>
         var $portal = $('.X-Portal');

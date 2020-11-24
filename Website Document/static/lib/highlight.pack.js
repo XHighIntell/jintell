@@ -5,3 +5,6 @@ var lang = hljs.getLanguage('typescript');
 lang.k.built_in += ' object T E any';
 lang.k.class = 'XMLHttpRequest ProgressEvent FormData Rectangle Element HTMLElement IGetRectWhenShowAtOption \
 IGetRectWhenShowAtResult IShowAtOption IShowAtResult JQuery.Coordinates OnFunction HttpRequest Intell.HttpRequest';
+
+
+lang.k.class += " TreeView TreeNode TreeNodeOption";

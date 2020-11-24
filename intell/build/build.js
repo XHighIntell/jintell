@@ -14,7 +14,15 @@ var jobs = [
     {
         type: 'javascript',
         name: 'intell.js',
-        src: ['intell.js', 'intell.controls.js'],
+        src: [
+            'intell.js',
+            'intell.controls.js',
+            'intell.controls/Menu.js',
+            'intell.controls/Menu2.js',
+            'intell.controls/TreeView.js',
+            'intell.controls/Waiting.js',
+            'intell.controls/ListView.js',
+        ],
         dest: {
             name: 'intell.js',
             minify: 'intell.min.js',
@@ -26,7 +34,15 @@ var jobs = [
     {
         type: 'declaration typescript',
         name: 'intell.d.ts',
-        src: [ 'intell.d.ts', 'intell.controls.d.ts' ],
+        src: [
+            'intell.d.ts',
+            'intell.controls.d.ts',
+            'intell.controls/Menu.d.ts',
+            'intell.controls/Menu2.d.ts',
+            'intell.controls/TreeView.d.ts',
+            'intell.controls/Waiting.d.ts',
+            'intell.controls/ListView.d.ts',
+        ],
         dest: { name: 'intell.d.ts' }
     },
 

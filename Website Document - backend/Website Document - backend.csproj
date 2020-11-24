@@ -7,8 +7,8 @@
     <ProjectGuid>{745BDD73-9464-4144-9766-72679BAB6861}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Intell.Document</RootNamespace>
-    <AssemblyName>Intell.Document</AssemblyName>
+    <RootNamespace>Jintell</RootNamespace>
+    <AssemblyName>Jintell</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -25,7 +25,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\Website\bin\</OutputPath>
+    <OutputPath>..\Website Document\bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -35,13 +35,21 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Intell\Output\Intell.dll</HintPath>
     </Reference>
+    <Reference Include="Intell.Ice">
+      <HintPath>..\..\Intell\Output\Intell.Ice.dll</HintPath>
+    </Reference>
     <Reference Include="Intell.WebGadget">
       <HintPath>..\..\Intell\Output\Intell.WebGadget.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>References\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,11 +58,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Intell.Document\ApplicationModule.cs" />
+    <Compile Include="Jintell.Xortal\StorageApi.cs" />
+    <Compile Include="Jintell.Xortal\Transfusions\TransfusionsApi.cs" />
+    <Compile Include="Jintell.Xortal\Transfusions\TransfusionsApiHttpHandler.cs" />
+    <Compile Include="Jintell.Xortal\XortalRouteHandler.cs" />
+    <Compile Include="Jintell\ApplicationModule.cs" />
+    <Compile Include="Jintell.Xortal\StorageApiHttpHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Ice.Web\" />
+    <Folder Include="Jintell.Xortal\Storage\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

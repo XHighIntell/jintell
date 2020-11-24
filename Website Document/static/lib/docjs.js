@@ -234,9 +234,17 @@ $(document).ready(function () {
         if (element instanceof Element == false) return;
 
         var $element = $(element);
+
+        $element.parents('.item-member').removeClass('expanded expanded-scroll').addClass('expanded');
+
+
+
         $element.removeClass('expanded-scroll');
         element.offsetHeight;
         $element.addClass('expanded expanded-scroll')[0].scrollIntoView({ behavior: "smooth" });
+
+        
+
     }
 
     

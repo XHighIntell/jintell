@@ -80,6 +80,9 @@
         })
     </script>
     <script src="/xortal/applications/storage-image/app.js"></script>
+    <script src="/xortal/applications/themes/themes.js"></script>
     <script src="/xortal/applications/transfusions/transfusions.js"></script>
+    
+
 </body>
 </html>
