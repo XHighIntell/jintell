@@ -11,7 +11,7 @@ Website Document - backend/[Bb]in
 
 # Website Document
 #Website Document/static/lib/intell.d.ts
-#Website Document/static/lib/*/*.d.ts
+Website Document/**/*.d.ts
 Website Document/xortal/applications/transfusions/storage/**
 
 # Folders

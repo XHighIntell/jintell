@@ -60,7 +60,6 @@
     <Content Include="src\intell.controls\TreeView.js" />
     <TypeScriptCompile Include="src\intell.controls\TreeView.d.ts" />
     <Content Include="src\intell.js" />
-    <Content Include="src\____.js" />
     <Content Include="src\portal.js" />
   </ItemGroup>
   <ItemGroup>

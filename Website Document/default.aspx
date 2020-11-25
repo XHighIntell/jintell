@@ -62,7 +62,8 @@
 
                 <div class="item"><a class="link" href="/Intell/Controls/TagsInput">TagsInput</a> - <a class="link" href="/Intell/Controls/TagsInput/demo">demo</a></div>
                 <div class="item"><a class="link" href="/Intell/Controls/TargetPopup">TargetPopup</a> - <a class="link" href="/Intell/Controls/TargetPopup/demo">demo</a></div>
-
+                <div class="item"><a class="link" href="/Intell/Controls/Waiting">Waiting</a> - <a class="link" href="/Intell/Controls/Waiting/demo">demo</a></div>
+                
                 <div class="item"><a class="link" href="/Intell/Controls/TreeView">TreeView</a> - <a class="link" href="/Intell/Controls/TreeView/demo">demo</a></div>
                 <div class="item"><a class="link" href="/Intell/Controls/ListView">ListView</a> - <a class="link" href="/Intell/Controls/ListView/demo">demo</a></div>
                 <div class="item"><a class="link" href="/Intell/Controls/Menu2">Menu2</a> - <a class="link" href="/Intell/Controls/Menu2/demo">demo</a></div>

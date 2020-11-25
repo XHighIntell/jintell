@@ -48,9 +48,7 @@ namespace Jintell {
                     urlRewriter.Add(new UrlRewriteRule("/Intell/Controls/Menu",      "/Document/Intell.Controls.Menu/Menu.aspx"));
                     urlRewriter.Add(new UrlRewriteRule("/Intell/Controls/Menu/Demo", "/Document/Intell.Controls.Menu/Menu.Demo.aspx"));
 
-                    //Menu2
-                    urlRewriter.Add(new UrlRewriteRule("/Intell/Controls/Menu2", "/Document/Intell.Controls.Menu2/Menu.aspx"));
-                    urlRewriter.Add(new UrlRewriteRule("/Intell/Controls/Menu2/Demo", "/Document/Intell.Controls.Menu2/Menu.Demo.aspx"));
+
 
 
                     //NumericUpDown
@@ -63,9 +61,15 @@ namespace Jintell {
                     //TagsInput
                     urlRewriter.Add(new UrlRewriteRule("/Intell/Controls/TagsInput",      "/Document/Intell.Controls.TagsInput/TagsInput.aspx"));
                     urlRewriter.Add(new UrlRewriteRule("/Intell/Controls/TagsInput/Demo", "/Document/Intell.Controls.TagsInput/TagsInput.Demo.aspx"));
+                    
                     //TargetPopup
                     urlRewriter.Add(new UrlRewriteRule("/Intell/Controls/TargetPopup",      "/Document/Intell.Controls.TargetPopup/TargetPopup.aspx"));
                     urlRewriter.Add(new UrlRewriteRule("/Intell/Controls/TargetPopup/Demo", "/Document/Intell.Controls.TargetPopup/TargetPopup.Demo.aspx"));
+
+                    // Waiting
+                    urlRewriter.Add(new UrlRewriteRule("/Intell/Controls/Waiting",      "/Document/Intell.Controls.Waiting/Waiting.aspx"));
+                    urlRewriter.Add(new UrlRewriteRule("/Intell/Controls/Waiting/Demo", "/Document/Intell.Controls.Waiting/Waiting.Demo.aspx"));
+
 
                     // TreeView
                     urlRewriter.Add(new UrlRewriteRule("/Intell/Controls/TreeView",      "/Document/Intell.Controls.TreeView/TreeView.aspx"));
@@ -75,6 +79,9 @@ namespace Jintell {
                     urlRewriter.Add(new UrlRewriteRule("/Intell/Controls/ListView", "/Document/Intell.Controls.ListView/ListView.aspx"));
                     urlRewriter.Add(new UrlRewriteRule("/Intell/Controls/ListView/Demo", "/Document/Intell.Controls.ListView/ListView.Demo.aspx"));
 
+                    //Menu2
+                    urlRewriter.Add(new UrlRewriteRule("/Intell/Controls/Menu2", "/Document/Intell.Controls.Menu2/Menu.aspx"));
+                    urlRewriter.Add(new UrlRewriteRule("/Intell/Controls/Menu2/Demo", "/Document/Intell.Controls.Menu2/Menu.Demo.aspx"));
 
                     //urlRewriter.Add(new RewriteRule("/Portal", "/Portal/document.html"));
 

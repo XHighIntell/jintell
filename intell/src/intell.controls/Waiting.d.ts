@@ -14,27 +14,26 @@ declare namespace Intell.Controls.Waiting {
         /** Gets or sets parent. */
         parent: HTMLElement;
 
-
-        start(): void;
-
-        /** Stop, remove WAITING class from parent and remove this control. */
-        stop(): void;
+        /** Gets or sets. If false stop, remove WAITING class from parent and remove this control element from its parent. */
+        enabled: boolean;
     }
     interface WaitingPrivate {
         element: HTMLElement;
         parent: HTMLElement;
+        enabled: boolean;
     }
 
     interface Namespace {
         Waiting: WaitingConstructor;
 
-        /** Initializes a new instance of Waiting class specified by element. */
-        create(element: HTMLElement): Waiting;
 
-        /** */
-        startWait(element: HTMLElement): Waiting;
+        getWaiting(element: HTMLElement): Waiting;
 
-        stopWait(element: HTMLElement): Waiting;
+        /** A shortcut way to create or reuse Waiting control that stores inside the specified element. */
+        startWait(parent: HTMLElement, elementAbstract?: HTMLElement): Waiting;
+
+        /** A shortcut way to call stop wait of the specified element. The function won't throw exception. */
+        stopWait(parent: HTMLElement): Waiting;
 
         
     }
@@ -46,6 +45,11 @@ declare namespace Intell.Controls.Waiting {
         new(): Waiting;
         new(element: HTMLElement): Waiting;
         prototype: Waiting;
+
+        /** Gets or sets the element that will be used to clone. */
+        elementAbstract: HTMLElement;
+
+        getWaiting(element: HTMLElement): Waiting;
     }
 
 
