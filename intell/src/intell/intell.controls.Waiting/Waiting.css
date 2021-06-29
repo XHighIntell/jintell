@@ -1,0 +1,13 @@
+
+
+
+.X-Waiting.Azure-X{position:absolute;left:0;top:0;right:0;bottom:0}
+.X-Waiting.Azure-X{display:flex;align-items:center;overflow:hidden}
+.X-Waiting.Azure-X .Cycle{position:absolute;left:-10px;width:5px;height:5px;background:#00abff;border-radius:1px;animation:5s Azure-Waiting-X infinite cubic-bezier(0,0.85,1,0.15)}
+@keyframes Azure-Waiting-X{0%{left:-10px}70%{left:100%}100%{left:100%}}
+
+
+.X-Waiting.Azure-XY{position:absolute;left:0;top:0;right:0;bottom:0}
+.X-Waiting.Azure-XY{display:flex;align-items:center;overflow:hidden}
+.X-Waiting.Azure-XY .Cycle{position:absolute;left:-10px;width:5px;height:5px;background:#00abff;border-radius:1px;animation:5s Azure-Waiting-X infinite cubic-bezier(0,0.85,1,0.15),2s Azure-Waiting-Y infinite cubic-bezier(0,0.85,1,0.15)}
+@keyframes Azure-Waiting-Y{0%{top:-10px}70%{top:100%}100%{top:0}}

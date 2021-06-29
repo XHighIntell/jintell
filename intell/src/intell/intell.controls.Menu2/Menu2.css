@@ -1,0 +1,35 @@
+.X-Menu.VS2017{position:relative;background:#d6dbe9}
+.X-Menu.VS2017>.Children{display:flex}
+.X-Menu.VS2017>.Children>.X-Menu-Item{display:flex;position:relative}
+.X-Menu.VS2017>.Children>.X-Menu-Item>.Label{display:flex;padding:2px 10px;border:1px solid transparent;cursor:pointer}
+.X-Menu.VS2017>.Children>.X-Menu-Item>.Label:hover{border:1px solid #e5c365;background:#fdf4bf}
+.X-Menu.VS2017>.Children>.X-Menu-Item.ACTIVE>.Label{border:1px solid #9ba7b7;background:#eaf0ff}
+.X-Menu.VS2017>.Children>.X-Menu-Item.ACTIVE>.Children{}
+.X-Menu.VS2017>.Children>.X-Menu-Item.HAS-CHILDREN.ACTIVE::after{content:"";position:absolute;bottom:0;width:calc(100% - 2px);height:2px;margin:0 1px;background:#eaf0ff;z-index:2}
+
+
+
+/* the left bar on dropdown with background */
+.X-Menu.VS2017>.Children .Children::before{content:"";position:absolute;left:0;top:0;bottom:0;width:calc(22px + 1em);background:#f2f4fe}
+/* the left bar on dropdown with border */
+.X-Menu.VS2017>.Children .Children::after{content:"";position:absolute;left:calc(22px + 1em);top:2px;bottom:2px;border-right:1px solid #bdbdbd;pointer-events:none}
+
+.X-Menu.VS2017>.Children>.X-Menu-Item  .Children{display:none;position:absolute;padding:2px;border:1px solid #9ba7b7;left:100%;top:0;background:#eaf0ff;z-index:1}
+.X-Menu.VS2017>.Children>.X-Menu-Item .X-Menu-Item{display:flex;position:relative}
+.X-Menu.VS2017>.Children>.X-Menu-Item .X-Menu-Item>.Label{flex:1 1 auto;display:flex;align-items:center;cursor:pointer}
+.X-Menu.VS2017>.Children>.X-Menu-Item .X-Menu-Item.ACTIVE>.Label{background:#fdf4bf}
+.X-Menu.VS2017>.Children>.X-Menu-Item .X-Menu-Item .Label>.Icon{align-self:stretch;display:flex;width:1em;align-items:center;padding:0 10px;font-family:fontello;box-sizing:content-box}
+.X-Menu.VS2017>.Children>.X-Menu-Item .X-Menu-Item .Label>.Name{flex:1 1 auto;padding:3px 40px 3px 8px;white-space:nowrap}
+.X-Menu.VS2017>.Children>.X-Menu-Item .X-Menu-Item .Label>.Arrow{padding:0 .3em 0 .5em}
+.X-Menu.VS2017>.Children>.X-Menu-Item .X-Menu-Item .Label>.Arrow:before{content:"";font-family:fontello}
+.X-Menu.VS2017>.Children>.X-Menu-Item .X-Menu-Item .Label>.Shortcut{padding-right:1em}
+                
+.X-Menu.VS2017>.Children>.X-Menu-Item .X-Menu-Item .Children.OUT{}
+.X-Menu.VS2017>.Children>.X-Menu-Item .X-Menu-Item.ACTIVE>.Children{visibility:visible;opacity:1}
+
+.X-Menu.VS2017>.Children>.X-Menu-Item .X-Menu-Item.HAS-CHILDREN>.Label{}
+.X-Menu.VS2017>.Children>.X-Menu-Item .X-Menu-Item.HAS-CHILDREN>.Label::after{content:"";padding: 0 .3em 0 .5em;font-family: fontello}
+                
+
+.X-Menu.VS2017 .X-Separator{margin-left:calc(20px + 1em);padding:1px 0 1px 5px}
+.X-Menu.VS2017 .X-Separator::before{content:"";display:block;height:1px;background:#bec3cb}

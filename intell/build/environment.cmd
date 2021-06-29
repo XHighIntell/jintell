@@ -4,7 +4,6 @@
 :: Add "C:\node_modules" to "NODE_PATH" environment
 
 :: 1. find node.exe
-:: 2. add NODE_PATH
 
 :: --1--
 where /q node
@@ -30,5 +29,3 @@ IF %ERRORLEVEL% EQU 0 (
 )
 
 :FoundNodeJs
-:: --2--
-set NODE_PATH=%NODE_PATH%;C:\node_modules

@@ -1,11 +1,22 @@
 ﻿'use strict';
 
+var NODE_PATH = global.process.env["NODE_PATH"];
+
+if (NODE_PATH == null) NODE_PATH = "C:\\node_modules"
+else NODE_PATH += ";C:\\node_modules";
+
+global.process.env["NODE_PATH"] = NODE_PATH;
+require("module").Module._initPaths();
+
+
+
 const FS = require('fs');
 const Path = require('path');
 const intell = require('intell-nodejs');
 const colors = intell.colors;
 
-process.chdir('..');
+process.chdir('..'); // important
+
 
 
 /** @type BuildJob[] */
@@ -15,62 +26,89 @@ var jobs = [
         type: 'javascript',
         name: 'intell.js',
         src: [
-            'intell.js',
-            'intell.controls.js',
-            'intell.controls/Menu.js',
-            'intell.controls/Menu2.js',
-            'intell.controls/TreeView.js',
-            'intell.controls/Waiting.js',
-            'intell.controls/ListView.js',
+            'intell/intell.js',
+            'intell/intell.controls.js',
+            'intell/intell.controls.Listview/ListView.js',
+            'intell/intell.controls.Menu/Menu.js',
+            'intell/intell.controls.Menu2/Menu2.js',
+            'intell/intell.controls.TreeView/TreeView.js',
+            'intell/intell.controls.Waiting/Waiting.js',
+            'intell/Intell.controls.ComboBox2/ComboBox2.js',
         ],
         dest: {
-            name: 'intell.js',
-            minify: 'intell.min.js',
-            sourcemap: 'intell.min.js.map',
+            name: 'intell/intell.js',
+            minify: 'intell/intell.min.js',
+            sourcemap: 'intell/intell.min.js.map',
             comment: "/*! intell.js | https://github.com/XHighIntell/jintell */"
         }
     },
-
     {
         type: 'declaration typescript',
         name: 'intell.d.ts',
         src: [
-            'intell.d.ts',
-            'intell.controls.d.ts',
-            'intell.controls/Menu.d.ts',
-            'intell.controls/Menu2.d.ts',
-            'intell.controls/TreeView.d.ts',
-            'intell.controls/Waiting.d.ts',
-            'intell.controls/ListView.d.ts',
+            'intell/intell.d.ts',
+            'intell/intell.controls.d.ts',
+            'intell/intell.controls.Listview/ListView.d.ts',
+            'intell/intell.controls.Menu/Menu.d.ts',
+            'intell/intell.controls.Menu2/Menu2.d.ts',
+            'intell/intell.controls.TreeView/TreeView.d.ts',
+            'intell/intell.controls.Waiting/Waiting.d.ts',
+            'intell/intell.controls.ComboBox2/ComboBox2.d.ts',
+            
         ],
-        dest: { name: 'intell.d.ts' }
+        dest: {
+            name: 'intell/intell.d.ts'
+        }
     },
+    {
+        type: "style sheet",
+        name: "intell.css",
+        src: [
+            'intell/intell.css',
+            'intell/intell.controls.Waiting/Waiting.css',
+            'intell/intell.controls.ComboBox2/ComboBox2.css',
+            'intell/intell.controls.Menu2/Menu2.css',
+        ],
+        dest: {
+            name: "intell/intell.css",
+            minify: "intell/intell.min.css"
+        }
+    },
+];
 
-
+// ==== Portal ====
+jobs.push(
     {
         type: "javascript",
         name: 'portal.js',
-        src: 'portal.js',
+        src: 'portal/portal.js',
         dest: {
-            name: 'portal.js',
-            minify: 'portal.min.js',
-            sourcemap: 'portal.min.js.map',
+            name: 'portal/portal.js',
+            minify: 'portal/portal.min.js',
+            sourcemap: 'portal/portal.min.js.map',
             comment: "/*! portal.js | https://github.com/XHighIntell/jintell */"
         }
     },
-
     {
         type: "declaration typescript",
         name: "portal.d.js",
-        src: "portal.d.ts",
+        src: "portal/portal.d.ts",
         dest: {
-            name: "portal.d.ts",
-            minify: "portal.min.d.ts"
+            name: "portal/portal.d.ts",
+            minify: "portal/portal.min.d.ts"
         }
     },
+    {
+        type: "style sheet",
+        name: "portal.css",
+        src: "portal/portal.css",
+        dest: {
+            name: "portal/portal.css",
+            minify: "portal/portal.min.css"
+        }
+    }
+);
 
-
-];
 
 !function() {
     /** @type BuildArgumentsObject */
@@ -102,8 +140,10 @@ var jobs = [
         
         if (job.type == "javascript") {
             if (setting.mode == "development") {
-                let outputPath = Path.resolve(setting.output, job.dest.name);
-
+                var outputPath = Path.resolve(setting.output, job.dest.name);
+                var folder = Path.dirname(outputPath)
+                intell.IO.Directory.CreateDirectory(folder);
+               
                 FS.writeFileSync(outputPath, code, { encoding: "utf8" });
             }
             else {
@@ -140,7 +180,10 @@ var jobs = [
                 var minifyPath = Path.resolve(setting.output, job.dest.minify);
                 var sourcemapPath = Path.resolve(setting.output, job.dest.sourcemap);
 
-
+                intell.IO.Directory.CreateDirectory(Path.dirname(originalPath));
+                intell.IO.Directory.CreateDirectory(Path.dirname(minifyPath));
+                intell.IO.Directory.CreateDirectory(Path.dirname(sourcemapPath));
+                
                 FS.writeFileSync(originalPath, code, { encoding: "utf8" });
                 FS.writeFileSync(minifyPath, minify_result.code, { encoding: "utf8" });
                 FS.writeFileSync(sourcemapPath, minify_result.map, { encoding: "utf8" });
@@ -149,6 +192,16 @@ var jobs = [
         }
         else if (job.type == "declaration typescript") {
             let outputPath = Path.resolve(setting.output, job.dest.name);
+
+            intell.IO.Directory.CreateDirectory(Path.dirname(outputPath));
+
+            FS.writeFileSync(outputPath, code, { encoding: "utf8" });
+        }
+
+        else if (job.type == "style sheet") {
+            var outputPath = Path.resolve(setting.output, job.dest.name);
+            var folder = Path.dirname(outputPath)
+            intell.IO.Directory.CreateDirectory(folder);
 
             FS.writeFileSync(outputPath, code, { encoding: "utf8" });
         }
@@ -166,6 +219,7 @@ var jobs = [
     // args.mode
     console.log("\r\nAll Done!");
 }();
+
 
 
 

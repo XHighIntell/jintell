@@ -1,24 +1,9 @@
-# intell Project
-intell/[Bb]in/
-intell/intellisense/jquery-3.3.1.min.js
+# intell
 intell/output
-intell/bundleconfig.json
-intell/bundleconfig.json.bindings
-intell/package.json
 
-# Website Document - backend
-Website Document - backend/[Bb]in
-
-# Website Document
-#Website Document/static/lib/intell.d.ts
-Website Document/**/*.d.ts
-Website Document/xortal/applications/transfusions/storage/**
 
 # Folders
 .vs/
-[Oo]bj/
-[Dd]ebug/
-[Rr]elease/
 
 # Files
 *.suo

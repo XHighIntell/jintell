@@ -21,4 +21,12 @@ type BuildJob = {
         name: 'intell.d.ts',
         minify: 'intell.min.d.ts',
     }
+} | {
+    type: 'style sheet',
+    name: string,
+    src: ['portal.css']
+    dest: {
+        name: 'portal.css',
+        minify: 'portal.min.css',
+    }
 };
