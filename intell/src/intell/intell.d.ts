@@ -24,7 +24,8 @@
     }
     interface RectangleConstructor {
         new(x?: number, y?: number, width?: number, height?: number): Rectangle;
-        readonly prototype: Rectangle;
+        (x?: number, y?: number, width?: number, height?: number): Rectangle;
+        readonly prototype: Rectangle;        
     }
 
     interface Event {
@@ -118,73 +119,77 @@
 
         /**Must place inside its offset parent.*/
         insideOffsetParent: boolean;
+
+
     }
     interface IShowAtResult extends IGetRectWhenShowAtResult {
         /**List of result.*/
         results: IGetRectWhenShowAtResult[];
     }
+
+
+    interface Namespace {
+        Rectangle: Intell.RectangleConstructor;
+        Event: Intell.EventConstructor;
+
+        createOnFunction<T>(): Intell.OnFunction;
+        createOnFunction<T>(target: T): Intell.OnFunctionT<T>;
+
+        controls: Intell.Controls.Namespace;
+
+        /**Create a function that use to add or fire events. 
+         * @param onlyFire1time If true EventListener only fire one time.*/
+        createEventFunction(onlyFire1time?: boolean): Intell.EventFunction; //Intell.EventFunctionGeneral;
+
+        /**Create XMLHttpRequest with GET method and specified url.
+         * @param url A string containing the URL to which the request is sent.*/
+        get(url: string): Intell.HttpRequest;
+
+        /**Create XMLHttpRequest with POST method and specified url.
+         * @param url A string containing the URL to which the request is sent.*/
+        post(url: string): Intell.HttpRequest;
+
+        /** Gets rectangle of destination when show at a rectangle with specified option. */
+        getRectWhenShowAt(targetRect: Intell.Rectangle, elementRect: Intell.Rectangle, position: number, option?: Intell.IGetRectWhenShowAtOption): Intell.IGetRectWhenShowAtResult;
+        /** Gets rectangle of destination when show at a point with specified option. */
+        getRectWhenShowAt(targetPoint: JQuery.Coordinates, elementRect: Intell.Rectangle, position: number, option?: Intell.IGetRectWhenShowAtOption): Intell.IGetRectWhenShowAtResult;
+
+
+        /**
+         * Find
+         *      1   2   3
+         *  12 ┌──────────┐ 4
+         *  11 │targetRect│ 5
+         *  10 └──────────┘ 6
+         *      9   8   7
+         * @param targetRect 
+         * @param elementRect
+         * @param locations - Array of location.
+         * @param option . */
+        findPlaceToShow(targetRect: Intell.Rectangle, elementRect: Intell.Rectangle, locations: number[], option?: Intell.IGetRectWhenShowAtOption): Intell.IShowAtResult;
+        findPlaceToShow(targetPoint: JQuery.Coordinates, elementRect: Intell.Rectangle, locations: number[], option?: Intell.IGetRectWhenShowAtOption): Intell.IShowAtResult;
+
+        /**Show an element near another element.
+         * @param target - The target element.
+         * @param popup - The popup element that will fly around target element.
+         * @param locations - The location list popup may show.
+         * @param option - The extra conditions for finding position.*/
+        showAt(target: HTMLElement, popup: HTMLElement, locations: number[], option?: Intell.IShowAtOption): Intell.IShowAtResult;
+        showAt(target: JQuery.Coordinates, popup: HTMLElement, locations: number[], option?: Intell.IShowAtOption): Intell.IShowAtResult;
+
+        /**Get the current inner coordinates (without border) of the first element in the set of matched elements, relative to the document.
+         * @param element The specified element.*/
+        innerOffset(element: HTMLElement): void;
+
+        /** Create a query object from a string.
+         * @param search location.search.substr(1) */
+        qs(search?: string): object;
+    }
+
 }
 
-interface intell {
-    Rectangle: Intell.RectangleConstructor;
-    Event: Intell.EventConstructor;
-
-    createOnFunction<T>(): Intell.OnFunction;
-    createOnFunction<T>(target: T): Intell.OnFunctionT<T>;
-
-    
-
-    /**Create a function that use to add or fire events. 
-     * @param onlyFire1time If true EventListener only fire one time.*/
-    createEventFunction(onlyFire1time?: boolean): Intell.EventFunction; //Intell.EventFunctionGeneral;
-
-    /**Create XMLHttpRequest with GET method and specified url.
-     * @param url A string containing the URL to which the request is sent.*/
-    get(url: string): Intell.HttpRequest;
-
-    /**Create XMLHttpRequest with POST method and specified url.
-     * @param url A string containing the URL to which the request is sent.*/
-    post(url: string): Intell.HttpRequest;
-
-    /** Gets rectangle of destination when show at a rectangle with specified option. */
-    getRectWhenShowAt(targetRect: Intell.Rectangle, elementRect: Intell.Rectangle, position: number, option?: Intell.IGetRectWhenShowAtOption): Intell.IGetRectWhenShowAtResult;
-    /** Gets rectangle of destination when show at a point with specified option. */
-    getRectWhenShowAt(targetPoint: JQuery.Coordinates, elementRect: Intell.Rectangle, position: number, option?: Intell.IGetRectWhenShowAtOption): Intell.IGetRectWhenShowAtResult;
-
-
-    /**
-     * Find
-     *      1   2   3
-     *  12 ┌──────────┐ 4
-     *  11 │targetRect│ 5
-     *  10 └──────────┘ 6
-     *      9   8   7
-     * @param targetRect 
-     * @param elementRect
-     * @param locations - Array of location.
-     * @param option . */
-    findPlaceToShow(targetRect: Intell.Rectangle, elementRect: Intell.Rectangle, locations: number[], option?: Intell.IGetRectWhenShowAtOption): Intell.IShowAtResult;
-    findPlaceToShow(targetPoint: JQuery.Coordinates, elementRect: Intell.Rectangle, locations: number[], option?: Intell.IGetRectWhenShowAtOption): Intell.IShowAtResult;
-
-    /**Show an element near another element.
-     * @param target - The target element.
-     * @param popup - The popup element that will fly around target element.
-     * @param locations - The location list popup may show.
-     * @param option - The extra conditions for finding position.*/
-    showAt(target: HTMLElement, popup: HTMLElement, locations: number[], option?: Intell.IShowAtOption): Intell.IShowAtResult;
-    showAt(target: JQuery.Coordinates, popup: HTMLElement, locations: number[], option?: Intell.IShowAtOption): Intell.IShowAtResult;
-
-    /**Get the current inner coordinates (without border) of the first element in the set of matched elements, relative to the document.
-     * @param element The specified element.*/
-    innerOffset(element: HTMLElement): void;
-
-    /** Create a query object from a string.
-     * @param search location.search.substr(1) */
-    qs(search?: string): object;
-}
  
-declare var $$: intell;
-declare var intell: intell;
+declare var intell: Intell.Namespace;
 
 
 interface FormatNumberOption {
@@ -217,7 +222,7 @@ interface JQuery {
     /**Get the center coordinates of the first element in the set of matched elements, relative to the document.*/
     centerOffset(): JQuery.Coordinates;
 
-    clickoutside(handler: (this: HTMLElement) => any): this;
+    clickoutside(handler: (this: HTMLElement, event: PointerEvent) => void): this;
 
     mousedownoutside(handler: (this: HTMLElement) => any): this;
 }

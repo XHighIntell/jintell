@@ -1,5 +1,7 @@
 ﻿
 intell.controls.TreeView = new function() {
+    if (globalThis.ServiceWorkerGlobalScope) return;
+
     /** @type {Intell.Controls.TreeView.Namespace} */
     var ns = this;
 

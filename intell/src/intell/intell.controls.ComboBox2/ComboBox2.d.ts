@@ -1,8 +1,4 @@
-﻿declare namespace Intell {
-    interface Controls {
-        ComboBox2: Intell.Controls.ComboBox2.Namespace;
-    }
-}
+﻿
 
 declare namespace Intell.Controls.ComboBox2 {
     
@@ -162,6 +158,11 @@ declare namespace Intell.Controls.ComboBox2 {
 
 
 
+declare namespace Intell.Controls {
+    interface Namespace {
+        ComboBox2: Intell.Controls.ComboBox2.Namespace;
+    }
+}
 
 
 

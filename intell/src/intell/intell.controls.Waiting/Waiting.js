@@ -1,4 +1,6 @@
 intell.controls.Waiting = new function() {
+    if (globalThis.ServiceWorkerGlobalScope) return;
+
     /** @type Intell.Controls.Waiting.Namespace  */
     var ns = this;
 

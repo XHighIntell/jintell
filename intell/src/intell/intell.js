@@ -3,13 +3,16 @@
 'use strict';
 
 
-(function () {
-    /** @type intell */
-    var intell = window.intell = {};
-    if (window.intell == undefined) window.intell = intell;
+(function(global) {
+    if (global.intell == null) global.intell = {}
+    var intell = global.intell;
 
-    
+    // class    
     intell.Rectangle = function Rectangle(left, top, width, height) {
+        if (this instanceof Rectangle == false) return new Rectangle(left, top, width, height);
+
+
+
         if (Rectangle.int == undefined) {
             Rectangle.int = true;
 
@@ -56,7 +59,7 @@
                     (this.top <= rect.top) && (this.top + this.height >= rect.top + rect.height);
             }
         }
-
+        
         this.x = left || 0;
         this.y = top || 0;
         this.width = width || 0;
@@ -75,6 +78,8 @@
         });
     }
 
+    
+
     intell.createOnFunction = function (target) {
         return function on(type, handler, option) {
             if (target == undefined) target = this;
@@ -83,7 +88,8 @@
             return this;
         }
     }
-    intell.createEventFunction = function (onlyFire1time) {
+    intell.createEventFunction = function(onlyFire1time) {
+        
         var fn = function (callback) {
             if (typeof callback == "function") {
                 if (onlyFire1time && fn.called == true) callback.apply(this, fn.calledArguments)
@@ -269,97 +275,84 @@
     }
 
 
-    intell.showAt = function(target, popup, locations, option) {
-        //findPlaceToShow(targetRect: Intell.Rectangle, elementRect: Intell.Rectangle, locations: number[], option?: Intell.IGetRectWhenShowAtOption): Intell.IShowAtResult;
-        //findPlaceToShow(targetPoint: JQuery.Coordinates, elementRect: Intell.Rectangle, locations: number[], option ?: Intell.IGetRectWhenShowAtOption): Intell.IShowAtResult;
-        if (target instanceof HTMLElement == true) return showAtElement.apply(this, arguments);
-        else return showAtPoint.apply(this, arguments);
-    }
-    function showAtElement(target, popup, locations, option) {
-        if (option != undefined) {
-            var option = Object.assign({}, option)
+    intell.showAt = function() {
+        /**@param {HTMLElement} targetElement @param {HTMLElement} popupElement
+         * @param {number[]} locations @param {Intell.IShowAtOption} option */
+        function showAtElement(targetElement, popupElement, locations, option) {
+            if (option != undefined) {
+                var option = Object.assign({}, option)
 
-            //if option.insideRect == null, we will help to create them from options
-            if (option.insideRect == undefined) {
-                if (option.insideOffsetParent == true) {
-                    var offsetParent = target.offsetParent;
-                    var inside_offset = $(offsetParent).innerOffset();
+                //if option.insideRect == null, we will help to create them from options
+                if (option.insideRect == undefined) {
+                    if (option.insideOffsetParent == true) {
+                        var offsetParent = targetElement.offsetParent;
+                        var inside_offset = $(offsetParent).innerOffset();
 
-                    option.insideRect = new intell.Rectangle(inside_offset.left, inside_offset.top, offsetParent.clientWidth, offsetParent.clientHeight);
-                } else if (option.insideWindow == true) {
-                    option.insideRect = new intell.Rectangle(0, 0, document.documentElement.scrollWidth, document.documentElement.scrollHeight);
-                    
+                        option.insideRect = new intell.Rectangle(inside_offset.left, inside_offset.top, offsetParent.clientWidth, offsetParent.clientHeight);
+                    } else if (option.insideWindow == true) {
+                        option.insideRect = new intell.Rectangle(0, 0, document.documentElement.scrollWidth, document.documentElement.scrollHeight);
+
+                    }
                 }
             }
+
+            var $target = $(targetElement);
+            var target_offset = $target.offset();
+            var targetRectangle = { left: target_offset.left, top: target_offset.top, width: targetElement.offsetWidth, height: targetElement.offsetHeight };
+
+            return showAtRect(targetRectangle, popupElement, locations, option);
         }
 
-        var $popup = $(popup);
-        //1. prevent flicker - set left and hidden
-        $popup.css({ left: '-900px', visibility: 'hidden' });
+        /**@param {JQuery.Coordinates} coordinate @param {HTMLElement} popupElement
+         * @param {number[]} locations @param {Intell.IShowAtOption} option */
+        function showAtCoordinate(coordinate, popupElement, locations, option) {
+            if (option != undefined) {
+                var option = Object.assign({}, option)
 
-        //2. Try to show popup to DOM.
-        tryToShow(popup);
+                //if option.insideRect == null, we will help to create them from options
+                if (option.insideRect == undefined) {
+                    //if (option.insideWindow == true) option.insideRect = new intell.Rectangle(0, 0, document.documentElement.scrollWidth, document.documentElement.scrollHeight);
+                    //if (option.insideWindow == true) option.insideRect = new intell.Rectangle(window.pageXOffset, window.pageYOffset, window.innerWidth, window.innerHeight);
 
-        //3. Get targetRect and elementRect for findPlaceToShow() function
-        var targetRect;
-        var $target = $(target);
-        var target_offset = $target.offset();
-        targetRect = { left: target_offset.left, top: target_offset.top, width: target.offsetWidth, height: target.offsetHeight };
-
-        var elementRect = { left: 0, top: 0, width: popup.offsetWidth, height: popup.offsetHeight };
-
-        //4. get position and show
-        var goodPlace = intell.findPlaceToShow(targetRect, elementRect, locations, option);
-        $popup.offset({
-            left: goodPlace.position.left,
-            top: goodPlace.position.top,
-            //left: parseInt(goodPlace.position.left),
-            //top: parseInt(goodPlace.position.top),
-        });
-        $popup.css({ visibility: '' });
-
-        return goodPlace;
-    }
-    function showAtPoint(point, popup, locations, option) {
-        if (option != undefined) {
-            var option = Object.assign({}, option)
-            
-            //if option.insideRect == null, we will help to create them from options
-            if (option.insideRect == undefined) {
-                //if (option.insideWindow == true) option.insideRect = new intell.Rectangle(0, 0, document.documentElement.scrollWidth, document.documentElement.scrollHeight);
-                //if (option.insideWindow == true) option.insideRect = new intell.Rectangle(window.pageXOffset, window.pageYOffset, window.innerWidth, window.innerHeight);
-
-
-                if (option.insideWindow == true) option.insideRect = new intell.Rectangle(window.pageXOffset, window.pageYOffset, document.documentElement.clientWidth, document.documentElement.clientHeight);
+                    if (option.insideWindow == true) option.insideRect = new intell.Rectangle(window.pageXOffset, window.pageYOffset, document.documentElement.clientWidth, document.documentElement.clientHeight);
+                }
             }
+
+            var targetRectangle = { left: coordinate.left - 10, top: coordinate.top - 10, width: 20, height: 20 };
+
+            return showAtRect(targetRectangle, popupElement, locations, option);
         }
 
-        var $popup = $(popup);
-        //1. prevent flicker - set left and hidden
-        $popup.css({ left: '-900px', visibility: 'hidden' });
+        /**@param {Intell.Rectangle} targetRectangle @param {HTMLElement} popupElement
+         * @param {number[]} locations @param {Intell.IShowAtOption} option */
+        function showAtRect(targetRectangle, popupElement, locations, option) {
 
-        //2. Try to show popup to DOM.
-        tryToShow(popup);
-        
-        //3. Get targetRect and elementRect for findPlaceToShow() function
-        //var $target = $(target);
-        var target_offset = point; //$target.offset();
-        var elementRect = { left: 0, top: 0, width: popup.offsetWidth, height: popup.offsetHeight };
-        //var targetRect = { left: target_offset.left, top: target_offset.top, width: target.offsetWidth, height: target.offsetHeight };
+            var $popup = $(popupElement);
+            //1. prevent flicker - set left and hidden
+            $popup.css({ left: '-900px', visibility: 'hidden' });
 
-        //4. get position and show
-        var goodPlace = intell.findPlaceToShow(target_offset, elementRect, locations, option);
-        
-        $popup.offset({
-            left: goodPlace.position.left,
-            top: goodPlace.position.top,
+            //2. Try to show popup to DOM.
+            tryToShow(popupElement);
 
-            //left: parseInt(goodPlace.position.left),
-            //top: parseInt(goodPlace.position.top),
-        }).css({ visibility: '' });
+            //3. Get targetRect and elementRect for findPlaceToShow() function
+            var elementRect = { left: 0, top: 0, width: popupElement.offsetWidth, height: popupElement.offsetHeight };
 
-        return goodPlace;
-    }
+            //4. get position and show
+            var goodPlace = intell.findPlaceToShow(targetRectangle, elementRect, locations, option);
+
+            $popup.offset({ left: goodPlace.position.left, top: goodPlace.position.top }).css({ visibility: '' });
+
+            return goodPlace;
+
+        }
+
+        return function() {
+            if (arguments[0] instanceof HTMLElement) return showAtElement.apply(this, arguments);
+            else return showAtCoordinate.apply(this, arguments);
+        };
+
+    }();
+
 
 
     function tryToShow(element) {
@@ -368,17 +361,8 @@
         if (elementcomputedStyle.display == 'none') element.style.display = 'block';
     }
 
-    intell.qs = function (search) {
-        ///<signature>
-        ///<summary>Parse the location.search, constructing the JavaScript value or object described by the string.</summary>
-        ///<returns type="Object"/>
-        ///</signature>
+    intell.qs = function(search) {
 
-        ///<signature>
-        ///<summary>Parse a query string, constructing the JavaScript value or object described by the string.</summary>
-        ///<param name='search' type='String'/>
-        ///<returns type="Object"/>
-        ///</signature>
         search = search || window.location.search.substr(1);
         var o = search.split('&');
 
@@ -395,19 +379,12 @@
     };
 
 
-})();
+})(globalThis);
 
 /*********   String Extension   *********/
-!function () {
-    String.prototype.between = function (startWith, endWith, include) {
-        ///<signature>  
-        ///<summary>returns the part of the string between the start and end string.</summary>
-        ///<param name='startWith' type="String">.</param>
-        ///<param name='endWith' type="String">.</param>
-        ///<param name='include' type="Boolean">.</param>
-        ///<returns type="String"/>
-        ///</signature>
-        
+!function() {
+    String.prototype.between = function(startWith, endWith, include) {
+
         var index_start = this.indexOf(startWith);
         if (index_start == -1) return null;
 
@@ -485,6 +462,8 @@
 
 /*********   Jquery Extension   *********/
 !function() {
+    if (globalThis.ServiceWorkerGlobalScope) return;
+
     var _registered_clickout_items = [];
     $.fn.clickoutside = function(callback) {
         for (var i = 0; i < this.length; i++) {
@@ -546,8 +525,3 @@
         return position;
     }
 }();
-
-
-if (Object.assign == undefined) {
-    Object.assign = $.extend;
-}

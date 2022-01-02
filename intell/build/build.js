@@ -12,7 +12,7 @@ require("module").Module._initPaths();
 
 const FS = require('fs');
 const Path = require('path');
-const intell = require('intell-nodejs');
+const intell = require('intell-node');
 const colors = intell.colors;
 
 process.chdir('..'); // important
@@ -33,12 +33,13 @@ var jobs = [
             'intell/intell.controls.Menu2/Menu2.js',
             'intell/intell.controls.TreeView/TreeView.js',
             'intell/intell.controls.Waiting/Waiting.js',
-            'intell/Intell.controls.ComboBox2/ComboBox2.js',
+            'intell/intell.controls.ComboBox2/ComboBox2.js',
+            'intell/intell.controls.TargetPopup2/TargetPopup2.js',
         ],
         dest: {
             name: 'intell/intell.js',
             minify: 'intell/intell.min.js',
-            sourcemap: 'intell/intell.min.js.map',
+            sourcemap: 'intell.min.js.map',
             comment: "/*! intell.js | https://github.com/XHighIntell/jintell */"
         }
     },
@@ -54,6 +55,7 @@ var jobs = [
             'intell/intell.controls.TreeView/TreeView.d.ts',
             'intell/intell.controls.Waiting/Waiting.d.ts',
             'intell/intell.controls.ComboBox2/ComboBox2.d.ts',
+            'intell/intell.controls.TargetPopup2/TargetPopup2.d.ts',
             
         ],
         dest: {
@@ -85,7 +87,7 @@ jobs.push(
         dest: {
             name: 'portal/portal.js',
             minify: 'portal/portal.min.js',
-            sourcemap: 'portal/portal.min.js.map',
+            sourcemap: 'portal.min.js.map',
             comment: "/*! portal.js | https://github.com/XHighIntell/jintell */"
         }
     },

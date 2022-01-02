@@ -1,8 +1,4 @@
-﻿declare namespace Intell {
-    interface Controls {
-        TreeView: Intell.Controls.TreeView.Namespace;
-    }
-}
+﻿
 
 declare namespace Intell.Controls.TreeView {
     interface Namespace {
@@ -123,7 +119,11 @@ declare namespace Intell.Controls.TreeView {
 
 
 
-
+declare namespace Intell.Controls {
+    interface Namespace {
+        TreeView: Intell.Controls.TreeView.Namespace;
+    }
+}
 
 
 

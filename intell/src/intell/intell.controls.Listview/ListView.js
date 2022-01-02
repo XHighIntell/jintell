@@ -1,6 +1,8 @@
 ﻿
 
 intell.controls.ListView = new function() {
+    if (globalThis.ServiceWorkerGlobalScope) return;
+
     /** @type Intell.Controls.ListView.Namespace  */
     var ns = this;
 

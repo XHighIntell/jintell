@@ -1,12 +1,4 @@
-﻿declare namespace Intell {
-    interface Controls {
-        Menu2: Intell.Controls.Menu2.Namespace;
-    }
-}
-
-
-
-
+﻿
 declare namespace Intell.Controls.Menu2 {
     interface Namespace {
         Menu: MenuConstructor;
@@ -177,3 +169,8 @@ declare namespace Intell.Controls.Menu2 {
 
 }
 
+declare namespace Intell.Controls {
+    interface Namespace {
+        Menu2: Intell.Controls.Menu2.Namespace;
+    }
+}

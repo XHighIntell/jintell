@@ -1,14 +1,15 @@
 ﻿'use strict';
 
-!(function () {
-    if (window.intell == undefined) window.intell = {};
+!(function() {
+    if (globalThis.intell == undefined) globalThis.intell = {};
 
-    /** @type {intell} */
-    var intell = window.intell;
-    
+    /** @type Intell.Namespace */
+    var intell = globalThis.intell;
        
-    /** @type Intell.Controls */
+    /** @type Intell.Controls.Namespace */
     var controls = intell.controls = {};
+
+    if (typeof window == 'undefined') return;
 
     controls.hide = function(element) {
         var elementcomputedStyle = window.getComputedStyle(element);
@@ -49,7 +50,6 @@
             } 
         }
     }
-
 
 
     intell.controls.NumericUpDown = function NumericUpDown(element, option) {
@@ -253,7 +253,17 @@
                 });
                 _this.onchange(event);
 
-                if (event.defaultPrevented == true) value = oldValue;
+                var jsEvent = new Event('numericupdownchange', { bubbles: true, cancelable: true });
+                Object.defineProperties(jsEvent, {
+                    oldValue: { value: oldValue },
+                    newValue: { value: newValue }
+                });
+
+                var preventedDefault = element.dispatchEvent(jsEvent) == false;
+                if (event.defaultPrevented == true) preventedDefault = true;
+                
+                
+                if (preventedDefault == true) value = oldValue;
                 else _this.setTextInternal(value);
             } else {
                 _this.setTextInternal(value);
@@ -782,12 +792,16 @@
 
     /** @class */
     intell.controls.TargetPopup = function TargetPopup(element, overrideOption) {
+        
         if (element instanceof jQuery == true) element = element[0];
         if (element.__TargetPopup__ != undefined) return element.__TargetPopup__;
         if (this instanceof TargetPopup == false) return new TargetPopup(element, overrideOption);
         //////////////////////////////////////////////
-        var popup = element.__TargetPopup__ = this;
-        
+        console.warn("TargetPopup is obsolete");
+
+        /** @type Intell.Controls.TargetPopup */
+        var _this; _this = element.__TargetPopup__ = this;
+
         this.element = element;
         var $element = this.$element = $(element);
         //properties
@@ -843,22 +857,22 @@
         });
 
         // methods
-        this.setTarget = function (newValue) {
+        _this.setTarget = function(newValue) {
             if (newValue != undefined && newValue instanceof Element == false) throw 'Parameter must be element or null';
             //if (newValue == target) return;
             if (target != undefined && target != newValue) $(target).removeClass(targetActiveClass); // remove active for previous target
 
             target = newValue;
 
-            if (target == undefined) popup.hide();
+            if (target == undefined) _this.hide();
             else {
-                this.show(target);
+                _this.show(target);
                 $(target).addClass(targetActiveClass);
             }
 
             return previousSolution;
         }
-        this.show = function(arg1, arg2, arg3) {
+        _this.show = function(arg1, arg2, arg3) {
             //show(element?: HTMLElement): void
             //show(offset: JQuery.CoordinatesPartial): void
 
@@ -871,10 +885,9 @@
             previousSolution = intell.showAt(arg1, element, locations, option);
             $element.addClass(activeClass);
 
-            if (previous_isVisible == false) popup.onshow();
+            if (previous_isVisible == false) _this.onshow();
         }
-
-        this.hide = function() {
+        _this.hide = function() {
             if (isVisible == false) {
                 // 1. Invisible 
             } else if (isVisible == true && isFadingOut == true) {
@@ -888,7 +901,7 @@
                 controls.startHide(element, delayHideTime, delayHideClass, function() {
                     isVisible = false
                     isFadingOut = false;
-                    popup.onhide();
+                    _this.onhide();
                 })
             }
         }
@@ -902,7 +915,7 @@
             if (target == undefined) return;
             if ($(event.target).closest(target).length > 0) return;
 
-            popup.target = undefined;
+            _this.target = undefined;
         });
 
         

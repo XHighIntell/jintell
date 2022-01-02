@@ -1,8 +1,4 @@
-﻿declare namespace Intell {
-    interface Controls {
-        Waiting: Intell.Controls.Waiting.Namespace;
-    }
-}
+﻿
 
 declare namespace Intell.Controls.Waiting {
 
@@ -55,5 +51,12 @@ declare namespace Intell.Controls.Waiting {
     interface StartWaitOption {
         elementAbstract?: HTMLElement;
         class: string;
+    }
+}
+
+
+declare namespace Intell.Controls {
+    interface Namespace {
+        Waiting: Intell.Controls.Waiting.Namespace;
     }
 }

@@ -243,11 +243,21 @@ declare namespace Intell {
 
 }
 
+declare namespace Intell.Controls {
+    interface Namespace {
+        hide(element: HTMLElement): void;
 
+        startHide(element: HTMLElement, timeout: number, delayHideClass: string, oncomplete: () => void): number;
+        stopHide(element: HTMLElement): void;
 
-interface intell {
-    controls: Intell.Controls;
+        NumericUpDown: Intell.Controls.NumericUpDownConstructor;
+        Slideshow: Intell.Controls.SlideshowConstructor;
+        TagsInput: Intell.Controls.TagsInputConstructor;
+        TargetPopup: Intell.Controls.TargetPopupConstructor;
+        ComboBox: Intell.Controls.ComboBoxConstructor;
+    }
 }
+
 
 
 

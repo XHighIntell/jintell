@@ -1,16 +1,161 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    
     <title></title>
-    <script src="static/lib/jquery-3.3.1.min.js"></script>
-    <script src="static/js/live-example.js"></script>
-    <script src="static/lib/intell.js"></script>
+    
+    <script src="/d.ts/jquery-3.3.1.min.js"></script>
+    <script src="/output/development/intell/intell.js"></script>
+    <style>
+        body{font-family:'Segoe UI'}
+        .items{display:flex}
+        .items .item{margin-right:2px;padding:5px;border:1px solid;}
+        .list{position:relative;display:flex;flex-wrap:wrap;align-items:flex-start;height:100px;padding:4px 20px;border:1px solid}
+        .list .item{display:flex;align-items:center;width:60px;height:30px;border:1px solid;}
+        .list .placeholder{width:20px;height:30px;margin:0 4px;background:gray;border:1px solid}
+        .list.dragover *{pointer-events:none}
+    </style>
 </head>
 <body>
+    <div>Select item</div>
+    <div class="items">
+        <div class="item" draggable="true">Item <span>1</span></div>
+        <div class="item" draggable="true">Item 2</div>
+        <div class="item" draggable="true">Item 3</div>
+        <div class="item" draggable="true">Item 4</div>
+        <div class="item" draggable="true">Item 5</div>
+        <div class="item" draggable="true">Item 6</div>
+    </div>
+    <div class="list">
+        <div class="placeholder"></div>
+    </div>
+    <div id="debug">
+        <div class="coordinates"></div>
+        <div class="element"></div>
+
+    </div>
+
     <script>
-       
-        
+        var $debug = $('#debug');
+        var $placeholder = $('.placeholder').remove();
+
+        function generateGuid() {
+            var r4 = Math.round(Math.random() * 2176782335);
+            return Date.now().toString(36) + ('000000' + r4.toString(36)).slice(-6);
+        }
+
+        $('.items .item').on('dragstart', function(ev) {
+            /** @type DragEvent */
+            var e = ev.originalEvent;
+
+            e.target.id = generateGuid();
+            
+            e.dataTransfer.setData('text/id', e.target.id);
+            
+
+
+            console.log('dragstart');
+        });
+        $('.items .item').on('drag', function(e) {
+            
+        });
+
+
+        $('.list').on('dragover', function(ev) { $(this).addClass('dragover'); });
+        $('.list').on('dragover', function(ev) {
+            /** @type DragEvent */
+            var e = ev.originalEvent;
+
+            if (e.dataTransfer.types.includes('text/id') == true) {
+                e.dataTransfer.dropEffect = 'move';
+                e.dataTransfer.effectAllowed = 'move';
+
+                
+                var coordinates = $('.list .item').toArray().map(function(element, index) {
+                    return {
+                        index: index,
+                        x: element.offsetLeft + element.offsetWidth / 2,
+                        y: element.offsetTop + element.offsetHeight / 2,
+                    }
+                });
+
+                var x = e.offsetX;
+                var y = e.offsetY;
+
+                if ($(e.target).is('.list') == false) {
+                    //x = e.offsetX + e.target.offsetLeft;
+                    //y = e.offsetY + e.target.offsetTop;
+                }
+
+                coordinates = coordinates.sort(function(a, b) {
+                    var s1 = Math.abs(a.y - y) * 65536 + Math.abs(a.x - x);
+                    var s2 = Math.abs(b.y - y) * 65536 + Math.abs(b.x - x);
+
+                    return s1 - s2;
+                });
+
+                var insert_index = 0;
+
+                if (coordinates[0] != null) {
+                    if (x > coordinates[0].x) insert_index = coordinates[0].index + 1;
+                    else insert_index = coordinates[0].index;
+                }
+
+                $debug.find('.coordinates').text(x + ' ' + y);
+                $debug.find('.element').text(insert_index);
+
+                //$('.list')[0].insertAdjacentElement
+                var ss = $('.list').find('.item')[insert_index];
+                if (ss == null) $('.list').append($placeholder);
+                else {
+                    $placeholder.insertBefore(ss);
+                }
+                
+
+
+                //$debug.find('.element').text(e);
+                console.log(e);
+
+                e.preventDefault();
+            }
+            
+        });
+        $('.list').on('drop', function(ev) {
+            /** @type DragEvent */
+            var e = ev.originalEvent;
+            var id = e.dataTransfer.getData('text/id');
+
+            console.log('drop', id);
+            
+            this.appendChild(document.getElementById(id));
+            $(this).removeClass('dragover');
+        });
+
+    </script>
+
+    <script>
+
+        function Rectangle2(left, top, width, height) {
+            //if (this instanceof Rectangle2 == false) return new Rectangle2(left, top, width, height);
+
+            left = left + 0.1;
+            
+
+            if (this instanceof Rectangle2 == false) {
+                var o = {};
+                Object.setPrototypeOf(o, Rectangle2.prototype);
+                var x = Rectangle2.apply(o, arguments);
+
+                return o;
+            }
+
+
+            this.left = left;
+            this.top = top;
+            this.width = width;
+            this.height = height;
+        }
+
+
     </script>
 </body>
 </html>

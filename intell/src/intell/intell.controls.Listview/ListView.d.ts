@@ -1,10 +1,4 @@
-﻿declare namespace Intell {
-    interface Controls {
-        ListView: Intell.Controls.ListView.Namespace;
-    }
-}
-
-declare namespace Intell.Controls.ListView {
+﻿declare namespace Intell.Controls.ListView {
     
     interface Namespace {
         ListView: ListViewConstructor;
@@ -112,5 +106,11 @@ declare namespace Intell.Controls.ListView {
         measureText(text: string): TextMetrics;
 
         getNumberOfCharacter(text: string, box_width: number): number;
+    }
+}
+
+declare namespace Intell.Controls {
+    interface Namespace {
+        ListView: Intell.Controls.ListView.Namespace;
     }
 }

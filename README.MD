@@ -19,7 +19,7 @@ In order to run build comment, you need to install NodeJs with the following com
 - [x] npm install babel-core
 - [x] npm install babel-core
 - [x] npm install uglify-js
-- [x] npm install intell-nodejs
+- [x] npm install intell-node
 
 
 ![Build Process](screenshot/build.png)

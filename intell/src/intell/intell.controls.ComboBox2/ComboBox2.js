@@ -2,7 +2,9 @@
 
  */
 
-intell.controls.ComboBox2 = new function () {
+intell.controls.ComboBox2 = new function() {
+    if (typeof window == 'undefine') return;
+
     /** @type Intell.Controls.ComboBox2.Namespace */
     var NS = this;
 
@@ -38,7 +40,7 @@ intell.controls.ComboBox2 = new function () {
             
             /** @type Intell.Controls.ComboBox2.ComboBox */
             var _this = element.__ComboBox2__ = this;
-
+            
             /** @type Intell.Controls.ComboBox2.ComboBoxPrivate */
             var __private = _this[privateSymbol] = {};
             __private.element = element;
@@ -385,9 +387,8 @@ intell.controls.ComboBox2 = new function () {
 
             __private.childrenVisible = true;
             __private.sectionSelectedItem = null;
-            intell.showAt(__private.element, __private.elementChildren,
-                __private.popupLocations,
-                __private.popupOption);
+            intell.showAt(__private.element, __private.elementChildren, __private.popupLocations, __private.popupOption);
+            __private.element.classList.add('ACTIVE');
 
 
             if (__private.selectedItem != null) {
@@ -399,6 +400,8 @@ intell.controls.ComboBox2 = new function () {
             var __private = this.getPrivate();
             __private.childrenVisible = false;
             $(__private.elementChildren).hide();
+            __private.element.classList.remove('ACTIVE');
+
         }
 
         return constructor;

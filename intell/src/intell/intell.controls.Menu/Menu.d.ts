@@ -1,10 +1,4 @@
-﻿declare namespace Intell {
-    interface Controls {
-        Menu: Intell.Controls.Menu.MenuConstructor;
-    }
-}
-
-
+﻿
 declare namespace Intell.Controls.Menu {
     type IMenuItem = { icon?: string; name: string; shortcut?: string, items?: IMenuItem[] };
 
@@ -73,3 +67,8 @@ declare namespace Intell.Controls.Menu {
 
 }
 
+declare namespace Intell.Controls {
+    interface Namespace {
+        Menu: Intell.Controls.Menu.MenuConstructor;
+    }
+}

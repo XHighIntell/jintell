@@ -1,8 +1,10 @@
 ﻿
 
 intell.controls.Menu2 = new function() {
+    if (globalThis.ServiceWorkerGlobalScope) return;
+
     /** @type {Intell.Controls.Menu2.Namespace} */
-    var ns = this;
+    var ns; ns = this;
 
     var controls = intell.controls;
 
@@ -403,7 +405,7 @@ $(`<div class="X-Menu-Item Abstract">
 
                 if ($items.length == 0) return;
 
-                console.log('need html to object');
+                //console.log('need html to object');
 
                 $items.toArray().forEach(function(element) {
                     var menuItem = getMenuItem(element);
@@ -923,7 +925,7 @@ $(`<div class="X-Menu-Item Abstract">
     // class
     ns.Menu = Menu;
     ns.MenuItem = MenuItem;
-
+    
     // static
     Menu.SetArrowDirection = function(arrow, location, offset) {
         var $arrow = $(arrow);
