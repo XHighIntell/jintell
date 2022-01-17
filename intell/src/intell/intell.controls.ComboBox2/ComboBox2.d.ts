@@ -9,7 +9,7 @@ declare namespace Intell.Controls.ComboBox2 {
 
     interface ComboBoxConstructor {
         new(element: HTMLElement): ComboBox;
-        (element: HTMLElement): ComboBox;
+        //(element: HTMLElement): ComboBox;
         prototype: ComboBox;
     }
     interface ComboBoxItemConstructor {
@@ -63,7 +63,7 @@ declare namespace Intell.Controls.ComboBox2 {
 
         // navigation methods
         toggleChildren(): void;
-        showChildren(): void;
+        showChildren(at?: HTMLElement): void;
         hideChildren(): void;
 
 
@@ -76,6 +76,8 @@ declare namespace Intell.Controls.ComboBox2 {
         elementSelect: HTMLElement;
         elementChildren: HTMLElement;
         elementItemAbstract: HTMLElement;
+        /** The current element that children stick with. */
+        elementAt: HTMLElement;
         childrenVisible: boolean;
 
         popupLocations: number[];
