@@ -16,8 +16,8 @@ Our target is web/electron platform, we have written build commands for developm
 
 In order to run build comment, you need to install NodeJs with the following components:
 
-- [x] npm install babel-core
-- [x] npm install babel-core
+- [x] npm install @babel/core
+- [x] npm install @babel/preset-env
 - [x] npm install uglify-js
 - [x] npm install intell-node
 

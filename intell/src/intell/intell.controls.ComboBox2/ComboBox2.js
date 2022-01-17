@@ -23,11 +23,13 @@ intell.controls.ComboBox2 = new function() {
     <div class="Children"></div>
 </div>
 `);
-        /** @type Intell.Controls.ComboBox2.ComboBoxConstructor */
+        /** @param {HTMLElement} element @type Intell.Controls.ComboBox2.ComboBoxConstructor */
         var constructor = function(element) {
-
             if (element instanceof jQuery == true) element = element[0];
-            //if (this instanceof ComboBox == false) return new Menu(element, option);
+            if (element.__ComboBox2__) return element.__ComboBox2__;
+            if (this instanceof ComboBox == false) return new constructor(element);
+
+
             
 
             var $element = $(element);
@@ -60,15 +62,26 @@ intell.controls.ComboBox2 = new function() {
 
 
             // handle events
-            $element.click(function (ev) {
+            $element.mousedown(function(ev) {
                 var e = ev.originalEvent;
                 var $target = $(e.target);
-
+                
                 if ($target.closest('.Children').length != 0) return;
 
                 _this.toggleChildren();
+                e.preventDefault();
+                element.focus();
             });
-            $element.clickoutside(function() { _this.hideChildren() });
+            $element.clickoutside(function(e) {
+                /** @type HTMLElement */
+                var target = e.target;
+
+                if (__private.elementAt && __private.elementAt.contains(target) == false) {
+                    _this.hideChildren();
+                }
+                
+                //console.log(e);
+            });
             $element.focusout(function() { _this.hideChildren() });
             $element.keydown(function (ev) {
                 var e = ev.originalEvent;
@@ -115,7 +128,7 @@ intell.controls.ComboBox2 = new function() {
 
                 
             })
-            $elementChildren.on('click', '.Item', function (ev) {
+            $elementChildren.on('mouseup', '.Item', function (ev) {
                 var e = ev.originalEvent;
                 var item = ComboBoxItem.getItem(this);
 
@@ -129,7 +142,8 @@ intell.controls.ComboBox2 = new function() {
 
                 _this.selectedItem = item;
                 _this.onchange({ item: item });
-                
+                var event = new Event('comboboxchange', { bubbles: true });
+                element.dispatchEvent(event);
 
                 _this.hideChildren();
             });
@@ -189,7 +203,7 @@ intell.controls.ComboBox2 = new function() {
 
             popupLocations: {
                 get: function() { return this.getPrivate().popupLocations },
-                set: function(newValue) { this.getPrivate().popupOption = newValue }
+                set: function(newValue) { this.getPrivate().popupLocations = newValue }
             },
             popupOption: {
                 get: function() { return this.getPrivate().popupOption },
@@ -382,26 +396,36 @@ intell.controls.ComboBox2 = new function() {
             else
                 this.showChildren();
         }
-        prototype.showChildren = function() {
+        prototype.showChildren = function(at) {
+            
             var __private = this.getPrivate();
 
+            if (at == null) at = __private.element
+
+            __private.elementAt = at;
             __private.childrenVisible = true;
             __private.sectionSelectedItem = null;
-            intell.showAt(__private.element, __private.elementChildren, __private.popupLocations, __private.popupOption);
-            __private.element.classList.add('ACTIVE');
+            intell.showAt(__private.elementAt, __private.elementChildren, __private.popupLocations, __private.popupOption);
+            __private.elementAt.classList.add('ACTIVE');
 
+            
 
             if (__private.selectedItem != null) {
                 __private.selectedItem.element.scrollIntoView({ block: "nearest" });
             }
 
         }
+
         prototype.hideChildren = function() {
             var __private = this.getPrivate();
             __private.childrenVisible = false;
             $(__private.elementChildren).hide();
-            __private.element.classList.remove('ACTIVE');
 
+            if (__private.elementAt) {
+                __private.elementAt.classList.remove('ACTIVE');
+                __private.elementAt = null;
+            }
+            
         }
 
         return constructor;

@@ -12,6 +12,7 @@ type BuildJob = {
         name: 'intell.js',
         minify: 'intell.min.js',
         sourcemap: 'intell.min.js.map',
+        sourcemapUrl: 'intell.min.js.map',
     }
 } | {
     type: 'declaration typescript',

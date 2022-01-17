@@ -35,11 +35,13 @@ var jobs = [
             'intell/intell.controls.Waiting/Waiting.js',
             'intell/intell.controls.ComboBox2/ComboBox2.js',
             'intell/intell.controls.TargetPopup2/TargetPopup2.js',
+            'intell/intell.controls.Numeric/Numeric.js',
         ],
         dest: {
             name: 'intell/intell.js',
             minify: 'intell/intell.min.js',
-            sourcemap: 'intell.min.js.map',
+            sourcemap: 'intell/intell.min.js.map',
+            sourcemapUrl: 'intell.min.js.map',
             comment: "/*! intell.js | https://github.com/XHighIntell/jintell */"
         }
     },
@@ -56,7 +58,7 @@ var jobs = [
             'intell/intell.controls.Waiting/Waiting.d.ts',
             'intell/intell.controls.ComboBox2/ComboBox2.d.ts',
             'intell/intell.controls.TargetPopup2/TargetPopup2.d.ts',
-            
+            'intell/intell.controls.Numeric/Numeric.d.ts',
         ],
         dest: {
             name: 'intell/intell.d.ts'
@@ -87,7 +89,8 @@ jobs.push(
         dest: {
             name: 'portal/portal.js',
             minify: 'portal/portal.min.js',
-            sourcemap: 'portal.min.js.map',
+            sourcemap: 'portal/portal.min.js.map',
+            sourcemapUrl: 'portal.min.js.map',
             comment: "/*! portal.js | https://github.com/XHighIntell/jintell */"
         }
     },
@@ -149,15 +152,13 @@ jobs.push(
                 FS.writeFileSync(outputPath, code, { encoding: "utf8" });
             }
             else {
-                const Babel = require("babel-core");
+                const Babel = require("@babel/core");
                 const Uglifyjs = require("uglify-js");
 
 
 
                 var result = Babel.transform(code, {
-                    "presets": [
-                        ["env"]
-                    ],
+                    presets: [["@babel/preset-env", { "targets": "defaults" }]],
                     sourceMaps: true,
                     sourceFileName: job.dest.name,
                 });
@@ -172,7 +173,7 @@ jobs.push(
                     },
                     sourceMap: {
                         content: result.map,
-                        url: job.dest.sourcemap,
+                        url: job.dest.sourcemapUrl,
                     }
                 });
 

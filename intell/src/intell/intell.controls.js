@@ -193,6 +193,7 @@
             if (newValue != null && max != null && newValue > max) newValue = max;
 
             value = newValue;
+            session_value = newValue;
             return true;
         }
         _this.setTextInternal =  function(value) {
