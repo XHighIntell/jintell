@@ -14,8 +14,11 @@
         /** The status of this application. "NONE" = 0, "LOADING" = 1, "LOADED" = 2, "FAIL" = 3 */
         status: "NONE" | "LOADING" | "LOADED" | "FAIL";
 
+        /** The error occurs while loading. Error is set by Portal.load() function. */
         error: Error;
 
+        /** Portal will call when the user opens the application, and can be overridden to customize loading async tasks. 
+            @description When code reaches load Portal loaded manifest.content.html and manifest.content.js, so you can use root or call function of the library in manifest.content.js. */
         load(): Promise<any>;
 
         /** Occur when the portal opens this application. */

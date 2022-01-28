@@ -75,14 +75,12 @@ intell.controls.ComboBox2 = new function() {
             $element.clickoutside(function(e) {
                 /** @type HTMLElement */
                 var target = e.target;
-
+            
                 if (__private.elementAt && __private.elementAt.contains(target) == false) {
                     _this.hideChildren();
                 }
-                
-                //console.log(e);
             });
-            $element.focusout(function() { _this.hideChildren() });
+            //$element.focusout(function() { _this.hideChildren() });
             $element.keydown(function (ev) {
                 var e = ev.originalEvent;
                 if (e.keyCode != 38 && e.keyCode != 40) return;
@@ -116,6 +114,8 @@ intell.controls.ComboBox2 = new function() {
                 if (nextItem != null) {
                     _this.selectedItem = nextItem;
                     _this.onchange({ item: nextItem });
+                    var event = new Event('comboboxchange', { bubbles: true });
+                    element.dispatchEvent(event);
 
                     if (__private.childrenVisible == true) {
 
@@ -383,11 +383,6 @@ intell.controls.ComboBox2 = new function() {
 
 
         }; // prototype.clear
-
-
-
-
-
         prototype.getPrivate = function() { return this[privateSymbol] }
         prototype.toggleChildren = function() {
             var __private = this.getPrivate();
@@ -397,7 +392,7 @@ intell.controls.ComboBox2 = new function() {
                 this.showChildren();
         }
         prototype.showChildren = function(at) {
-            
+            var _this = this;
             var __private = this.getPrivate();
 
             if (at == null) at = __private.element
@@ -414,6 +409,11 @@ intell.controls.ComboBox2 = new function() {
                 __private.selectedItem.element.scrollIntoView({ block: "nearest" });
             }
 
+            // automatic listen focusout event
+            $(__private.elementAt).on('focusout.at', function() {
+                _this.hideChildren();
+                $(__private.elementAt).off('focusout.at');
+            })
         }
 
         prototype.hideChildren = function() {

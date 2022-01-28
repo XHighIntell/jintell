@@ -84,3 +84,10 @@ declare namespace Intell.Controls.Numeric {
 
     }
 }
+
+
+declare namespace Intell.Controls {
+    interface Namespace {
+        Numeric: Intell.Controls.Numeric.Namespace;
+    }
+}

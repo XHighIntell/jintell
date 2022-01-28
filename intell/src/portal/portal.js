@@ -9,7 +9,7 @@ window.Portal = function(element) {
     if (element == null) throw new Error("Failed to construct 'Portal': element can't be null.");
 
     /** @type Portal */
-    var portal = this;
+    var portal; portal = this;
     var $portal = $(element);
     var $portalContent = $portal.find('.Portal-Content'); // .Portal-Content
     var $portalApplications = $portalContent.find('.Portal-Applications');
@@ -447,7 +447,7 @@ $(`<div class="Group" data-group="">
         // 4. Load style
 
         // --1--
-        if (application.status != "NONE") throw "Application is already loaded";
+        if (application.status != "NONE") throw new Error("Application is already loaded.");
 
         application.status = "LOADING";
 
@@ -519,8 +519,7 @@ $(`<div class="Group" data-group="">
         }
 
         return promise.then(function() {
-            if (typeof application.load == 'function')
-                return application.load();
+            if (typeof application.load == 'function') return application.load();
         }).then(function() {
             application.status = "LOADED";
         }).catch(function(error) {
@@ -593,7 +592,7 @@ $(`<div class="Group" data-group="">
 
 window.PortalApplication = function(element) {
     /** @type Portal.Application */
-    var application = this;
+    var application; application = this;
 
     application.manifest = {
         id: "",
