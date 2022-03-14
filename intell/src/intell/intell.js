@@ -290,8 +290,9 @@
 
                         option.insideRect = new intell.Rectangle(inside_offset.left, inside_offset.top, offsetParent.clientWidth, offsetParent.clientHeight);
                     } else if (option.insideWindow == true) {
-                        option.insideRect = new intell.Rectangle(0, 0, document.documentElement.scrollWidth, document.documentElement.scrollHeight);
-
+                        var DOMRect = document.documentElement.getBoundingClientRect();
+                        option.insideRect = new intell.Rectangle(0, 0, DOMRect.width, DOMRect.height);
+                        
                     }
                 }
             }

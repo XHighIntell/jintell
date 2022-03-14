@@ -1,10 +1,11 @@
 .X-ComboBox2.Light{position:relative;display:inline-block;min-width:100px;border:1px solid #b6b6b6;outline:none}
 .X-ComboBox2.Light:hover{background:rgba(0,0,0,.03)} 
 .X-ComboBox2.Light:focus{border-color:#0098ff;background:rgba(0,0,0,.03)}
-.X-ComboBox2.Light .Select{display:flex;align-items:center;padding:0 10px;min-height:2em;cursor:default}
-.X-ComboBox2.Light .Select::after{content:"▼";display:flex;flex:1 1 auto;flex-direction:row-reverse;padding-left:1em;font-size:.5em}
+.X-ComboBox2.Light .Select{display:flex;align-items:center;padding:0 6px;min-height:2em;cursor:default}
+.X-ComboBox2.Light .Select::after{content:"▼";display:flex;flex:1 1 auto;flex-direction:row-reverse;padding:0 .4em;font-size:.5em}
 .X-ComboBox2.Light .Select .Item{display:flex;align-items:center}
 .X-ComboBox2.Light .Select .Item>.Icon{display:flex;align-items:center;justify-content:center;width:24px;height:24px;margin-right:4px;font-family:fontello}
+.X-ComboBox2.Light .Select .Item>.Name{padding-right:.3em}
 
 .X-ComboBox2.Light>.Children{position:absolute;display:none;min-width:100%;max-height:calc(100vh);border:1px solid #b6b6b6;background:#fff;z-index:10;overflow-y:auto;box-sizing:border-box}
 .X-ComboBox2.Light>.Children .Group{padding:4px 0}
@@ -26,10 +27,11 @@
 .X-ComboBox2.Dark{position:relative;display:inline-block;min-width:100px;border:1px solid rgba(255,255,255,.3);background:rgba(0,0,0,.5);outline:none;color:#fff}
 .X-ComboBox2.Dark:hover{background:rgba(20,20,20,.5)} 
 .X-ComboBox2.Dark:focus{border-color:#0098ff;background:rgba(20,20,20,.5)}
-.X-ComboBox2.Dark .Select{display:flex;align-items:center;padding:0 10px;min-height:2em;cursor:default}
-.X-ComboBox2.Dark .Select::after{content:"▼";display:flex;flex:1 1 auto;flex-direction:row-reverse;padding-left:1em;font-size:.5em}
+.X-ComboBox2.Dark .Select{display:flex;align-items:center;padding:0 6px;min-height:2em;cursor:default}
+.X-ComboBox2.Dark .Select::after{content:"▼";display:flex;flex:1 1 auto;flex-direction:row-reverse;padding:0 .4em;font-size:.5em}
 .X-ComboBox2.Dark .Select .Item{display:flex;align-items:center}
 .X-ComboBox2.Dark .Select .Item>.Icon{display:flex;align-items:center;justify-content:center;width:24px;height:24px;margin-right:4px;font-family:fontello}
+.X-ComboBox2.Dark .Select .Item>.Name{padding-right:.3em}
 
 .X-ComboBox2.Dark>.Children{position:absolute;display:none;min-width:100%;max-height:calc(100vh);border:1px solid rgba(255,255,255,.4);background:#000;z-index:10;overflow-y:auto;box-sizing:border-box}
 .X-ComboBox2.Dark>.Children .Group{padding:4px 0}

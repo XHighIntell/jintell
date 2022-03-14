@@ -58,8 +58,8 @@ src:url(/static/font/fontello.woff2) format('woff2'),
 
 
 .X-Portal>.Portal-Content>.Portal-Applications{position:absolute;left:0;right:0;top:0;bottom:0;overflow:auto}
-.X-Portal>.Portal-Content>.Portal-Applications>*{}
-    
+.X-Portal>.Portal-Content>.Portal-Applications>.Application-Wrapper{position:absolute;left:0;right:0;top:0;bottom:0;overflow:auto}
+
 
 /* Any child .X-Portal  */
 .X-Portal .X-Portal{}

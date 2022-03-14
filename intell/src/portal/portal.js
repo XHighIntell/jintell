@@ -470,7 +470,7 @@ $(`<div class="Group" data-group="">
                         // --1--
                         var $root = $(this.responseText);
                         if ($root.length > 1)
-                            $root = $('<div></div>').append($root);
+                            $root = $('<div class="Application-Wrapper"></div>').append($root);
                         application.root = $root[0];
 
                         resolve();

@@ -59,7 +59,8 @@ intell.controls.ComboBox2 = new function() {
     
             // events
             _this.onchange = intell.createEventFunction();
-
+            var previous_clientX = 0;
+            var previous_clientY = 0;
 
             // handle events
             $element.mousedown(function(ev) {
@@ -71,11 +72,14 @@ intell.controls.ComboBox2 = new function() {
                 _this.toggleChildren();
                 e.preventDefault();
                 element.focus();
+
+                previous_clientX = e.clientX;
+                previous_clientY = e.clientY;
             });
             $element.clickoutside(function(e) {
                 /** @type HTMLElement */
                 var target = e.target;
-            
+
                 if (__private.elementAt && __private.elementAt.contains(target) == false) {
                     _this.hideChildren();
                 }
@@ -128,25 +132,39 @@ intell.controls.ComboBox2 = new function() {
 
                 
             })
-            $elementChildren.on('mouseup', '.Item', function (ev) {
-                var e = ev.originalEvent;
-                var item = ComboBoxItem.getItem(this);
 
-                if (item == null) return;
-                if (item.disabled == true) return;
+            !function() {
+                /** @this HTMLElement @param {MouseEvent} e */
+                var mouseupAndclick = function(e) {
+                    var item = ComboBoxItem.getItem(this);
 
-                if (item == _this.selectedItem) {
+                    if (item == null) return;
+                    if (item.disabled == true) return;
+
+                    if (item == _this.selectedItem) {
+                        _this.hideChildren();
+                        return;
+                    }
+
+                    _this.selectedItem = item;
+                    _this.onchange({ item: item });
+                    var event = new Event('comboboxchange', { bubbles: true });
+                    element.dispatchEvent(event);
+
                     _this.hideChildren();
-                    return;
                 }
+                $elementChildren.on('mouseup', '.Item', function(ev) {
+                    var e = ev.originalEvent;
 
-                _this.selectedItem = item;
-                _this.onchange({ item: item });
-                var event = new Event('comboboxchange', { bubbles: true });
-                element.dispatchEvent(event);
+                    if (Math.abs(previous_clientX - e.clientX) <= 1 && Math.abs(previous_clientY - e.clientY) <= 1)  return;
+                    mouseupAndclick.apply(this, ev.originalEvent);
+                });
+                $elementChildren.on('click', '.Item', function(ev) {
+                    mouseupAndclick.apply(this, ev.originalEvent);
+                });
+            }();
+            
 
-                _this.hideChildren();
-            });
 
             // predefined
             !function() {
@@ -167,7 +185,7 @@ intell.controls.ComboBox2 = new function() {
                     //data-value
                     var $element = $(element);
                     if ($element.is('.DISABLED') == true) item.disabled = true;
-
+                    
                     item__private.name = item__private.elementName.innerText.trim();
                     item__private.value = $element.attr('data-value');
 
@@ -175,7 +193,7 @@ intell.controls.ComboBox2 = new function() {
                     item__private.parent = _this;
                     __private.items.push(item);
 
-
+                    if ($element.is('.ACTIVE') == true) _this.selectedItem = item;
                 });
             }();
             
@@ -403,7 +421,6 @@ intell.controls.ComboBox2 = new function() {
             intell.showAt(__private.elementAt, __private.elementChildren, __private.popupLocations, __private.popupOption);
             __private.elementAt.classList.add('ACTIVE');
 
-            
 
             if (__private.selectedItem != null) {
                 __private.selectedItem.element.scrollIntoView({ block: "nearest" });
